@@ -7,12 +7,9 @@ class IncrementalSearchDevice:
         PARAMETERS = ["selected_contact", "selected_first_name=''", "selected_last_name=''"]
         def perform(self, selected_contact, first_name, last_name):
             if selected_contact not in CONTACTS:
-                available_contacts = self.device.available_contacts(first_name, last_name)
-                assert len(available_contacts) == 1
-                selected_contact = available_contacts.pop()
-            contact = CONTACTS[selected_contact]
-            number = contact["number"]
-            full_name = "%s %s" % (contact["first_name"], contact["last_name"])
+                selected_contact = self.device.first_available_contact(first_name, last_name)
+            number = self.device.number_of(selected_contact)
+            full_name = self.device.full_name_of(selected_contact)
             print "Calling %s at %s" % (full_name, number)
             return True
 
@@ -22,8 +19,7 @@ class IncrementalSearchDevice:
             available_contacts = self.device.available_contacts(first_name, last_name)
             result = result = []
             for contact_id in available_contacts:
-                contact = CONTACTS[contact_id]
-                full_name = "%s %s" % (contact["first_name"], contact["last_name"])
+                full_name = self.device.full_name_of(contact_id)
                 result.append({"name": contact_id, "sort": "contact", "grammar_entry": full_name})
             return result
 
@@ -41,11 +37,30 @@ class IncrementalSearchDevice:
             return result
 
     @classmethod
+    def number_of(cls, contact_id):
+        contact = CONTACTS[contact_id]
+        number = contact["number"]
+        return number
+
+    @classmethod
+    def full_name_of(cls, contact_id):
+        contact = CONTACTS[contact_id]
+        full_name = "%s %s" % (contact["first_name"], contact["last_name"])
+        return full_name
+
+    @classmethod
     def available_contacts(cls, first_name, last_name):
         matching_first_name_contacts = cls.contacts_with_matching_first_name(first_name)
         matching_last_name_contacts = cls.contacts_with_matching_last_name(last_name)
         available_contacts = matching_first_name_contacts.intersection(matching_last_name_contacts)
         return available_contacts
+
+    @classmethod
+    def first_available_contact(cls, first_name, last_name):
+        available_contacts = cls.available_contacts(first_name, last_name)
+        assert len(available_contacts) == 1
+        selected_contact = available_contacts.pop()
+        return selected_contact
 
     @classmethod
     def contacts_with_matching_first_name(cls, first_name):

@@ -14,7 +14,6 @@
     <postcond><device_activity_terminated action="Call"/></postcond>
   </goal>
   <parameters question_type="wh_question" predicate="selected_contact" device="IncrementalSearchDevice" source="device" graphical_type="list" incremental="true">
-    <device_query type="wh_question" predicate="available_contacts"/>
     <ask_feature predicate="selected_first_name"/>
     <ask_feature predicate="selected_last_name"/>
   </parameters>
