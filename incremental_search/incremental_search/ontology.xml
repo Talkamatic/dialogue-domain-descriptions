@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ontology name="IncrementalSearchOntology">
+
+  <action name="call"/>
+
+  <sort name="contact" dynamic="true"/>
+  <sort name="first_name" dynamic="true"/>
+  <sort name="last_name" dynamic="true"/>
+
+  <predicate name="available_contacts" sort="contact"/>
+  <predicate name="selected_contact" sort="contact"/>
+  <predicate name="selected_first_name" sort="first_name" feature_of="selected_contact"/>
+  <predicate name="selected_last_name" sort="last_name" feature_of="selected_contact"/>
+
+</ontology>

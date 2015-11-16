@@ -1,0 +1,16 @@
+--- call first-name
+S> What would you like to do?
+U> call john
+S> What is the last name?
+U> johnson
+S> Calling John Johnson.
+
+--- call one-shot
+S> What would you like to do?
+U> call john thompson
+S> Calling John Thompson.
+
+--- call last-name
+S> What would you like to do?
+U> call johnson
+S> Calling John Johnson.

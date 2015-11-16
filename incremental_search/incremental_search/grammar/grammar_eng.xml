@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<grammar>
+  <action name="top">main menu</action>
+  <action name="up">go back</action>
+
+  <action name="call">
+    <one-of>
+      <item>call</item>
+      <item>make a call</item>
+      <item>call <slot sort="first_name"/> <slot sort="last_name"/></item>
+      <item>call <slot sort="first_name"/></item>
+      <item>call <slot sort="last_name"/></item>
+      <item><slot sort="first_name"/></item>
+      <item><slot sort="last_name"/></item>
+    </one-of>
+  </action>
+
+  <report action="Call" status="ended">calling <slot predicate="selected_contact"/>.</report>
+
+  <question speaker="system" predicate="selected_contact" type="wh_question">who do you want to call</question>
+  <question speaker="system" predicate="selected_first_name" type="wh_question">what is the first name</question>
+  <question speaker="system" predicate="selected_last_name" type="wh_question">what is the last name</question>
+
+</grammar>
