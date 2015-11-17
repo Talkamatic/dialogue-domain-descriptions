@@ -10,8 +10,6 @@
       <item>call <slot sort="first_name"/> <slot sort="last_name"/></item>
       <item>call <slot sort="first_name"/></item>
       <item>call <slot sort="last_name"/></item>
-      <item><slot sort="first_name"/></item>
-      <item><slot sort="last_name"/></item>
     </one-of>
   </action>
 
