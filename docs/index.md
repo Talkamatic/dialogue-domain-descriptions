@@ -1,12 +1,71 @@
-# dialogue-domain-descriptions
-Learn how to voice-enable your applications by looking at these simple dialogue domain description (DDD) examples.
+A number of concepts need to be known to the developer when creating TDM Dialogue Domain Descriptions (DDDs).
 
-### incremental_search
-Is your user asking for something? Make sure your application replies with just the perfect amount of questions to find one and only one match.
+We recommend new developers to start by reading the introductory presentation by Alexander and studying the basic concepts below.
 
-    U> Call John
-    S> What's his last name?
-    U> Johnson
-    S> Calling John Johnson at 0702446698.
+After that, work through [the tutorial](tutorial) for hands on practice, or skip straight to [the example DDDs](examples)
 
-Incremental search utilizes predicate features, which are declared in the ontology of the DDD. When a service is queried for individuals of the predicate, the features need to match. By asking the user to specify more features, the search can be narrowed down to finally match a single individual.
+
+# Basic concepts
+
+The basic concepts in TDM are Questions, Answers, Requests, Actions
+and Feedback.
+
+
+## Question
+
+A question is a request for information. It can be formulated as a
+question, or as a request.
+
+```diff
+U> What is the next stop?
+```
+
+or
+
+```diff
+U> Please select the next stop.
+```
+
+
+## Answer
+
+An answer is something that provides information which is relevant for
+a question, and that may be resolving. If the question is about the
+next stop, the following would answer the question:
+
+```diff
+U> Champs-Elysées       # relevant and resolving
+```
+
+```diff
+U> not Arc de Triomphe  # relevant but not resolving
+```
+
+
+## Actions
+
+Actions are things that the system can carry out, such as playing
+music, displaying a certain kind of menu, rerouting a travel plan etc.
+
+
+## Request
+
+A request is an expression of a wish from the user for the system to
+carry out some action.
+
+```diff
+U> Play music.
+```
+
+or
+
+```diff
+U> Reroute.
+```
+
+
+## Feedback
+
+The system may give feedback to the user, indicating that actions are
+started or stopped, or that the system did not hear what the user
+said, etc.

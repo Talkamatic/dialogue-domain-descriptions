@@ -1,1 +1,5 @@
+build
 site/
+incremental_search_eng.py
+incremental_search_words.txt
+*.pyc
