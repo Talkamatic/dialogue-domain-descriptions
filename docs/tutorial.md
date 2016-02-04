@@ -61,6 +61,6 @@ This happens because there's no notion of calling, and no notion of people, in t
 # Step 5. Add grammar
 # Step 7. How to continue
 
-This tutorial has illustrated the first step towards the `incremental_search` example. View its complete source code at [GitHub](https://github.com/Talkamatic/dialogue-domain-descriptions/tree/master/incremental_search)
+This tutorial has illustrated the first step towards the [incremental_search](examples#incremental_search) example.
 
 In order to continue, go to the [examples](examples) section to find an example similar to your desired functionality. Steal the best ideas from there, adjusting them for yor domain. Remember to work test driven, adding a test first, then making it work.

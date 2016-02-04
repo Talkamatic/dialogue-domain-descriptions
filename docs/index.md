@@ -1,6 +1,6 @@
 A number of concepts need to be known to the developer when creating TDM Dialogue Domain Descriptions (DDDs).
 
-We recommend new developers to start by reading the introductory presentation by Alexander and studying the basic concepts below.
+We recommend new developers to start by reading [the introductory presentation](https://github.com/Talkamatic/dialogue-domain-descriptions/blob/master/tdm-ddd-development.pdf) by Alexander and studying the basic concepts below.
 
 After that, work through [the tutorial](tutorial) for hands on practice, or skip straight to [the example DDDs](examples)
 
