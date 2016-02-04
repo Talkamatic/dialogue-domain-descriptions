@@ -57,8 +57,87 @@ This happens because there's no notion of calling, and no notion of people, in t
 
 
 # Step 3. Add ontology
-# Step 4. Add plans
-# Step 5. Add grammar
+
+The ontology declares what users can do and talk about, much like header files. In order to call someone we need to add the notion of calling, and the notion of people, to the ontology.
+
+Our boilerplate ontology is basically empty.
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<ontology name="ExampleDddOntology">
+</ontology>
+```
+
+We extend it with an action to make calls, a contact sort and a predicate selected_contact so that we can select an individual of our contact sort. A dynamic sort means its individuals are decided during run time, through the service interface.
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<ontology name="ExampleDddOntology">
+  <action name="call"/>
+  <sort name="contact" dynamic="true"/>
+  <predicate name="selected_contact" sort="contact"/>
+</ontology>
+```
+
+Let's build and run the tests again to see if we missed something.
+
+```bash
+tdm_build.py -p example_ddd_project -text-only -L eng
+```
+
+We receive a warning when generating the grammar.
+
+```diff
+Building GF 3.3 for application 'example_ddd'.
+[eng] Cleaning build directory 'build/eng'...Done.
+[eng] Generating GF 3.3 grammar.
+Missing grammar entry: How do speakers talk about the action call? Specify the utterance:
+
+  <action name="call">call</action>
+
+Alternatively, you can specify several possible utterances in a list:
+
+  <action name="call">
+    <one-of>
+      <item>call one way</item>
+      <item>call another way</item>
+      <item>call <slot predicate="city" type="individual"/></item></one-of>
+  </action>
+[eng] Asserting that included grammars are lower case...Done.
+[eng] Finished generating GF 3.3 grammar.
+[eng] Building GF 3.3 grammar.
+[eng] Finished building GF 3.3 grammar.
+[eng] Converting GF 3.3 grammar to python format...Done.
+[eng] Text-only, skipped building ASR language model.
+[eng] Copying build results from 'build/eng' to application directory...Done.
+Finished building GF 3.3 for application 'example_ddd'.
+```
+
+Apparently, ontology entries require corresponding grammar entries.
+
+But the build still seems to have succeeded. What happens if we run the tests?
+
+```bash
+tdm_test_interactions.py -p example_ddd_project -L eng -f example_ddd/test/interaction_tests_eng.txt
+```
+
+No difference, apparently.
+
+```diff
+call first-name:
+example_ddd/test/interaction_tests_eng.txt at line 7: system output
+Expected:
+- Calling John.
+Got:
++ I heard you say call john. I don't understand. So, What would you like to do?
+```
+
+How about that grammar entry?
+
+
+# Step 4. Add grammar
+# Step 5. Add plans
+# Step 6. Add service interface
 # Step 7. How to continue
 
 This tutorial has illustrated the first step towards the [incremental_search](examples#incremental_search) example.
