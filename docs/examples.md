@@ -5,7 +5,7 @@ Remember to work test driven, adding one test at a time, then making it work, ac
 The source code of all examples is available on [GitHub][github file browser].
 
 
-# Incremental search<a name="incremental_search"></a>
+# Incremental search
 
 Is your user looking for a single item in a set of many? Make sure your application asks just the perfect amount of questions to find one and only one match.
 
