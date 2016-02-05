@@ -5,9 +5,20 @@ Remember to work test driven, adding one test at a time, then making it work, ac
 The source code of all examples is available on [GitHub][github file browser].
 
 
+# Basic action
+
+This example is featured in the [tutorial](tutorial).
+
+Let your user do an action, using an `entity recognizer` for its `findout`. In this case, call a contact where the contact name is the recognized entity.
+
+    U> Call John
+    S> Calling John.
+
+This is an example of the basic [request](/#request) and [action](/#actions) concepts in TDM. It shows what is needed in order to perform an `action` that you implement yourself in the python `service interface`. In addition, it uses an `entity recognizer` to recognize contacts during run time.
+
 # Incremental search
 
-Is your user looking for a single item in a set of many? Make sure your application asks just the perfect amount of questions to find one and only one match.
+Is your user looking for a single item in a set of many? Make sure your application asks just the perfect amount of questions to find one and only one match. In this case, contacts to call are searched with first and last names.
 
     U> Call John
     S> What's his last name?

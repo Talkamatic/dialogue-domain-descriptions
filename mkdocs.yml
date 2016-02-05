@@ -3,12 +3,6 @@ site_name: TDM
 pages:
 - Introduction: index.md
 - "Step-by-step tutorial": tutorial.md
-    #- "Step 1. Create the boilerplate": "tutorial/create-boilerplate.md"
-    #- "Step 2. Adding interaction tests": "tutorial/add-interaction-tests.md"
-    #- "Step 3. Adding ontology": "tutorial/add-ontology.md"
-    #- "Step 4. Adding plans": "tutorial/add-plans.md"
-    #- "Step 5. Adding grammar": "tutorial/add-grammar.md"
-    #- "Step 6. Adding service interface": "tutorial/add-service-interface.md"
 - Examples: examples.md
 
 theme: readthedocs

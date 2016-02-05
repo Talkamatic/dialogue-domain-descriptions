@@ -17,35 +17,34 @@ A question is a request for information. It can be formulated as a
 question, or as a request.
 
 ```diff
-U> What is the next stop?
+U> What is John's number?
 ```
 
 or
 
 ```diff
-U> Please select the next stop.
+U> Tell me John's number.
 ```
 
 
 ## Answer
 
 An answer is something that provides information which is relevant for
-a question, and that may be resolving. If the question is about the
-next stop, the following would answer the question:
+a question, and that may be resolving. If the question is about a contact,
+the following would answer the question:
 
 ```diff
-U> Champs-Elysées       # relevant and resolving
+U> John      # relevant and resolving
 ```
 
 ```diff
-U> not Arc de Triomphe  # relevant but not resolving
+U> not Mary  # relevant but not resolving
 ```
 
 
 ## Actions
 
-Actions are things that the system can carry out, such as playing
-music, displaying a certain kind of menu, rerouting a travel plan etc.
+Actions are things that the system can carry out, such as calling a contact, displaying a certain kind of menu, rerouting a travel plan etc.
 
 
 ## Request
@@ -54,13 +53,13 @@ A request is an expression of a wish from the user for the system to
 carry out some action.
 
 ```diff
-U> Play music.
+U> Call.
 ```
 
 or
 
 ```diff
-U> Reroute.
+U> Call John.
 ```
 
 
@@ -69,3 +68,13 @@ U> Reroute.
 The system may give feedback to the user, indicating that actions are
 started or stopped, or that the system did not hear what the user
 said, etc.
+
+```diff
+S> Calling John.
+```
+
+or
+
+```diff
+S> I did not hear.
+```
