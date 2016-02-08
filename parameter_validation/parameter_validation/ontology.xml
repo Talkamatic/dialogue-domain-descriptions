@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ontology name="ParameterValidationOntology">
+  <action name="call"/>
+  <sort name="contact" dynamic="true"/>
+  <predicate name="selected_contact" sort="contact"/>
+</ontology>

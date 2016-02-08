@@ -16,6 +16,17 @@ Let your user do an action, using an `entity recognizer` for its `findout`. In t
 
 This is an example of the basic [request](/#request) and [action](/#actions) concepts in TDM. It shows what is needed in order to perform an `action` that you implement yourself in the python `service interface`. In addition, it uses an `entity recognizer` to recognize contacts during run time.
 
+
+# Parameter validation
+
+Should some actions or questions be unavailable, disallowed or prohibited for your user? Parameter validation makes it easy to decide at run-time. This example is based on the [basic action example](examples/#basic-action), disallowing phone calls to contacts with no phone number.
+
+    U> Call Andy
+    S> Andy has no phone number.
+
+When a service is queried for parameters to actions and queries, the parameter is validated against all matching validators. If invalid, a specific grammar entry is used to provide system feedback and the answer is neglected.
+
+
 # Incremental search
 
 Is your user looking for a single item in a set of many? Make sure your application asks just the perfect amount of questions to find one and only one match. In this case, contacts to call are searched with first and last names.

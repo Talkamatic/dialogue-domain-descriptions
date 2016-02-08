@@ -4,4 +4,6 @@ incremental_search_eng.py
 incremental_search_words.txt
 basic_action_eng.py
 basic_action_words.txt
+parameter_validation_eng.py
+parameter_validation_words.txt
 *.pyc

@@ -1,7 +1,7 @@
 --- main menu
 S> What would you like to do?
 
---- call first-name
+--- call
 S> What would you like to do?
 U> call john
 S> Calling John.

@@ -1,6 +1,6 @@
-from tdm.tdmlib import EntityRecognizer, DeviceAction
+from tdm.tdmlib import EntityRecognizer, DeviceAction, Validity
 
-class BasicActionDevice:
+class ParameterValidationDevice:
     CONTACT_NUMBERS = {
         "John": "0701234567",
         "Lisa": "0709876543",
@@ -26,3 +26,10 @@ class BasicActionDevice:
                     }
                     result.append(recognized_entity)
             return result
+    class PhoneNumberAvailable(Validity):
+        PARAMETERS = ["selected_contact.grammar_entry"]
+        def is_valid(self, selected_contact):
+            number = self.device.CONTACT_NUMBERS.get(selected_contact)
+            if number:
+                return True
+            return False

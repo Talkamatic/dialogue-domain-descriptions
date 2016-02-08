@@ -36,7 +36,7 @@ Interaction tests verifiy the dialogue, providing user utterances and specifying
 Modify `basic_action/test/interaction_tests_eng.txt`, add a test for the new dialogue that we want to support. In this case, we want to make a call to John.
 
 ```diff
---- call first-name
+--- call
 S> What would you like to do?
 U> call john
 S> Calling John.
@@ -311,7 +311,7 @@ class BasicActionDevice:
         "John": "0701234567",
         "Lisa": "0709876543",
         "Mary": "0706574839",
-        "Andy": "0707192837",
+        "Andy": None,
     }
     class ContactRecognizer(EntityRecognizer):
         def recognize_entity(self, string):
@@ -365,12 +365,12 @@ class BasicActionDevice:
         "John": "0701234567",
         "Lisa": "0709876543",
         "Mary": "0706574839",
-        "Andy": "0707192837",
+        "Andy": None,
     }
     class Call(DeviceAction):
         PARAMETERS = ["selected_contact.grammar_entry"]
         def perform(self, selected_contact):
-            number = self.device.CONTACT_NUMBERS[selected_contact]
+            number = self.device.CONTACT_NUMBERS.get(selected_contact)
             # TODO: Implement calling
             success = True
             return success

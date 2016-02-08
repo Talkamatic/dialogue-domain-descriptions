@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<grammar>
+  <action name="top">main menu</action>
+  <action name="up">go back</action>
+  <action name="call">
+    <one-of>
+      <item>call</item>
+      <item>call <slot sort="contact"/></item>
+    </one-of>
+  </action>
+  <question speaker="system" predicate="selected_contact" type="wh_question">who do you want to call</question>
+  <report action="Call" status="ended">calling <slot predicate="selected_contact"/>.</report>
+  <validity name="PhoneNumberAvailable">
+    <slot type="individual" predicate="selected_contact"/> has no phone number.
+  </validity>
+</grammar>
