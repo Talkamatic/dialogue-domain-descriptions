@@ -45,11 +45,7 @@ U> Tell me John's number.
 An answer is provided by the user or the system, providing information that is relevant for a question or request. When provided by the user, it can be resolving or not. If the question is about a contact, the following would be an answer:
 
 ```diff
-U> John      # relevant and resolving
-```
-
-```diff
-U> not Mary  # relevant but not resolving
+U> John
 ```
 
 
