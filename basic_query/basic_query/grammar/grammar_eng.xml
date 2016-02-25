@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<grammar>
+  <action name="top">main menu</action>
+  <action name="up">go back</action>
+  <question speaker="user" predicate="phone_number_of_contact" type="wh_question">
+    <one-of>
+      <item>tell me a phone number</item>
+      <item>what is <slot sort="contact"/>'s number</item>
+      <item>tell me <slot sort="contact"/>'s number</item>
+    </one-of>
+  </question>
+  <question speaker="all" predicate="phone_number_of_contact" type="wh_question">
+    the phone number of a contact
+  </question>
+  <question speaker="system" predicate="selected_contact" type="wh_question">whose number</question>
+  <answer speaker="system" predicate="phone_number_of_contact">
+    <slot type="individual" predicate="selected_contact"/>'s number is <slot type="individual" predicate="phone_number_of_contact"/>
+  </answer>
+</grammar>

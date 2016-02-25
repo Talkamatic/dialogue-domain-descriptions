@@ -14,7 +14,17 @@ Let your user do an action, using an `entity recognizer` for its `findout`. In t
     U> Call John
     S> Calling John.
 
-This is an example of the basic [request](/#request) and [action](/#actions) concepts in TDM. It shows what is needed in order to perform an `action` that you implement yourself in the python `service interface`. In addition, it uses an `entity recognizer` to recognize contacts during run time.
+This is an example of the basic [action](/#actions), [answer](/#answers) and [feedback](/#feedback) concepts in TDM. It shows what is needed in order to perform an `action` that you implement yourself in the python `service interface`. In addition, it uses an `entity recognizer` to recognize contacts during run time.
+
+
+# Basic query
+
+Let your user ask a question. While similar to the [basic action](examples/#basic-action) example, a query lets the system speak an answer to a question rather than performing an action. In this case, it answers what phone number a contact has.
+
+    U> What is John's number?
+    S> John's number is 0701234567.
+
+This is an example of the basic [query](/#queries) and [answer](/#answers) concepts in TDM. It shows what is needed in order to ask a `query` that is answered by the system. You implement the answer logic yourself in the python `service interface`.
 
 
 # Parameter validation
@@ -46,6 +56,6 @@ Is your Android device performing the actions and recognizing the entities, for 
     U> Call John
     S> Calling John.
 
-This example combines action, parameter validation and entity recognition into one DDD. It forwards all the events to the frontend. It can be used together with the [android-example](https://github.com/Talkamatic/android-example), an Android app to showcase how your frontend hears, speaks and thinks.
+This example combines the examples of action, query, parameter validation and entity recognition into one DDD. It forwards all the events to the frontend. It can be used together with the [android-example](https://github.com/Talkamatic/android-example), an Android app to showcase how your frontend hears, speaks and thinks.
 
 [github file browser]: https://github.com/Talkamatic/dialogue-domain-descriptions/tree/master

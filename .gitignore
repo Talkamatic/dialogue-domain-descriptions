@@ -8,4 +8,6 @@ parameter_validation_eng.py
 parameter_validation_words.txt
 android_eng.py
 android_words.txt
+basic_query_eng.py
+basic_query_words.txt
 *.pyc

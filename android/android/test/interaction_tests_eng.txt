@@ -26,3 +26,18 @@ U> call Andy
 S> Andy has no phone number.
 U> John
 S> Calling John.
+
+--- request number
+S> What would you like to do?
+U> tell me a phone number
+S> Whose number?
+U> John
+S> John 's number is 0701234567.
+
+--- ask for number one-shot
+U> what is John 's number
+S> John 's number is 0701234567.
+
+--- request number one-shot
+U> tell me John 's number
+S> John 's number is 0701234567.

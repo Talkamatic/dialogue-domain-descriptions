@@ -1,4 +1,4 @@
-from tdm.tdmlib import EntityRecognizer, DeviceAction, Validity
+from tdm.tdmlib import EntityRecognizer, DeviceAction, Validity, DeviceWHQuery
 
 class AndroidDevice:
     CONTACT_NUMBERS = {
@@ -8,9 +8,9 @@ class AndroidDevice:
         "Andy": None,
     }
     class Call(DeviceAction):
-        PARAMETERS = ["selected_contact.grammar_entry"]
-        def perform(self, selected_contact):
-            number = self.device.CONTACT_NUMBERS.get(selected_contact)
+        PARAMETERS = ["selected_contact_to_call.grammar_entry"]
+        def perform(self, selected_contact_to_call):
+            number = self.device.CONTACT_NUMBERS.get(selected_contact_to_call)
             # TODO: Implement calling
             success = True
             return success
@@ -29,9 +29,18 @@ class AndroidDevice:
             return result
             
     class PhoneNumberAvailable(Validity):
-        PARAMETERS = ["selected_contact.grammar_entry"]
-        def is_valid(self, selected_contact):
-            number = self.device.CONTACT_NUMBERS.get(selected_contact)
+        PARAMETERS = ["selected_contact_to_call.grammar_entry"]
+        def is_valid(self, selected_contact_to_call):
+            number = self.device.CONTACT_NUMBERS.get(selected_contact_to_call)
             if number:
                 return True
             return False
+
+    class phone_number_of_contact(DeviceWHQuery):
+        PARAMETERS = ["selected_contact_of_phone_number.grammar_entry"]
+        def perform(self, selected_contact_of_phone_number):
+            number = self.device.CONTACT_NUMBERS.get(selected_contact_of_phone_number)
+            number_entity = {
+                "grammar_entry": number
+            }
+            return [number_entity]

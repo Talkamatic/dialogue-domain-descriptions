@@ -25,9 +25,9 @@ U> Call John.
 ```
 
 
-## Questions
+## Queries
 
-A question is asked by the user or the system, when they want a piece of information. It can be formulated as a question, or as a request. Similar to an action, it may or may not require a number of answers in order to be answered.
+A query is asked by the user or the system, when they want a piece of information. It can be formulated as a question, or as a request. Similar to an action, it may or may not require a number of answers in order to be answered.
 
 ```diff
 U> What is John's number?
