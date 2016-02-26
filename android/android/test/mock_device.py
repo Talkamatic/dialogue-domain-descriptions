@@ -7,6 +7,11 @@ class AndroidDevice:
         "Mary": "0706574839",
         "Andy": None,
     }
+    def is_number_valid(self, number):
+        if number:
+            return True
+        return False
+
     class Call(DeviceAction):
         PARAMETERS = ["selected_contact_to_call.grammar_entry"]
         def perform(self, selected_contact_to_call):
@@ -28,13 +33,17 @@ class AndroidDevice:
                     result.append(recognized_entity)
             return result
             
-    class PhoneNumberAvailable(Validity):
+    class CallerNumberAvailable(Validity):
         PARAMETERS = ["selected_contact_to_call.grammar_entry"]
-        def is_valid(self, selected_contact_to_call):
-            number = self.device.CONTACT_NUMBERS.get(selected_contact_to_call)
-            if number:
-                return True
-            return False
+        def is_valid(self, contact):
+            number = self.device.CONTACT_NUMBERS.get(contact)
+            return self.device.is_number_valid(number)
+
+    class PhoneNumberAvailable(Validity):
+        PARAMETERS = ["selected_contact_of_phone_number.grammar_entry"]
+        def is_valid(self, contact):
+            number = self.device.CONTACT_NUMBERS.get(contact)
+            return self.device.is_number_valid(number)
 
     class phone_number_of_contact(DeviceWHQuery):
         PARAMETERS = ["selected_contact_of_phone_number.grammar_entry"]

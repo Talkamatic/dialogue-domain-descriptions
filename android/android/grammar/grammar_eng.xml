@@ -11,8 +11,11 @@
   </action>
   <question speaker="system" predicate="selected_contact_to_call" type="wh_question">who do you want to call</question>
   <report action="Call" status="ended">calling <slot predicate="selected_contact_to_call"/>.</report>
-  <validity name="PhoneNumberAvailable">
+  <validity name="CallerNumberAvailable">
     <slot type="individual" predicate="selected_contact_to_call"/> has no phone number.
+  </validity>
+  <validity name="PhoneNumberAvailable">
+    <slot type="individual" predicate="selected_contact_of_phone_number"/> has no phone number.
   </validity>
   <question speaker="user" predicate="phone_number_of_contact" type="wh_question">
     <one-of>

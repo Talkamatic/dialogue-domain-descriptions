@@ -13,14 +13,20 @@ class AndroidDevice:
         def recognize_entity(self, string):
             pass
 
-    class PhoneNumberAvailable(Validity):
+    class CallerNumberAvailable(Validity):
         PARAMETERS = ["selected_contact_to_call.grammar_entry"]
         @send_to_frontend_device
-        def is_valid(self, selected_contact):
+        def is_valid(self, contact):
+            pass
+
+    class PhoneNumberAvailable(Validity):
+        PARAMETERS = ["selected_contact_of_phone_number.grammar_entry"]
+        @send_to_frontend_device
+        def is_valid(self, contact):
             pass
 
     class phone_number_of_contact(DeviceWHQuery):
         PARAMETERS = ["selected_contact_of_phone_number.grammar_entry"]
         @send_to_frontend_device
-        def perform(self, selected_contact):
+        def perform(self, contact):
             pass
