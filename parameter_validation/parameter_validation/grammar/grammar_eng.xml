@@ -5,6 +5,7 @@
   <action name="call">
     <one-of>
       <item>call</item>
+      <item>make a call</item>
       <item>call <slot sort="contact"/></item>
     </one-of>
   </action>
