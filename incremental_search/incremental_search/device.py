@@ -1,8 +1,8 @@
 from sets import Set
-from tdm.tdmlib import DeviceWHQuery, DeviceAction, EntityRecognizer
+from tdm.lib.device import DeviceWHQuery, DeviceAction, EntityRecognizer, DddDevice
 from incremental_search.contacts import CONTACTS
 
-class IncrementalSearchDevice:
+class IncrementalSearchDevice(DddDevice):
     class Call(DeviceAction):
         PARAMETERS = ["selected_contact", "selected_first_name=''", "selected_last_name=''"]
         def perform(self, selected_contact, first_name, last_name):

@@ -1,6 +1,6 @@
-from tdm.tdmlib import EntityRecognizer, DeviceAction
+from tdm.lib.device import EntityRecognizer, DeviceAction, DddDevice
 
-class BasicActionDevice:
+class BasicActionDevice(DddDevice):
     CONTACT_NUMBERS = {
         "John": "0701234567",
         "Lisa": "0709876543",

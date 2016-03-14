@@ -1,6 +1,6 @@
-from tdm.tdmlib import EntityRecognizer, DeviceAction, Validity, DeviceWHQuery
+from tdm.lib.device import EntityRecognizer, DeviceAction, Validity, DeviceWHQuery, DddDevice
 
-class AndroidDevice:
+class AndroidDevice(DddDevice):
     CONTACT_NUMBERS = {
         "John": "0701234567",
         "Lisa": "0709876543",

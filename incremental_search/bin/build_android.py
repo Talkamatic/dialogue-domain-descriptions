@@ -4,6 +4,6 @@ import subprocess
 import sys
 
 result = subprocess.call(
-    "tdm_build.py -p incremental_search_project -asr android -L eng",
+    "tdm_build.py --ddds incremental_search -asr android -L eng",
     shell=True)
 sys.exit(result)

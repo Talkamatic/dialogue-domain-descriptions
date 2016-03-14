@@ -25,7 +25,7 @@ result = result_gui = True
 if gui_selected_test == "":
     print "Running tests from basic_action/test/interaction_tests_eng.txt"
     result = subprocess.call(
-        "tdm_test_interactions.py -p basic_action_project -L eng"
+        "tdm_test_interactions.py --ddds basic_action -L eng"
         " -f basic_action/test/interaction_tests_eng.txt" + 
         selected_test,
         shell=True)
@@ -33,7 +33,7 @@ if gui_selected_test == "":
 if selected_test == "":
     print "Running tests from basic_action/test/interaction_tests_gui_eng.txt"
     result_gui = subprocess.call(
-        "tdm_test_interactions.py -p basic_action_project -L eng"
+        "tdm_test_interactions.py --ddds basic_action -L eng"
         " -f basic_action/test/interaction_tests_gui_eng.txt" +
         gui_selected_test,
         shell=True)

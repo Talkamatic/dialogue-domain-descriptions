@@ -1,7 +1,7 @@
-from tdm.tdmlib import EntityRecognizer, DeviceAction, Validity, DeviceWHQuery
+from tdm.lib.device import EntityRecognizer, DeviceAction, Validity, DeviceWHQuery, DddDevice
 from tdm.device_handler import send_to_frontend_device
 
-class AndroidDevice:
+class AndroidDevice(DddDevice):
     class Call(DeviceAction):
         PARAMETERS = ["selected_contact_to_call.grammar_entry"]
         @send_to_frontend_device

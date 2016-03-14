@@ -1,6 +1,6 @@
-from tdm.tdmlib import EntityRecognizer, DeviceAction, Validity
+from tdm.lib.device import EntityRecognizer, DeviceAction, Validity, DddDevice
 
-class ParameterValidationDevice:
+class ParameterValidationDevice(DddDevice):
     CONTACT_NUMBERS = {
         "John": "0701234567",
         "Lisa": "0709876543",

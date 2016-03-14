@@ -1,6 +1,6 @@
-from tdm.tdmlib import EntityRecognizer, DeviceWHQuery
+from tdm.lib.device import EntityRecognizer, DeviceWHQuery, DddDevice
 
-class BasicQueryDevice:
+class BasicQueryDevice(DddDevice):
     CONTACT_NUMBERS = {
         "John": "0701234567",
         "Lisa": "0709876543",

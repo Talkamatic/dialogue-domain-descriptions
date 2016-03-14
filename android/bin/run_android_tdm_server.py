@@ -4,4 +4,4 @@ import subprocess
 import sys
 import os
 
-subprocess.call("tdm_session_and_backend_manager.py -p android_project.py --open-recognizer-support %s" % (" ".join(sys.argv[1:])), shell=True)
+subprocess.call("tdm_session_and_backend_manager.py --ddds android --open-recognizer-support %s" % (" ".join(sys.argv[1:])), shell=True)
