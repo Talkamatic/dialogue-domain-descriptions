@@ -4,10 +4,8 @@ from incremental_search.contacts import CONTACTS
 
 class IncrementalSearchDevice(DddDevice):
     class Call(DeviceAction):
-        PARAMETERS = ["selected_contact", "selected_first_name=''", "selected_last_name=''"]
-        def perform(self, selected_contact, first_name, last_name):
-            if selected_contact not in CONTACTS:
-                selected_contact = self.device.first_available_contact(first_name, last_name)
+        PARAMETERS = ["selected_contact"]
+        def perform(self, selected_contact):
             number = self.device.number_of(selected_contact)
             full_name = self.device.full_name_of(selected_contact)
             print "Calling %s at %s" % (full_name, number)
