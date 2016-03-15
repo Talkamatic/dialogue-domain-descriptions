@@ -4,19 +4,19 @@ First we need to create the DDD boilerplate.
 
 ```bash
 mkdir ddd_root; cd ddd_root 
-tdm_create_app.py BasicAction basic_action
+tdm_create_ddd.py BasicAction basic_action
 ```
 
 Before your DDD can be used, it needs to be built.
 
 ```bash
-tdm_build.py -p basic_action_project -text-only -L eng
+tdm_build.py --ddd basic_action -text-only
 ```
 
 To make sure your DDD and all dependencies are working as intended, let's run interaction tests.
 
 ```bash
-tdm_test_interactions.py -p basic_action_project -L eng -f basic_action/test/interaction_tests_eng.txt
+tdm_test_interactions.py --ddd basic_action -L eng -f basic_action/test/interaction_tests_eng.txt
 ```
 
 ```bash
@@ -45,8 +45,8 @@ S> Calling John.
 Let's build and run the tests again to verify that they fail.
 
 ```bash
-tdm_build.py -p basic_action_project -text-only -L eng
-tdm_test_interactions.py -p basic_action_project -L eng -f basic_action/test/interaction_tests_eng.txt
+tdm_build.py --ddd basic_action -text-only
+tdm_test_interactions.py --ddd basic_action -L eng -f basic_action/test/interaction_tests_eng.txt
 ```
 
 TDM will complain that it does not understand instead of placing the call to John.
@@ -89,7 +89,7 @@ We extend it with an action to make calls, a contact `sort` and a predicate `sel
 Let's build and run the tests again to see if we missed something.
 
 ```bash
-tdm_build.py -p basic_action_project -text-only -L eng
+tdm_build.py --ddd basic_action -text-only
 ```
 
 We receive a warning when generating the grammar.
@@ -125,7 +125,7 @@ Apparently, ontology entries require their corresponding grammar entries.
 But the build still seems to have succeeded. What happens if we run the tests?
 
 ```bash
-tdm_test_interactions.py -p basic_action_project -L eng -f basic_action/test/interaction_tests_eng.txt
+tdm_test_interactions.py --ddd basic_action -L eng -f basic_action/test/interaction_tests_eng.txt
 ```
 
 No difference, apparently.
@@ -168,8 +168,8 @@ It contains entries for the default actions `top` and `up`. For now, let's exten
 Let's build and test.
 
 ```bash
-tdm_build.py -p basic_action_project -text-only -L eng
-tdm_test_interactions.py -p basic_action_project -L eng -f basic_action/test/interaction_tests_eng.txt
+tdm_build.py --ddd basic_action -text-only
+tdm_test_interactions.py --ddd basic_action -L eng -f basic_action/test/interaction_tests_eng.txt
 ```
 
 ```diff
@@ -233,7 +233,7 @@ Anyway, let's add a new goal and plan, corresponding to our `call` action and `s
 Build.
 
 ```bash
-tdm_build.py -p basic_action_project -text-only -L eng
+tdm_build.py --ddd basic_action -text-only
 ```
 
 ```diff
@@ -272,8 +272,8 @@ We got a new warning about a missing grammar entry. When referencing a predicate
 Build and test.
 
 ```bash
-tdm_build.py -p basic_action_project -text-only -L eng
-tdm_test_interactions.py -p basic_action_project -L eng -f basic_action/test/interaction_tests_eng.txt
+tdm_build.py --ddd basic_action -text-only
+tdm_test_interactions.py --ddd basic_action -L eng -f basic_action/test/interaction_tests_eng.txt
 ```
 
 ```diff
@@ -347,8 +347,8 @@ Let's also modify our grammar to allow the one-shot call.
 Build and test.
 
 ```bash
-tdm_build.py -p basic_action_project -text-only -L eng
-tdm_test_interactions.py -p basic_action_project -L eng -f basic_action/test/interaction_tests_eng.txt
+tdm_build.py --ddd basic_action -text-only
+tdm_test_interactions.py --ddd basic_action -L eng -f basic_action/test/interaction_tests_eng.txt
 ```
 
 ```diff
@@ -391,7 +391,7 @@ class BasicActionDevice:
 Since we didn't modify any XML files since the last build, we don't need to build again until testing.
 
 ```bash
-tdm_test_interactions.py -p basic_action_project -L eng -f basic_action/test/interaction_tests_eng.txt
+tdm_test_interactions.py --ddd basic_action -L eng -f basic_action/test/interaction_tests_eng.txt
 ```
 
 ```diff
@@ -425,8 +425,8 @@ Let's add the `report` grammar entry. We can reference the `selected_contact` pr
 Build and test.
 
 ```bash
-tdm_build.py -p basic_action_project -text-only -L eng
-tdm_test_interactions.py -p basic_action_project -L eng -f basic_action/test/interaction_tests_eng.txt
+tdm_build.py --ddd basic_action -text-only
+tdm_test_interactions.py --ddd basic_action -L eng -f basic_action/test/interaction_tests_eng.txt
 ```
 
 ```diff
