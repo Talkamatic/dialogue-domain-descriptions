@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <title>Step-by-step tutorial - TDM</title>
+  
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Step-by-step tutorial";
+    var mkdocs_page_input_path = "tutorial.md";
+    var mkdocs_page_url = "/tutorial/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script>
+  <script src="../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> TDM</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Step-by-step tutorial</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#step-1-create-the-boilerplate">Step 1. Create the boilerplate</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#step-2-interaction-test">Step 2. Interaction test</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#step-3-ontology">Step 3. Ontology</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#step-4-grammar">Step 4. Grammar</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#step-5-plan">Step 5. Plan</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#step-6-service-interface">Step 6. Service interface</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#step-7-how-to-continue">Step 7. How to continue</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../examples/">Examples</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">TDM</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Step-by-step tutorial</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="step-1-create-the-boilerplate">Step 1. Create the boilerplate</h1>
+<p>First we need to create the DDD boilerplate.</p>
+<pre><code class="bash">mkdir ddd_root; cd ddd_root 
+tdm_create_ddd.py BasicAction basic_action
+</code></pre>
+
+<p>Before your DDD can be used, it needs to be built.</p>
+<pre><code class="bash">tdm_build.py --ddd basic_action -text-only
+</code></pre>
+
+<p>To make sure your DDD and all dependencies are working as intended, let's run interaction tests.</p>
+<pre><code class="bash">tdm_test_interactions.py --ddd basic_action -L eng -f basic_action/test/interaction_tests_eng.txt
+</code></pre>
+
+<pre><code class="bash">Ran 1 test in 0.386s
+
+OK
+</code></pre>
+
+<p>The test reports OK. We're ready to start adding dialogue to our DDD. </p>
+<h1 id="step-2-interaction-test">Step 2. Interaction test</h1>
+<p>Since we're working test driven, let's add an interaction test first.</p>
+<p>Interaction tests verifiy the dialogue, providing user utterances and specifying the expected system responses.</p>
+<p>Modify <code>basic_action/test/interaction_tests_eng.txt</code>, add a test for the new dialogue that we want to support. In this case, we want to make a call to John.</p>
+<pre><code class="diff">--- call
+S&gt; What would you like to do?
+U&gt; call john
+S&gt; Calling John.
+</code></pre>
+
+<p>Let's build and run the tests again to verify that they fail.</p>
+<pre><code class="bash">tdm_build.py --ddd basic_action -text-only
+tdm_test_interactions.py --ddd basic_action -L eng -f basic_action/test/interaction_tests_eng.txt
+</code></pre>
+
+<p>TDM will complain that it does not understand instead of placing the call to John.</p>
+<pre><code class="diff">call first-name:
+basic_action/test/interaction_tests_eng.txt at line 7: system output
+Expected:
+- Calling John.
+Got:
++ I heard you say call john. I don't understand. So, What would you like to do?
+</code></pre>
+
+<p>This happens because there's no notion of calling, and no notion of people, in the DDD.</p>
+<h1 id="step-3-ontology">Step 3. Ontology</h1>
+<p>The ontology declares what users can do and talk about, much like header files. In order to call someone we need to add the notion of calling, and the notion of people, to the ontology.</p>
+<p>Our boilerplate ontology is basically empty, in <code>basic_action/ontology.xml</code>.</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;ontology name=&quot;BasicActionOntology&quot;&gt;
+&lt;/ontology&gt;
+</code></pre>
+
+<p>We extend it with an action to make calls, a contact <code>sort</code> and a predicate <code>selected_contact</code> so that we can select an individual of our contact sort. A dynamic sort means its individuals are decided during run time, through the service interface.</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;ontology name=&quot;BasicActionOntology&quot;&gt;
+  &lt;action name=&quot;call&quot;/&gt;
+  &lt;sort name=&quot;contact&quot; dynamic=&quot;true&quot;/&gt;
+  &lt;predicate name=&quot;selected_contact&quot; sort=&quot;contact&quot;/&gt;
+&lt;/ontology&gt;
+</code></pre>
+
+<p>Let's build and run the tests again to see if we missed something.</p>
+<pre><code class="bash">tdm_build.py --ddd basic_action -text-only
+</code></pre>
+
+<p>We receive a warning when generating the grammar.</p>
+<pre><code class="diff">Building GF 3.3 for application 'basic_action'.
+[eng] Cleaning build directory 'build/eng'...Done.
+[eng] Generating GF 3.3 grammar.
+Missing grammar entry: How do speakers talk about the action call? Specify the utterance:
+
+  &lt;action name=&quot;call&quot;&gt;call&lt;/action&gt;
+
+Alternatively, you can specify several possible utterances in a list:
+
+  &lt;action name=&quot;call&quot;&gt;
+    &lt;one-of&gt;
+      &lt;item&gt;call one way&lt;/item&gt;
+      &lt;item&gt;call another way&lt;/item&gt;
+      &lt;item&gt;call &lt;slot predicate=&quot;city&quot; type=&quot;individual&quot;/&gt;&lt;/item&gt;&lt;/one-of&gt;
+  &lt;/action&gt;
+[eng] Asserting that included grammars are lower case...Done.
+[eng] Finished generating GF 3.3 grammar.
+[eng] Building GF 3.3 grammar.
+[eng] Finished building GF 3.3 grammar.
+[eng] Converting GF 3.3 grammar to python format...Done.
+[eng] Text-only, skipped building ASR language model.
+[eng] Copying build results from 'build/eng' to application directory...Done.
+Finished building GF 3.3 for application 'basic_action'.
+</code></pre>
+
+<p>Apparently, ontology entries require their corresponding grammar entries.</p>
+<p>But the build still seems to have succeeded. What happens if we run the tests?</p>
+<pre><code class="bash">tdm_test_interactions.py --ddd basic_action -L eng -f basic_action/test/interaction_tests_eng.txt
+</code></pre>
+
+<p>No difference, apparently.</p>
+<pre><code class="diff">call first-name:
+basic_action/test/interaction_tests_eng.txt at line 7: system output
+Expected:
+- Calling John.
+Got:
++ I heard you say call john. I don't understand. So, What would you like to do?
+</code></pre>
+
+<p>How about that grammar entry?</p>
+<h1 id="step-4-grammar">Step 4. Grammar</h1>
+<p>The grammar defines what our users and system can say. Our previous build attempt told us to add an entry for the <code>call</code> action. Let's look at the boilerplate, in <code>basic_action/grammar/grammar_eng.xml</code>.</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;grammar&gt;
+  &lt;action name=&quot;top&quot;&gt;main menu&lt;/action&gt;
+  &lt;action name=&quot;up&quot;&gt;go back&lt;/action&gt;
+&lt;/grammar&gt;
+</code></pre>
+
+<p>It contains entries for the default actions <code>top</code> and <code>up</code>. For now, let's extend it with the <code>call</code> action.</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;grammar&gt;
+  &lt;action name=&quot;top&quot;&gt;main menu&lt;/action&gt;
+  &lt;action name=&quot;up&quot;&gt;go back&lt;/action&gt;
+  &lt;action name=&quot;call&quot;&gt;call&lt;/action&gt;
+&lt;/grammar&gt;
+</code></pre>
+
+<p>Let's build and test.</p>
+<pre><code class="bash">tdm_build.py --ddd basic_action -text-only
+tdm_test_interactions.py --ddd basic_action -L eng -f basic_action/test/interaction_tests_eng.txt
+</code></pre>
+
+<pre><code class="diff">call first-name:
+basic_action/test/interaction_tests_eng.txt at line 7: system output
+Expected:
+- Calling John.
+Got:
++ The function is not implemented.
+</code></pre>
+
+<p>TDM replies! It means we did something right but apparently we need to implement the functionality as well. We need to add a plan to our domain</p>
+<h1 id="step-5-plan">Step 5. Plan</h1>
+<p>Plans group together what our users can talk about. The plan is executed in order to reach a goal, for example to perform an action. When talking about something in the plan, TDM infers which goal is being implied and puts it at the top of the agenda.</p>
+<p>Let's check the boilerplate, in <code>basic_action/domain.xml</code>.</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;domain name=&quot;BasicActionDomain&quot; is_super_domain=&quot;true&quot;&gt;
+  &lt;goal type=&quot;perform&quot; action=&quot;top&quot;&gt;
+    &lt;plan&gt;
+      &lt;forget_all/&gt;
+      &lt;findout type=&quot;goal&quot;/&gt;
+    &lt;/plan&gt;
+  &lt;/goal&gt;
+&lt;/domain&gt;
+</code></pre>
+
+<p>We get the top goal for free. Remember its grammar entry <code>main menu</code>. This is the only goal on TDM's agenda at startup. It will make TDM ask us which goal we want to achieve. Remember the corresponding default interaction test.</p>
+<pre><code class="diff">--- main menu
+S&gt; What would you like to do?
+</code></pre>
+
+<p>Anyway, let's add a new goal and plan, corresponding to our <code>call</code> action and <code>selected_contact</code> predicate. Extend the domain.</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;domain name=&quot;BasicActionDomain&quot; is_super_domain=&quot;true&quot;&gt;
+  &lt;goal type=&quot;perform&quot; action=&quot;top&quot;&gt;
+    &lt;plan&gt;
+      &lt;forget_all/&gt;
+      &lt;findout type=&quot;goal&quot;/&gt;
+    &lt;/plan&gt;
+  &lt;/goal&gt;
+  &lt;goal type=&quot;perform&quot; action=&quot;call&quot;&gt;
+    &lt;plan&gt;
+      &lt;findout type=&quot;wh_question&quot; predicate=&quot;selected_contact&quot;/&gt;
+      &lt;dev_perform action=&quot;Call&quot; device=&quot;BasicActionDevice&quot; postconfirm=&quot;true&quot;/&gt;
+    &lt;/plan&gt;
+    &lt;postcond&gt;&lt;device_activity_terminated action=&quot;Call&quot;/&gt;&lt;/postcond&gt;
+  &lt;/goal&gt;
+&lt;/domain&gt;
+</code></pre>
+
+<p>Build.</p>
+<pre><code class="bash">tdm_build.py --ddd basic_action -text-only
+</code></pre>
+
+<pre><code class="diff">Building GF 3.3 for application 'basic_action'.
+[eng] Cleaning build directory 'build/eng'...Done.
+[eng] Generating GF 3.3 grammar.
+Missing grammar entry: How does the system ask about selected_contact?
+
+Example:
+
+  &lt;question speaker=&quot;system&quot; predicate=&quot;selected_contact&quot; type=&quot;wh_question&quot;&gt;what is selected contact&lt;/question&gt;
+
+
+[eng] Asserting that included grammars are lower case...Done.
+[eng] Finished generating GF 3.3 grammar.
+[eng] Building GF 3.3 grammar.
+[eng] Finished building GF 3.3 grammar.
+[eng] Converting GF 3.3 grammar to python format...Done.
+[eng] Text-only, skipped building ASR language model.
+[eng] Copying build results from 'build/eng' to application directory...Done.
+Finished building GF 3.3 for application 'basic_action'.
+</code></pre>
+
+<p>We got a new warning about a missing grammar entry. When referencing a predicate in a plan, we apparently need to specify its grammar entry. Since we're using a findout, the grammar entry is to define how TDM should speak the corresponding <code>question</code>. Let's extend the grammar.</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;grammar&gt;
+  &lt;action name=&quot;top&quot;&gt;main menu&lt;/action&gt;
+  &lt;action name=&quot;up&quot;&gt;go back&lt;/action&gt;
+  &lt;action name=&quot;call&quot;&gt;call&lt;/action&gt;
+  &lt;question speaker=&quot;system&quot; predicate=&quot;selected_contact&quot; type=&quot;wh_question&quot;&gt;who do you want to call&lt;/question&gt;
+&lt;/grammar&gt;
+</code></pre>
+
+<p>Build and test.</p>
+<pre><code class="bash">tdm_build.py --ddd basic_action -text-only
+tdm_test_interactions.py --ddd basic_action -L eng -f basic_action/test/interaction_tests_eng.txt
+</code></pre>
+
+<pre><code class="diff">call first-name:
+basic_action/test/interaction_tests_eng.txt at line 7: system output
+Expected:
+- Calling John.
+Got:
++ Who do you want to call?
+</code></pre>
+
+<p>TDM replies again, great! But it didn't understand John. Actually, TDM's builtin robust parser ignored "John", finding the closest grammar match "call" instead.</p>
+<p>We need to add an entity recognizer to our service interface. It needs to recognize entities of our <code>contact</code> sort.</p>
+<h1 id="step-6-service-interface">Step 6. Service interface</h1>
+<p>The service interface is written in python, in <code>basic_action/device.py</code>. This gives us freedom when implementing the entity recognizer, but it's under great responsibility. We can unexpectedly affect performance and stability if we're not careful. This entity recognizer should however be simple.</p>
+<p>Let's check the boilerplate.</p>
+<pre><code class="python">class BasicActionDevice:
+    pass
+</code></pre>
+
+<p>Totally empty, ok. Let's add the recognizer.</p>
+<pre><code class="python">from tdm.tdmlib import EntityRecognizer
+
+class BasicActionDevice:
+    CONTACT_NUMBERS = {
+        &quot;John&quot;: &quot;0701234567&quot;,
+        &quot;Lisa&quot;: &quot;0709876543&quot;,
+        &quot;Mary&quot;: &quot;0706574839&quot;,
+        &quot;Andy&quot;: None,
+    }
+    class ContactRecognizer(EntityRecognizer):
+        def recognize_entity(self, string):
+            result = []
+            words = string.lower().split()
+            for contact in self.device.CONTACT_NUMBERS.keys():
+                if contact.lower() in words:
+                    recognized_entity = {
+                        &quot;sort&quot;: &quot;contact&quot;,
+                        &quot;grammar_entry&quot;: contact
+                    }
+                    result.append(recognized_entity)
+            return result
+</code></pre>
+
+<p>Let's also modify our grammar to allow the one-shot call.</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;grammar&gt;
+  &lt;action name=&quot;top&quot;&gt;main menu&lt;/action&gt;
+  &lt;action name=&quot;up&quot;&gt;go back&lt;/action&gt;
+  &lt;action name=&quot;call&quot;&gt;
+    &lt;one-of&gt;
+      &lt;item&gt;call&lt;/item&gt;
+      &lt;item&gt;call &lt;slot sort=&quot;contact&quot;/&gt;&lt;/item&gt;
+    &lt;/one-of&gt;
+  &lt;/action&gt;
+  &lt;question speaker=&quot;system&quot; predicate=&quot;selected_contact&quot; type=&quot;wh_question&quot;&gt;who do you want to call&lt;/question&gt;
+&lt;/grammar&gt;
+</code></pre>
+
+<p>Build and test.</p>
+<pre><code class="bash">tdm_build.py --ddd basic_action -text-only
+tdm_test_interactions.py --ddd basic_action -L eng -f basic_action/test/interaction_tests_eng.txt
+</code></pre>
+
+<pre><code class="diff">DeviceError: unknown device action: Call
+</code></pre>
+
+<p>Great, TDM appears to understand John. It wants to execute the <code>call</code> action using our service interface, but could not find it. Let's add it.</p>
+<pre><code class="python">from tdm.tdmlib import EntityRecognizer, DeviceAction
+
+class BasicActionDevice:
+    CONTACT_NUMBERS = {
+        &quot;John&quot;: &quot;0701234567&quot;,
+        &quot;Lisa&quot;: &quot;0709876543&quot;,
+        &quot;Mary&quot;: &quot;0706574839&quot;,
+        &quot;Andy&quot;: None,
+    }
+    class Call(DeviceAction):
+        PARAMETERS = [&quot;selected_contact.grammar_entry&quot;]
+        def perform(self, selected_contact):
+            number = self.device.CONTACT_NUMBERS.get(selected_contact)
+            # TODO: Implement calling
+            success = True
+            return success
+    class ContactRecognizer(EntityRecognizer):
+        def recognize_entity(self, string):
+            result = []
+            words = string.lower().split()
+            for contact in self.device.CONTACT_NUMBERS.keys():
+                if contact.lower() in words:
+                    recognized_entity = {
+                        &quot;sort&quot;: &quot;contact&quot;,
+                        &quot;grammar_entry&quot;: contact
+                    }
+                    result.append(recognized_entity)
+            return result
+</code></pre>
+
+<p>Since we didn't modify any XML files since the last build, we don't need to build again until testing.</p>
+<pre><code class="bash">tdm_test_interactions.py --ddd basic_action -L eng -f basic_action/test/interaction_tests_eng.txt
+</code></pre>
+
+<pre><code class="diff">Exception: failed to generate report(DeviceResultProposition(Call, [selected_contact(_contact_1_)], True, None), application_name='basic_action')
+</code></pre>
+
+<p>It still errors, but the error is new. Now that the action is executed, TDM tries to report it to the user. This happens because we said so in the plan. Remember <code>postconfirm="true"</code> in the <code>dev_perform</code> entry of the plan?</p>
+<pre><code class="xml">      &lt;dev_perform action=&quot;Call&quot; device=&quot;BasicActionDevice&quot; postconfirm=&quot;true&quot;/&gt;
+</code></pre>
+
+<p>Let's add the <code>report</code> grammar entry. We can reference the <code>selected_contact</code> predicate since its part of the <code>findout</code> entries of the plan.</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;grammar&gt;
+  &lt;action name=&quot;top&quot;&gt;main menu&lt;/action&gt;
+  &lt;action name=&quot;up&quot;&gt;go back&lt;/action&gt;
+  &lt;action name=&quot;call&quot;&gt;
+    &lt;one-of&gt;
+      &lt;item&gt;call&lt;/item&gt;
+      &lt;item&gt;call &lt;slot sort=&quot;contact&quot;/&gt;&lt;/item&gt;
+    &lt;/one-of&gt;
+  &lt;/action&gt;
+  &lt;question speaker=&quot;system&quot; predicate=&quot;selected_contact&quot; type=&quot;wh_question&quot;&gt;who do you want to call&lt;/question&gt;
+  &lt;report action=&quot;Call&quot; status=&quot;ended&quot;&gt;calling &lt;slot predicate=&quot;selected_contact&quot;/&gt;.&lt;/report&gt;
+&lt;/grammar&gt;
+</code></pre>
+
+<p>Build and test.</p>
+<pre><code class="bash">tdm_build.py --ddd basic_action -text-only
+tdm_test_interactions.py --ddd basic_action -L eng -f basic_action/test/interaction_tests_eng.txt
+</code></pre>
+
+<pre><code class="diff">Ran 1 test in 1.202s
+
+OK
+</code></pre>
+
+<p>Success!</p>
+<h1 id="step-7-how-to-continue">Step 7. How to continue</h1>
+<p>This tutorial has illustrated how to implement the <a href="../examples#basic-action">basic action example</a>.</p>
+<p>In order to continue, go to the <a href="../examples">examples</a> section to find an example similar to your desired functionality. Steal the best ideas from there, adjusting them for yor domain. Remember to work test driven, adding a test first, then making it work.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../examples/" class="btn btn-neutral float-right" title="Examples">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href=".." class="btn btn-neutral" title="Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../examples/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>
