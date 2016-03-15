@@ -18,7 +18,7 @@ class IncrementalSearchDevice(DddDevice):
             result = []
             for contact_id in available_contacts:
                 full_name = self.device.full_name_of(contact_id)
-                result.append({"name": contact_id, "sort": "contact", "grammar_entry": full_name})
+                result.append({"value": contact_id, "sort": "contact", "grammar_entry": full_name})
             return result
 
     class ContactNameRecognizer(EntityRecognizer):
