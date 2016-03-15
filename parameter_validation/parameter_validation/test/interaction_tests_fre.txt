@@ -1,0 +1,28 @@
+--- main menu
+S> Que voulez-vous faire?
+
+--- call
+S> Que voulez-vous faire?
+U> passer un appel
+S> Qui voulez-vous appeler?
+U> John
+S> J'appelle John.
+
+--- call one-shot
+S> Que voulez-vous faire?
+U> appellez john
+S> J'appelle John.
+
+--- call invalid number
+U> passer un appel
+S> Qui voulez-vous appeler?
+U> Andy
+S> Je n'ai pas le numéro de Andy.
+U> John
+S> J'appelle John.
+
+--- call invalid number one-shot
+U> appellez Andy
+S> Je n'ai pas le numéro de Andy.
+U> John
+S> J'appelle John.

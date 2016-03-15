@@ -9,27 +9,27 @@
   <request action="call">
     <utterance>
       <one-of>
-        <item>make a call</item>
-        <item>call <individual sort="contact"/></item>
+        <item>ik wil bellen</item>
+        <item>ik wil <individual sort="contact"/> bellen</item>
       </one-of>
     </utterance>
   </request>
 
   <question speaker="system" predicate="selected_contact" type="wh_question">
-    <utterance>who do you want to call</utterance>
+    <utterance>wie wilt u bellen</utterance>
   </question>
 
   <report action="Call" status="ended">
-    <utterance>calling <individual predicate="selected_contact_to_call"/></utterance>
+    <utterance><individual predicate="selected_contact"/> wordt gebeld</utterance>
   </report>
 
   <validity name="PhoneNumberAvailable">
-    <utterance><individual predicate="selected_contact"/> has no phone number</utterance>
+    <utterance><individual predicate="selected_contact"/> heeft geen telefoonnummer</utterance>
   </validity>
 
   <lexicon>
     <verb id="call">
-      <infinitive>call</infinitive>
+      <infinitive>bellen</infinitive>
     </verb>
   </lexicon>
 </grammar>

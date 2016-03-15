@@ -12,3 +12,5 @@ android_words.txt
 basic_query_eng.py
 basic_query_words.txt
 *.pyc
+*~
+*/logs/

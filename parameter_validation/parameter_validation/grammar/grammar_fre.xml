@@ -9,27 +9,27 @@
   <request action="call">
     <utterance>
       <one-of>
-        <item>make a call</item>
-        <item>call <individual sort="contact"/></item>
+        <item>passer un appel</item>
+        <item>appellez <individual sort="contact"/></item>
       </one-of>
     </utterance>
   </request>
 
   <question speaker="system" predicate="selected_contact" type="wh_question">
-    <utterance>who do you want to call</utterance>
+    <utterance>qui voulez-vous appeler</utterance>
   </question>
 
   <report action="Call" status="ended">
-    <utterance>calling <individual predicate="selected_contact_to_call"/></utterance>
+    <utterance>j'appelle <individual predicate="selected_contact"/></utterance>
   </report>
 
   <validity name="PhoneNumberAvailable">
-    <utterance><individual predicate="selected_contact"/> has no phone number</utterance>
+    <utterance>je n'ai pas le numéro de <individual predicate="selected_contact"/></utterance>
   </validity>
 
   <lexicon>
     <verb id="call">
-      <infinitive>call</infinitive>
+      <infinitive>appeller</infinitive>
     </verb>
   </lexicon>
 </grammar>

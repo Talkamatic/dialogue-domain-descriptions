@@ -1,0 +1,16 @@
+--- call first-name
+S> Que voulez-vous faire?
+U> appellez john
+S> Quel est le nom de famille?
+U> johnson
+S> J'appelle John Johnson.
+
+--- call one-shot
+S> Que voulez-vous faire?
+U> appellez john thompson
+S> J'appelle John Thompson.
+
+--- call last-name
+S> Que voulez-vous faire?
+U> appellez johnson
+S> J'appelle John Johnson.

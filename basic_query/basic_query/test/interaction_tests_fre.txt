@@ -1,0 +1,16 @@
+--- main menu
+S> Que voulez-vous faire?
+
+--- request number
+U> donnez-moi un numéro de téléphone
+S> Le numéro de téléphone de qui?
+U> John
+S> Le numéro de John est le 0701234567.
+
+--- ask for number one-shot
+U> quel est le numéro de John
+S> Le numéro de John est le 0701234567.
+
+--- request number one-shot
+U> donnez-moi le numéro de John
+S> Le numéro de John est le 0701234567.

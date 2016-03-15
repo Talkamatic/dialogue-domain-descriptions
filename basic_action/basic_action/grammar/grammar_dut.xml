@@ -7,20 +7,20 @@
   </action>
 
   <request action="call">
-    <utterance>call <individual sort="contact"/></utterance>
+    <utterance>ik wil <individual sort="contact"/> bellen</utterance>
   </request>
 
   <question speaker="system" predicate="selected_contact" type="wh_question">
-    <utterance>who do you want to call</utterance>
+    <utterance>wie wilt u bellen</utterance>
   </question>
 
   <report action="Call" status="ended">
-    <utterance>calling <individual predicate="selected_contact"/></utterance>
+    <utterance><individual predicate="selected_contact_to_call"/> wordt gebeld</utterance>
   </report>
 
   <lexicon>
     <verb id="call">
-      <infinitive>call</infinitive>
+      <infinitive>bellen</infinitive>
     </verb>
   </lexicon>
 </grammar>

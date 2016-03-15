@@ -1,0 +1,40 @@
+--- main menu
+S> Wat wilt u doen?
+
+--- call
+U> ik wil bellen
+S> Wie wilt u bellen?
+U> John
+S> John wordt gebeld.
+
+--- call one-shot
+U> ik wil John bellen
+S> John wordt gebeld.
+
+--- call invalid number
+U> ik wil bellen
+S> Wie wilt u bellen?
+U> Andy
+S> Andy heeft geen telefoonnummer.
+U> John
+S> John wordt gebeld.
+
+--- call invalid number one-shot
+U> ik wil Andy bellen
+S> Andy heeft geen telefoonnummer.
+U> John
+S> John wordt gebeld.
+
+--- request number
+U> ik wil een telefoonnummer weten
+S> Van wie is het nummer?
+U> John
+S> Het nummer van John is 0701234567.
+
+--- ask for number one-shot
+U> wat is het telefoonnummer van John
+S> Het nummer van John is 0701234567.
+
+--- request number one-shot
+U> vertel me wat het nummer van John is
+S> Het nummer van John is 0701234567.

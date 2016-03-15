@@ -9,34 +9,34 @@
   <request action="call">
     <utterance>
       <one-of>
-        <item>make a call</item>
-        <item>call <individual sort="contact"/></item>
-	<item>call <individual sort="first_name"/> <individual sort="last_name"/></item>
-	<item>call <individual sort="first_name"/></item>
-	<item>call <individual sort="last_name"/></item>
+        <item>passer un appel</item>
+        <item>appellez <individual sort="contact"/></item>
+	<item>appellez <individual sort="first_name"/> <individual sort="last_name"/></item>
+	<item>appellez <individual sort="first_name"/></item>
+	<item>appellez <individual sort="last_name"/></item>
       </one-of>
     </utterance>
   </request>
 
   <report action="Call" status="ended">
-    <utterance>calling <individual predicate="selected_contact"/></utterance>
+    <utterance>j'appelle <individual predicate="selected_contact_to_call"/></utterance>
   </report>
 
   <question speaker="system" predicate="selected_contact" type="wh_question">
-    <utterance>who do you want to call</utterance>
+    <utterance>qui voulez-vous appeler</utterance>
   </question>
 
   <question speaker="system" predicate="selected_first_name" type="wh_question">
-    <utterance>what is the first name</utterance>
+    <utterance>quel est le prénom</utterance>
   </question>
 
   <question speaker="system" predicate="selected_last_name" type="wh_question">
-    <utterance>what is the last name</utterance>
+    <utterance>quel est le nom de famille</utterance>
   </question>
 
   <lexicon>
     <verb id="call">
-      <infinitive>call</infinitive>
+      <infinitive>appeller</infinitive>
     </verb>
   </lexicon>
 </grammar>

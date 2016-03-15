@@ -1,5 +1,7 @@
 {
     "supported_languages": [
-        "eng"
+        "eng",
+        "fre",
+        "dut"
     ]
 }

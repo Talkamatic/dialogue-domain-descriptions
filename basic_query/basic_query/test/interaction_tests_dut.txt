@@ -1,0 +1,16 @@
+--- main menu
+S> Wat wilt u doen?
+
+--- request number
+U> ik wil een telefoonnummer weten
+S> Van wie is het nummer?
+U> John
+S> Het nummer van John is 0701234567.
+
+--- ask for number one-shot
+U> wat is het telefoonnummer van John
+S> Het nummer van John is 0701234567.
+
+--- request number one-shot
+U> vertel me wat het nummer van John is
+S> Het nummer van John is 0701234567.

@@ -1,0 +1,7 @@
+--- main menu
+S> Que voulez-vous faire?
+
+--- call
+S> Que voulez-vous faire?
+U> appellez John
+S> J'appelle John.

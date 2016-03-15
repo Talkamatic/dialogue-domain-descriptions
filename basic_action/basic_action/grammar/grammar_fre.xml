@@ -7,20 +7,20 @@
   </action>
 
   <request action="call">
-    <utterance>call <individual sort="contact"/></utterance>
+    <utterance>appellez <individual sort="contact"/></utterance>
   </request>
 
   <question speaker="system" predicate="selected_contact" type="wh_question">
-    <utterance>who do you want to call</utterance>
+    <utterance>qui voulez-vous appeler</utterance>
   </question>
 
   <report action="Call" status="ended">
-    <utterance>calling <individual predicate="selected_contact"/></utterance>
+    <utterance>j'appelle <individual predicate="selected_contact_to_call"/></utterance>
   </report>
 
   <lexicon>
     <verb id="call">
-      <infinitive>call</infinitive>
+      <infinitive>appeller</infinitive>
     </verb>
   </lexicon>
 </grammar>

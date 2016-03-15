@@ -1,0 +1,7 @@
+--- main menu
+S> Wat wilt u doen? 
+
+--- call
+S> Wat wilt u doen? 
+U> ik wil John bellen
+S> John wordt gebeld.

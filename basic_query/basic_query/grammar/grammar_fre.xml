@@ -3,9 +3,9 @@
   <question speaker="user" predicate="phone_number_of_contact">
     <utterance>
       <one-of>
-        <item>tell me a phone number</item>
-        <item>what is <individual sort="contact"/>'s number</item>
-        <item>tell me <individual sort="contact"/>'s number</item>
+        <item>donnez-moi un numéro de téléphone</item>
+        <item>quel est le numéro de <individual sort="contact"/></item>
+        <item>donnez-moi le numéro de <individual sort="contact"/></item>
       </one-of>
     </utterance>
   </question>
@@ -17,19 +17,19 @@
   </predicate>
 
   <question speaker="system" predicate="selected_contact" type="wh_question">
-    <utterance>whose number</utterance>
+    <utterance>le numéro de téléphone de qui</utterance>
   </question>
 
   <answer speaker="system" predicate="phone_number_of_contact">
     <utterance>
-      <individual predicate="selected_contact_of_phone_number"/> has number
+      Le numéro de <individual predicate="selected_contact_of_phone_number"/> est le
       <individual predicate="phone_number_of_contact"/>
     </utterance>
   </answer>
 
   <lexicon>
     <noun id="number">
-      <singular>number</singular>
+      <singular>numéro</singular>
     </noun>
   </lexicon>
 </grammar>
