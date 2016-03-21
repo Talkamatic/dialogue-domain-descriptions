@@ -1,6 +1,0 @@
-{
-    "device_module": "device.py",
-    "use_gf3_7": true,
-    "use_rgl": true,
-    "use_third_party_parser": false
-}

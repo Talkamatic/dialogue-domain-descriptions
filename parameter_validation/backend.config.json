@@ -1,4 +1,8 @@
 {
+    "active_ddd": "parameter_validation",
+    "ddds": [
+        "parameter_validation"
+    ],
     "supported_languages": [
         "eng",
         "fre",

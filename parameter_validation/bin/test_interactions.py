@@ -1,8 +1,9 @@
 #!/usr/bin/env python
+
+from argparse import ArgumentParser
+import os
 import subprocess
 import sys
-import os
-from argparse import ArgumentParser
 
 parser = ArgumentParser()
 parser.add_argument("-t", dest="test_name")
@@ -17,10 +18,12 @@ def extract_argument_value(argument):
 
 selected_test = extract_argument_value('test_name')
 
+os.chdir("..")
+
 for language_code in ["eng", "fre", "dut"]:
     print "[%s] Running interaction tests" % language_code
     result = subprocess.call(
-        "tdm_test_interactions.py --ddds parameter_validation -L %s" % language_code +
+        "tdm_test_interactions.py --config parameter_validation/backend.config.json -L %s" % language_code +
         " -f parameter_validation/test/interaction_tests_%s.txt" % language_code +
         selected_test,
         shell=True)

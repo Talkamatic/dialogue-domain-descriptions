@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ontology name="AndroidOntology">
-  <action name="call"/>
-  <sort name="contact" dynamic="true"/>
-  <sort name="phone_number" dynamic="true"/>
-  <predicate name="phone_number_of_contact" sort="phone_number"/>
-  <predicate name="selected_contact_to_call" sort="contact"/>
-  <predicate name="selected_contact_of_phone_number" sort="contact"/>
-</ontology>
