@@ -33,34 +33,34 @@ Since we're working test driven, let's add an interaction test first.
 
 Interaction tests verifiy the dialogue, providing user utterances and specifying the expected system responses.
 
-Modify `basic_action/test/interaction_tests_eng.txt`, add a test for the new dialogue that we want to support. In this case, we want to make a call to John.
+Modify `basic_action/test/interaction_tests_eng.txt`, add a test for the new dialogue that we want to support. We proceed one step at a time, starting with a very simple dialogue.
 
 ```diff
 --- call
 S> What would you like to do?
-U> call john
-S> Calling John.
+U> call
+S> Who do you want to call?
 ```
 
-Let's build and run the tests again to verify that they fail.
+Let's run the tests again to verify that they fail. (We don't need to rebuild after only modifying tests.)
 
 ```bash
-tdm_build.py --ddd basic_action -text-only
 tdm_test_interactions.py --ddd basic_action -L eng -f basic_action/test/interaction_tests_eng.txt
 ```
 
-TDM will complain that it does not understand instead of placing the call to John.
+TDM will complain that it does not understand instead the user.
 
 ```diff
-call first-name:
+call:
 basic_action/test/interaction_tests_eng.txt at line 7: system output
 Expected:
-- Calling John.
+- Who do you want to call?
 Got:
-+ I heard you say call john. I don't understand. So, What would you like to do?
++ I heard you say call. I don't understand. So, What would you like to do?
+(...)
 ```
 
-This happens because there's no notion of calling, and no notion of people, in the DDD.
+This happens because there's no notion of calling in the DDD.
 
 
 # Step 3. Ontology
@@ -75,14 +75,12 @@ Our boilerplate ontology is basically empty, in `basic_action/ontology.xml`.
 </ontology>
 ```
 
-We extend it with an action to make calls, a contact `sort` and a predicate `selected_contact` so that we can select an individual of our contact sort. A dynamic sort means its individuals are decided during run time, through the service interface.
+We extend it with an action to make calls:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <ontology name="BasicActionOntology">
   <action name="call"/>
-  <sort name="contact" dynamic="true"/>
-  <predicate name="selected_contact" sort="contact"/>
 </ontology>
 ```
 
@@ -92,78 +90,51 @@ Let's build and run the tests again to see if we missed something.
 tdm_build.py --ddd basic_action -text-only
 ```
 
-We receive a warning when generating the grammar.
+We now receive a warning.
 
 ```diff
-Building GF 3.3 for application 'basic_action'.
-[eng] Cleaning build directory 'build/eng'...Done.
-[eng] Generating GF 3.3 grammar.
-Missing grammar entry: How do speakers talk about the action call? Specify the utterance:
+Building grammar with GF 3.7 for DDD 'basic_action'.
+[eng] Cleaning build directory u'build/eng'...Done.
+[eng] Generating GF 3.7 grammar.
 
-  <action name="call">call</action>
+Missing grammar entry: How do speakers talk about the action 'call'? Possible contents of the <action> element:
 
-Alternatively, you can specify several possible utterances in a list:
-
-  <action name="call">
-    <one-of>
-      <item>call one way</item>
-      <item>call another way</item>
-      <item>call <slot predicate="city" type="individual"/></item></one-of>
-  </action>
+  <verb-phrase>
+  <noun-phrase>
+  <one-of>
 [eng] Asserting that included grammars are lower case...Done.
-[eng] Finished generating GF 3.3 grammar.
-[eng] Building GF 3.3 grammar.
-[eng] Finished building GF 3.3 grammar.
-[eng] Converting GF 3.3 grammar to python format...Done.
+[eng] Finished generating GF 3.7 grammar.
+[eng] Building GF 3.7 grammar.
+[eng] Finished building GF 3.7 grammar.
 [eng] Text-only, skipped building ASR language model.
-[eng] Copying build results from 'build/eng' to application directory...Done.
-Finished building GF 3.3 for application 'basic_action'.
+[eng] Copying build results from u'build/eng' to ddd directory...Done.
+Finished building grammar with GF 3.7 for DDD 'basic_action'.
 ```
 
 Apparently, ontology entries require their corresponding grammar entries.
 
-But the build still seems to have succeeded. What happens if we run the tests?
-
-```bash
-tdm_test_interactions.py --ddd basic_action -L eng -f basic_action/test/interaction_tests_eng.txt
-```
-
-No difference, apparently.
-
-```diff
-call first-name:
-basic_action/test/interaction_tests_eng.txt at line 7: system output
-Expected:
-- Calling John.
-Got:
-+ I heard you say call john. I don't understand. So, What would you like to do?
-```
-
-How about that grammar entry?
-
-
 # Step 4. Grammar
 
-The grammar defines what our users and system can say. Our previous build attempt told us to add an entry for the `call` action. Let's look at the boilerplate, in `basic_action/grammar/grammar_eng.xml`.
+The grammar defines what our users and system can say. Our previous build attempt told us to add an entry for the `call` action. Let's extend `basic_action/grammar/grammar_eng.xml` with the `call` action.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <grammar>
-  <action name="top">main menu</action>
-  <action name="up">go back</action>
+  <action name="call">
+    <verb-phrase>
+      <verb ref="call"/>
+    </verb-phrase>
+  </action>
+
+  <lexicon>
+    <verb id="call">
+      <infinitive>call</infinitive>
+    </verb>
+  </lexicon>
 </grammar>
 ```
 
-It contains entries for the default actions `top` and `up`. For now, let's extend it with the `call` action.
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<grammar>
-  <action name="top">main menu</action>
-  <action name="up">go back</action>
-  <action name="call">call</action>
-</grammar>
-```
+This grammar definition describes that the action `call` can be referenced with a verb phrase containing the verb `call`. It also contains a lexicon describing the grammar of `call` in English. We only need to specifiy the infinitive form for the verb; the other forms, such as imperative, are derived automatically.
 
 Let's build and test.
 
@@ -173,16 +144,15 @@ tdm_test_interactions.py --ddd basic_action -L eng -f basic_action/test/interact
 ```
 
 ```diff
-call first-name:
+call:
 basic_action/test/interaction_tests_eng.txt at line 7: system output
 Expected:
-- Calling John.
+- Who do you want to call?
 Got:
 + The function is not implemented.
 ```
 
-TDM replies! It means we did something right but apparently we need to implement the functionality as well. We need to add a plan to our domain
-
+TDM replies! It means we did something right but apparently we need to implement the functionality as well. We need to add a plan for calling.
 
 # Step 5. Plan
 
@@ -202,14 +172,14 @@ Let's check the boilerplate, in `basic_action/domain.xml`.
 </domain>
 ```
 
-We get the top goal for free. Remember its grammar entry `main menu`. This is the only goal on TDM's agenda at startup. It will make TDM ask us which goal we want to achieve. Remember the corresponding default interaction test.
+We get the top goal for free. This is the only goal on TDM's agenda at startup. It will make TDM ask us which goal we want to achieve. Remember the corresponding default interaction test.
 
 ```diff
 --- main menu
 S> What would you like to do?
 ```
 
-Anyway, let's add a new goal and plan, corresponding to our `call` action and `selected_contact` predicate. Extend the domain.
+Anyway, let's add a new goal and plan, corresponding to our `call` action. Extend the domain.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -230,43 +200,65 @@ Anyway, let's add a new goal and plan, corresponding to our `call` action and `s
 </domain>
 ```
 
-Build.
+In `ontology.xml`, we also need to add the `selected_contact` predicate and its sort:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<ontology name="BasicActionOntology">
+  <action name="call"/>
+  <sort name="contact" dynamic="true"/>
+  <predicate name="selected_contact" sort="contact"/>
+</ontology>
+```
+
+A dynamic sort means its individuals are decided during run time, through the service interface.
+
+Now build the DDD.
 
 ```bash
 tdm_build.py --ddd basic_action -text-only
 ```
 
 ```diff
-Building GF 3.3 for application 'basic_action'.
-[eng] Cleaning build directory 'build/eng'...Done.
-[eng] Generating GF 3.3 grammar.
-Missing grammar entry: How does the system ask about selected_contact?
+[eng] Cleaning build directory u'build/eng'...Done.
+[eng] Generating GF 3.7 grammar.
+[eng] Asserting that included grammars are lower case...Done.
+[eng] Finished generating GF 3.7 grammar.
+[eng] Building GF 3.7 grammar.
+[eng] Finished building GF 3.7 grammar.
+[eng] Text-only, skipped building ASR language model.
+[eng] Copying build results from u'build/eng' to ddd directory...Done.
+Finished building grammar with GF 3.7 for DDD 'basic_action'.
+alex@snorken:~/tmp/ddd_root$ tdm_build.py --ddd basic_action -text-only
+Using local tdm folder, /home/alex/projects/tdm
+Building grammar with GF 3.7 for DDD 'basic_action'.
+[eng] Cleaning build directory u'build/eng'...Done.
+[eng] Generating GF 3.7 grammar.
+
+Missing grammar entry: How does the system ask about 'selected_contact'?
 
 Example:
 
-  <question speaker="system" predicate="selected_contact" type="wh_question">what is selected contact</question>
+  <question speaker="system" predicate="selected_contact" type="wh_question">
+    <utterance>what is selected contact</utterance>
+  </question>
 
 
 [eng] Asserting that included grammars are lower case...Done.
-[eng] Finished generating GF 3.3 grammar.
-[eng] Building GF 3.3 grammar.
-[eng] Finished building GF 3.3 grammar.
-[eng] Converting GF 3.3 grammar to python format...Done.
+[eng] Finished generating GF 3.7 grammar.
+[eng] Building GF 3.7 grammar.
+[eng] Finished building GF 3.7 grammar.
 [eng] Text-only, skipped building ASR language model.
-[eng] Copying build results from 'build/eng' to application directory...Done.
-Finished building GF 3.3 for application 'basic_action'.
+[eng] Copying build results from u'build/eng' to ddd directory...Done.
+Finished building grammar with GF 3.7 for DDD 'basic_action'.
 ```
 
-We got a new warning about a missing grammar entry. When referencing a predicate in a plan, we apparently need to specify its grammar entry. Since we're using a findout, the grammar entry is to define how TDM should speak the corresponding `question`. Let's extend the grammar.
+We got a new warning about a missing grammar entry. When referencing a predicate in a plan, we apparently need to specify its grammar entry. Since we're using a findout, the grammar entry is to define how TDM should speak the corresponding `question`. Let's extend `basic_action/grammar/grammar_eng.xml` with the following:
 
 ```xml
-<?xml version="1.0" encoding="utf-8"?>
-<grammar>
-  <action name="top">main menu</action>
-  <action name="up">go back</action>
-  <action name="call">call</action>
-  <question speaker="system" predicate="selected_contact" type="wh_question">who do you want to call</question>
-</grammar>
+  <question speaker="system" predicate="selected_contact" type="wh_question">
+    <utterance>who do you want to call</utterance>
+  </question>
 ```
 
 Build and test.
@@ -277,36 +269,60 @@ tdm_test_interactions.py --ddd basic_action -L eng -f basic_action/test/interact
 ```
 
 ```diff
-call first-name:
-basic_action/test/interaction_tests_eng.txt at line 7: system output
+Ran 1 test in 1.202s
+
+OK
+```
+
+Everything works as expected.
+
+# Step 6. Service interface
+
+In the next step, we want the user to be able to reply to the question about who to call. We thus extend `basic_action/test/interaction_tests_eng.txt` accordingly:
+
+```diff
+--- call
+S> What would you like to do?
+U> call
+S> Who do you want to call?
+U> John
+S> Calling John.
+```
+
+Test:
+
+```bash
+tdm_test_interactions.py --ddd basic_action -L eng -f basic_action/test/interaction_tests_eng.txt
+```
+
+```diff
+call:
+basic_action/test/interaction_tests_eng.txt at line 9: system output
 Expected:
 - Calling John.
 Got:
-+ Who do you want to call?
++ I heard you say John. I don't understand. So, Who do you want to call?
 ```
 
-TDM replies again, great! But it didn't understand John. Actually, TDM's builtin robust parser ignored "John", finding the closest grammar match "call" instead.
-
-We need to add an entity recognizer to our service interface. It needs to recognize entities of our `contact` sort.
-
-
-# Step 6. Service interface
+As can be seen, the system doesn't understand John. We need to add an entity recognizer to our service interface. It needs to recognize entities of our `contact` sort.
 
 The service interface is written in python, in `basic_action/device.py`. This gives us freedom when implementing the entity recognizer, but it's under great responsibility. We can unexpectedly affect performance and stability if we're not careful. This entity recognizer should however be simple.
 
 Let's check the boilerplate.
 
 ```python
-class BasicActionDevice:
+from tdm.lib.device import DddDevice
+
+class BasicActionDevice(DddDevice):
     pass
 ```
 
-Totally empty, ok. Let's add the recognizer.
+Let's add the recognizer.
 
 ```python
-from tdm.tdmlib import EntityRecognizer
+from tdm.lib.device import DddDevice, EntityRecognizer
 
-class BasicActionDevice:
+class BasicActionDevice(DddDevice):
     CONTACT_NUMBERS = {
         "John": "0701234567",
         "Lisa": "0709876543",
@@ -327,23 +343,6 @@ class BasicActionDevice:
             return result
 ```
 
-Let's also modify our grammar to allow the one-shot call.
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<grammar>
-  <action name="top">main menu</action>
-  <action name="up">go back</action>
-  <action name="call">
-    <one-of>
-      <item>call</item>
-      <item>call <slot sort="contact"/></item>
-    </one-of>
-  </action>
-  <question speaker="system" predicate="selected_contact" type="wh_question">who do you want to call</question>
-</grammar>
-```
-
 Build and test.
 
 ```bash
@@ -358,9 +357,9 @@ DeviceError: unknown device action: Call
 Great, TDM appears to understand John. It wants to execute the `call` action using our service interface, but could not find it. Let's add it.
 
 ```python
-from tdm.tdmlib import EntityRecognizer, DeviceAction
+from tdm.lib.device import DddDevice, EntityRecognizer, DeviceAction
 
-class BasicActionDevice:
+class BasicActionDevice(DddDevice):
     CONTACT_NUMBERS = {
         "John": "0701234567",
         "Lisa": "0709876543",
@@ -388,38 +387,41 @@ class BasicActionDevice:
             return result
 ```
 
-Since we didn't modify any XML files since the last build, we don't need to build again until testing.
+Build.
 
 ```bash
-tdm_test_interactions.py --ddd basic_action -L eng -f basic_action/test/interaction_tests_eng.txt
+tdm_build.py --ddd basic_action -text-only
 ```
 
 ```diff
-Exception: failed to generate report(DeviceResultProposition(Call, [selected_contact(_contact_1_)], True, None), application_name='basic_action')
+Building grammar with GF 3.7 for DDD 'basic_action'.
+[eng] Cleaning build directory u'build/eng'...Done.
+[eng] Generating GF 3.7 grammar.
+
+Missing grammar entry: How does the system report that the device action 'Call' ended? Example:
+
+  <report action="Call" status="ended">
+    <utterance>performed Call</utterance>
+  </report>
+
+
+[eng] Asserting that included grammars are lower case...Done.
+[eng] Finished generating GF 3.7 grammar.
+[eng] Building GF 3.7 grammar.
+[eng] Finished building GF 3.7 grammar.
+[eng] Text-only, skipped building ASR language model.
+[eng] Copying build results from u'build/eng' to ddd directory...Done.
+Finished building grammar with GF 3.7 for DDD 'basic_action'.
 ```
 
-It still errors, but the error is new. Now that the action is executed, TDM tries to report it to the user. This happens because we said so in the plan. Remember `postconfirm="true"` in the `dev_perform` entry of the plan?
+As can be seen, we need to add a grammar entry for the device action `Call`. This is required because we said so in the plan. Remember `postconfirm="true"` in the `dev_perform` entry of the plan?
+
+Let's add a `report` grammar entry in `basic_action/grammar/grammar_eng.xml`. We can reference the `selected_contact` predicate since its part of the `findout` entries of the plan.
 
 ```xml
-      <dev_perform action="Call" device="BasicActionDevice" postconfirm="true"/>
-```
-
-Let's add the `report` grammar entry. We can reference the `selected_contact` predicate since its part of the `findout` entries of the plan.
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<grammar>
-  <action name="top">main menu</action>
-  <action name="up">go back</action>
-  <action name="call">
-    <one-of>
-      <item>call</item>
-      <item>call <slot sort="contact"/></item>
-    </one-of>
-  </action>
-  <question speaker="system" predicate="selected_contact" type="wh_question">who do you want to call</question>
-  <report action="Call" status="ended">calling <slot predicate="selected_contact"/>.</report>
-</grammar>
+  <report action="Call" status="ended">
+    <utterance>calling <individual predicate="selected_contact"/></utterance>
+  </report>
 ```
 
 Build and test.
@@ -437,8 +439,123 @@ OK
 
 Success!
 
+# Step 7. One-shot utterances
 
-# Step 7. How to continue
+The DDD so far handles very simple dialogues where the user enters one piece of information at a time. In order to support one-shot utterances such as "call John" containing several pieces of information (in this case an action and an answer regarding who to call), we need to extend the grammar. First we add a failing interaction test in `basic_action/test/interaction_tests_eng.txt`:
+
+```bash
+--- one-shot utterance
+U> call John
+S> Calling John.
+```
+
+Run the tests to verify that the new one fails.
+
+```bash
+tdm_test_interactions.py --ddd basic_action -L eng -f basic_action/test/interaction_tests_eng.txt
+```
+
+```bash
+one-shot utterance:
+basic_action/test/interaction_tests_eng.txt at line 13: system output
+Expected:
+- Calling John.
+Got:
++ I heard you say call John. I don't understand. So, What would you like to do?
+```
+
+We now add the following lines to `basic_action/grammar/grammar_eng.xml`:
+
+```xml
+  <request action="call">
+    <utterance>call <individual sort="contact"/></utterance>
+  </request>
+```
+
+The element `<request>` is used when defining things that the user can say to request that an action is to be performed. In contrast to `<action>`, `<request>` is user-specific and deals with whole utterances, including potential references to individuals. The element `<individual>` acts as a slot, showing that a certain place in the utterance refers to an individual.
+
+Now build and test.
+
+```bash
+tdm_build.py --ddd basic_action -text-only
+tdm_test_interactions.py --ddd basic_action -L eng -f basic_action/test/interaction_tests_eng.txt
+```
+
+```bash
+Ran 1 test in 2.912s
+
+OK
+```
+
+# Step 8. Adding a language
+
+If you want to add support for a new language, the following steps are needed. First you need to modify the file `backend.config.json`. In the field `supported_languages`, add `"fre"` for French and/or `"dut"` for Dutch (separated by commas). Assuming we want to add support for French, the file contents are changed to
+
+```json
+{
+    "supported_languages": [
+        "eng",
+        "fre"
+    ]
+}
+```
+
+Second, we need to create interaction tests for the new language. For French, we add the file `basic_action/test/interaction_tests_eng.txt` with the following contents:
+
+```bash
+--- call
+S> Que voulez-vous faire?
+U> appellez
+S> Qui voulez-vous appeler?
+U> John
+S> J'appelle John.
+```
+
+Finally, we need to create a grammar file for the new language. For French, we add the file `basic_action/grammar/grammar_fre.xml` with the following contents:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<grammar>
+  <action name="call">
+    <verb-phrase>
+      <verb ref="call"/>
+    </verb-phrase>
+  </action>
+
+  <request action="call">
+    <utterance>appellez <individual sort="contact"/></utterance>
+  </request>
+
+  <lexicon>
+    <verb id="call">
+      <infinitive>appeller</infinitive>
+    </verb>
+  </lexicon>
+
+  <question speaker="system" predicate="selected_contact" type="wh_question">
+    <utterance>qui voulez-vous appeler</utterance>
+  </question>
+
+  <report action="Call" status="ended">
+    <utterance>j'appelle <individual predicate="selected_contact"/></utterance>
+  </report>
+</grammar>
+```
+
+Build and test. Note the changed language flag for interaction testing.
+
+```bash
+tdm_build.py --ddd basic_action -text-only
+tdm_test_interactions.py --ddd basic_action -L fre -f basic_action/test/interaction_tests_fre.txt
+```
+
+```bash
+Ran 1 test in 1.312s
+
+OK
+```
+
+# Step 9. How to continue
 
 This tutorial has illustrated how to implement the [basic action example](examples#basic-action).
 
