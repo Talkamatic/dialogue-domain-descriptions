@@ -500,7 +500,7 @@ If you want to add support for a new language, the following steps are needed. F
 }
 ```
 
-Second, we need to create interaction tests for the new language. For French, we add the file `basic_action/test/interaction_tests_eng.txt` with the following contents:
+Second, we need to create interaction tests for the new language. For French, we add the file `basic_action/test/interaction_tests_fre.txt` with the following contents:
 
 ```bash
 --- call
