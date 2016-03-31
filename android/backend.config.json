@@ -1,10 +1,7 @@
 {
-    "active_ddd": "parameter_validation",
-    "ddds": [
-        "parameter_validation",
-        "basic_query"
-    ],
     "supported_languages": [
-        "eng"
+        "eng",
+        "dut",
+        "fre"
     ]
 }
