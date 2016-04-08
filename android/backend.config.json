@@ -1,4 +1,8 @@
 {
+    "active_ddd": "android",
+    "ddds": [
+        "android"
+    ],
     "supported_languages": [
         "eng",
         "fre",

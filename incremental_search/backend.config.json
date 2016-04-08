@@ -1,4 +1,8 @@
 {
+    "active_ddd": "incremental_search",
+    "ddds": [
+        "incremental_search"
+    ],
     "supported_languages": [
         "eng",
         "fre",

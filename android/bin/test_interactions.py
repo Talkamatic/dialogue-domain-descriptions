@@ -20,7 +20,7 @@ selected_test = extract_argument_value('test_name')
 for language_code in ["eng", "fre", "dut"]:
     print "[%s] Running interaction tests" % language_code
     result = subprocess.call(
-        "tdm_test_interactions.py --ddds android -L %s" % language_code +
+        "tdm_test_interactions.py -L %s" % language_code +
         " -f android/test/interaction_tests_%s.txt" % language_code +
         selected_test,
         shell=True)
