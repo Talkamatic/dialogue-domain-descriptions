@@ -10,7 +10,7 @@ tdm_create_ddd.py BasicAction basic_action
 Before your DDD can be used, it needs to be built.
 
 ```bash
-tdm_build.py -text-only
+tdm_build.py
 ```
 
 To make sure your DDD and all dependencies are working as intended, let's run interaction tests.
@@ -87,7 +87,7 @@ We extend it with an action to make calls:
 Let's build and run the tests again to see if we missed something.
 
 ```bash
-tdm_build.py -text-only
+tdm_build.py
 ```
 
 We now receive a warning.
@@ -139,7 +139,7 @@ This grammar definition describes that the action `call` can be referenced with 
 Let's build and test.
 
 ```bash
-tdm_build.py -text-only
+tdm_build.py
 tdm_test_interactions.py -L eng -f basic_action/test/interaction_tests_eng.txt
 ```
 
@@ -216,7 +216,7 @@ A dynamic sort means its individuals are decided during run time, through the se
 Now build the DDD.
 
 ```bash
-tdm_build.py -text-only
+tdm_build.py
 ```
 
 ```diff
@@ -264,7 +264,7 @@ We got a new warning about a missing grammar entry. When referencing a predicate
 Build and test.
 
 ```bash
-tdm_build.py -text-only
+tdm_build.py
 tdm_test_interactions.py -L eng -f basic_action/test/interaction_tests_eng.txt
 ```
 
@@ -346,7 +346,7 @@ class BasicActionDevice(DddDevice):
 Build and test.
 
 ```bash
-tdm_build.py -text-only
+tdm_build.py
 tdm_test_interactions.py -L eng -f basic_action/test/interaction_tests_eng.txt
 ```
 
@@ -390,7 +390,7 @@ class BasicActionDevice(DddDevice):
 Build.
 
 ```bash
-tdm_build.py -text-only
+tdm_build.py
 ```
 
 ```diff
@@ -427,7 +427,7 @@ Let's add a `report` grammar entry in `basic_action/grammar/grammar_eng.xml`. We
 Build and test.
 
 ```bash
-tdm_build.py --ddd basic_action -text-only
+tdm_build.py
 tdm_test_interactions.py -L eng -f basic_action/test/interaction_tests_eng.txt
 ```
 
@@ -477,7 +477,7 @@ The element `<request>` is used when defining things that the user can say to re
 Now build and test.
 
 ```bash
-tdm_build.py -text-only
+tdm_build.py
 tdm_test_interactions.py -L eng -f basic_action/test/interaction_tests_eng.txt
 ```
 
@@ -545,7 +545,7 @@ Finally, we need to create a grammar file for the new language. For French, we a
 Build and test. Note the changed language flag for interaction testing.
 
 ```bash
-tdm_build.py -text-only
+tdm_build.py
 tdm_test_interactions.py -L fre -f basic_action/test/interaction_tests_fre.txt
 ```
 

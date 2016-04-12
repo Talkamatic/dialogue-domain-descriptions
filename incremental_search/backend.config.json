@@ -1,5 +1,6 @@
 {
     "active_ddd": "incremental_search",
+    "asr": "android",
     "ddds": [
         "incremental_search"
     ],

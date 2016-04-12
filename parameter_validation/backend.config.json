@@ -1,5 +1,6 @@
 {
     "active_ddd": "parameter_validation",
+    "asr": "android",
     "ddds": [
         "parameter_validation"
     ],

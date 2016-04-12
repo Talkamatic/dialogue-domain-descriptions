@@ -4,6 +4,6 @@ import subprocess
 import sys
 
 result = subprocess.call(
-    "tdm_build.py -asr android",
+    "tdm_build.py",
     shell=True)
 sys.exit(result)
