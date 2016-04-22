@@ -4,19 +4,19 @@ First we need to create the DDD boilerplate.
 
 ```bash
 mkdir ddd_root; cd ddd_root 
-tdm_create_ddd.py BasicAction basic_action
+tdm create basic_action
 ```
 
 Before your DDD can be used, it needs to be built.
 
 ```bash
-tdm_build.py
+tdm build
 ```
 
 To make sure your DDD and all dependencies are working as intended, let's run interaction tests.
 
 ```bash
-tdm_test_interactions.py -L eng -f basic_action/test/interaction_tests_eng.txt
+tdm test eng
 ```
 
 ```bash
@@ -45,7 +45,7 @@ S> Who do you want to call?
 Let's run the tests again to verify that they fail. (We don't need to rebuild after only modifying tests.)
 
 ```bash
-tdm_test_interactions.py -L eng -f basic_action/test/interaction_tests_eng.txt
+tdm test eng
 ```
 
 TDM will complain that it does not understand instead the user.
@@ -87,7 +87,7 @@ We extend it with an action to make calls:
 Let's build and run the tests again to see if we missed something.
 
 ```bash
-tdm_build.py
+tdm build
 ```
 
 We now receive a warning.
@@ -139,8 +139,8 @@ This grammar definition describes that the action `call` can be referenced with 
 Let's build and test.
 
 ```bash
-tdm_build.py
-tdm_test_interactions.py -L eng -f basic_action/test/interaction_tests_eng.txt
+tdm build
+tdm test eng
 ```
 
 ```diff
@@ -216,22 +216,10 @@ A dynamic sort means its individuals are decided during run time, through the se
 Now build the DDD.
 
 ```bash
-tdm_build.py
+tdm build
 ```
 
 ```diff
-[eng] Cleaning build directory u'build/eng'...Done.
-[eng] Generating GF 3.7 grammar.
-[eng] Asserting that included grammars are lower case...Done.
-[eng] Finished generating GF 3.7 grammar.
-[eng] Building GF 3.7 grammar.
-[eng] Finished building GF 3.7 grammar.
-[eng] Text-only, skipped building ASR language model.
-[eng] Copying build results from u'build/eng' to ddd directory...Done.
-Finished building grammar with GF 3.7 for DDD 'basic_action'.
-alex@snorken:~/tmp/ddd_root$ tdm_build.py --ddd basic_action -text-only
-Using local tdm folder, /home/alex/projects/tdm
-Building grammar with GF 3.7 for DDD 'basic_action'.
 [eng] Cleaning build directory u'build/eng'...Done.
 [eng] Generating GF 3.7 grammar.
 
@@ -264,8 +252,8 @@ We got a new warning about a missing grammar entry. When referencing a predicate
 Build and test.
 
 ```bash
-tdm_build.py
-tdm_test_interactions.py -L eng -f basic_action/test/interaction_tests_eng.txt
+tdm build
+tdm test eng
 ```
 
 ```diff
@@ -292,7 +280,7 @@ S> Calling John.
 Test:
 
 ```bash
-tdm_test_interactions.py -L eng -f basic_action/test/interaction_tests_eng.txt
+tdm test eng
 ```
 
 ```diff
@@ -346,8 +334,8 @@ class BasicActionDevice(DddDevice):
 Build and test.
 
 ```bash
-tdm_build.py
-tdm_test_interactions.py -L eng -f basic_action/test/interaction_tests_eng.txt
+tdm build
+tdm test eng
 ```
 
 ```diff
@@ -390,7 +378,7 @@ class BasicActionDevice(DddDevice):
 Build.
 
 ```bash
-tdm_build.py
+tdm build
 ```
 
 ```diff
@@ -427,8 +415,8 @@ Let's add a `report` grammar entry in `basic_action/grammar/grammar_eng.xml`. We
 Build and test.
 
 ```bash
-tdm_build.py
-tdm_test_interactions.py -L eng -f basic_action/test/interaction_tests_eng.txt
+tdm build
+tdm test eng
 ```
 
 ```diff
@@ -452,7 +440,7 @@ S> Calling John.
 Run the tests to verify that the new one fails.
 
 ```bash
-tdm_test_interactions.py -L eng -f basic_action/test/interaction_tests_eng.txt
+tdm test eng
 ```
 
 ```bash
@@ -477,8 +465,8 @@ The element `<request>` is used when defining things that the user can say to re
 Now build and test.
 
 ```bash
-tdm_build.py
-tdm_test_interactions.py -L eng -f basic_action/test/interaction_tests_eng.txt
+tdm build
+tdm test eng
 ```
 
 ```bash
@@ -500,14 +488,21 @@ If you want to add support for a new language, the following steps are needed. F
 }
 ```
 
-Second, we need to create interaction tests for the new language. For French, we add the file `basic_action/test/interaction_tests_fre.txt` with the following contents:
+Second, we need to create interaction tests for the new language. For French, we add the file `basic_action/test/interaction_tests_fre.txt` with translated contents:
 
 ```bash
+--- main menu
+S> Que voulez-vous faire?
+
 --- call
 S> Que voulez-vous faire?
 U> appellez
 S> Qui voulez-vous appeler?
 U> John
+S> J'appelle John.
+
+--- one-shot utterance
+U> appellez John
 S> J'appelle John.
 ```
 
@@ -542,11 +537,11 @@ Finally, we need to create a grammar file for the new language. For French, we a
 </grammar>
 ```
 
-Build and test. Note the changed language flag for interaction testing.
+Build and test. Note the changed language parameter for interaction testing.
 
 ```bash
-tdm_build.py
-tdm_test_interactions.py -L fre -f basic_action/test/interaction_tests_fre.txt
+tdm build
+tdm test fre
 ```
 
 ```bash

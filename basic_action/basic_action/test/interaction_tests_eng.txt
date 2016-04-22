@@ -3,5 +3,12 @@ S> What would you like to do?
 
 --- call
 S> What would you like to do?
-U> call john
+U> call
+S> Who do you want to call?
+U> John
 S> Calling John.
+
+--- one-shot utterance
+U> call John
+S> Calling John.
+

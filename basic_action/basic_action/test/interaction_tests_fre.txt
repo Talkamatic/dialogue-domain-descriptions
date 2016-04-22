@@ -3,5 +3,11 @@ S> Que voulez-vous faire?
 
 --- call
 S> Que voulez-vous faire?
+U> appellez
+S> Qui voulez-vous appeler?
+U> John
+S> J'appelle John.
+
+--- one-shot utterance
 U> appellez John
 S> J'appelle John.
