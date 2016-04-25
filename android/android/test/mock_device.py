@@ -49,6 +49,9 @@ class AndroidDevice(DddDevice):
         PARAMETERS = ["selected_contact_of_phone_number.grammar_entry"]
         def perform(self, selected_contact_of_phone_number):
             number = self.device.CONTACT_NUMBERS.get(selected_contact_of_phone_number)
+            if not self.device.is_number_valid(number):
+                return []
+
             number_entity = {
                 "grammar_entry": number
             }

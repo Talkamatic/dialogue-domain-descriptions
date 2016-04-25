@@ -11,6 +11,10 @@ class BasicQueryDevice(DddDevice):
         PARAMETERS = ["selected_contact.grammar_entry"]
         def perform(self, selected_contact):
             number = self.device.CONTACT_NUMBERS.get(selected_contact)
+
+            if number is None:
+                return []
+
             number_entity = {
                 "grammar_entry": number
             }
