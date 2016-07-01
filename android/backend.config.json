@@ -8,5 +8,6 @@
         "eng",
         "fre",
         "dut"
-    ]
+    ],
+    "use_recognition_profile": false
 }
