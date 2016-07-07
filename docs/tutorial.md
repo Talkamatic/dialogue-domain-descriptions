@@ -317,8 +317,9 @@ class BasicActionDevice(DddDevice):
         "Mary": "0706574839",
         "Andy": None,
     }
+    
     class ContactRecognizer(EntityRecognizer):
-        def recognize_entity(self, string):
+        def recognize(self, string, unused_language):
             result = []
             words = string.lower().split()
             for contact in self.device.CONTACT_NUMBERS.keys():
@@ -354,6 +355,7 @@ class BasicActionDevice(DddDevice):
         "Mary": "0706574839",
         "Andy": None,
     }
+    
     class Call(DeviceAction):
         PARAMETERS = ["selected_contact.grammar_entry"]
         def perform(self, selected_contact):
@@ -361,8 +363,9 @@ class BasicActionDevice(DddDevice):
             # TODO: Implement calling
             success = True
             return success
+            
     class ContactRecognizer(EntityRecognizer):
-        def recognize_entity(self, string):
+        def recognize(self, string, unused_language):
             result = []
             words = string.lower().split()
             for contact in self.device.CONTACT_NUMBERS.keys():
@@ -498,13 +501,81 @@ S> Que voulez-vous faire?
 S> Que voulez-vous faire?
 U> appellez
 S> Qui voulez-vous appeler?
-U> John
-S> J'appelle John.
+U> André
+S> J'appelle André.
 
 --- one-shot utterance
-U> appellez John
-S> J'appelle John.
+U> appellez André
+S> J'appelle André.
 ```
+
+Make sure to save the interaction tests with UTF-8 encoding without byte-order mark (BOM) when using non-ASCII characters.
+
+Next, we need to handle the language inside the entity recognizer. Modify the service interface at `basic_action/device.py` to handle French:
+
+```python
+# -*- coding: utf-8 -*-
+
+from tdm.lib.device import EntityRecognizer, DeviceAction, DddDevice
+
+
+class BasicActionDevice(DddDevice):
+    JOHN = "contact_john"
+    LISA = "contact_lisa"
+    MARY = "contact_mary"
+    ANDY = "contact_andy"
+
+    PHONE_NUMBERS = {
+        JOHN: "0701234567",
+        LISA: "0709876543",
+        MARY: "0706574839",
+        ANDY: None,
+    }
+
+    CONTACTS_ENGLISH = {
+        "John": JOHN,
+        "Lisa": LISA,
+        "Mary": MARY,
+        "Andy": ANDY,
+    }
+
+    CONTACTS_FRENCH = {
+        "Jean": JOHN,
+        u"Élise": LISA,
+        "Marie": MARY,
+        u"André": ANDY,
+    }
+
+    CONTACTS = {
+        "eng": CONTACTS_ENGLISH,
+        "fre": CONTACTS_FRENCH,
+    }
+
+    class Call(DeviceAction):
+        PARAMETERS = ["selected_contact"]
+        def perform(self, selected_contact):
+            number = self.device.PHONE_NUMBERS.get(selected_contact)
+            # TODO: Implement calling
+            success = True
+            return success
+
+    class ContactRecognizer(EntityRecognizer):
+        def recognize(self, string, language):
+            result = []
+            words = string.lower().split()
+            contacts = self.device.CONTACTS[language]
+            for contact_name, identifier in contacts.iteritems():
+                if contact_name.lower() in words:
+                    recognized_entity = {
+                        "sort": "contact",
+                        "grammar_entry": contact_name,
+                        "name": identifier,
+                    }
+                    result.append(recognized_entity)
+            return result
+```
+
+Make sure to save it with UTF-8 without BOM as well.
 
 Finally, we need to create a grammar file for the new language. For French, we add the file `basic_action/grammar/grammar_fre.xml` with the following contents:
 

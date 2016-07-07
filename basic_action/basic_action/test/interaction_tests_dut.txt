@@ -5,9 +5,9 @@ S> Wat wilt u doen?
 S> Wat wilt u doen?
 U> bellen
 S> Wie wilt u bellen?
-U> John
-S> John wordt gebeld.
+U> Jan
+S> Jan wordt gebeld.
 
 --- one-shot utterance
-U> ik wil John bellen
-S> John wordt gebeld.
+U> ik wil Jan bellen
+S> Jan wordt gebeld.

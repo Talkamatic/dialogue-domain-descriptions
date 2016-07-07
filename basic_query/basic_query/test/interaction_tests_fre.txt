@@ -4,13 +4,13 @@ S> Que voulez-vous faire?
 --- request number
 U> donnez-moi un numéro de téléphone
 S> Le numéro de téléphone de qui?
-U> John
-S> Le numéro de John est le 0701234567.
+U> Élise
+S> Le numéro de Élise est le 0709876543.
 
 --- ask for number one-shot
-U> quel est le numéro de John
-S> Le numéro de John est le 0701234567.
+U> quel est le numéro de Élise
+S> Le numéro de Élise est le 0709876543.
 
 --- request number one-shot
-U> donnez-moi le numéro de John
-S> Le numéro de John est le 0701234567.
+U> donnez-moi le numéro de Élise
+S> Le numéro de Élise est le 0709876543.

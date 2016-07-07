@@ -5,24 +5,24 @@ S> Que voulez-vous faire?
 S> Que voulez-vous faire?
 U> passer un appel
 S> Qui voulez-vous appeler?
-U> John
-S> J'appelle John.
+U> Élise
+S> J'appelle Élise.
 
 --- call one-shot
 S> Que voulez-vous faire?
-U> appellez john
-S> J'appelle John.
+U> appellez Élise
+S> J'appelle Élise.
 
 --- call invalid number
 U> passer un appel
 S> Qui voulez-vous appeler?
-U> Andy
-S> Je n'ai pas le numéro de Andy.
-U> John
-S> J'appelle John.
+U> André
+S> Je n'ai pas le numéro de André.
+U> Élise
+S> J'appelle Élise.
 
 --- call invalid number one-shot
-U> appellez Andy
-S> Je n'ai pas le numéro de Andy.
-U> John
-S> J'appelle John.
+U> appellez André
+S> Je n'ai pas le numéro de André.
+U> Élise
+S> J'appelle Élise.

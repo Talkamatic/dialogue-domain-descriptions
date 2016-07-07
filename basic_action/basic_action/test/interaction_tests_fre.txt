@@ -5,9 +5,9 @@ S> Que voulez-vous faire?
 S> Que voulez-vous faire?
 U> appellez
 S> Qui voulez-vous appeler?
-U> John
-S> J'appelle John.
+U> Élise
+S> J'appelle Élise.
 
 --- one-shot utterance
-U> appellez John
-S> J'appelle John.
+U> appellez Élise
+S> J'appelle Élise.

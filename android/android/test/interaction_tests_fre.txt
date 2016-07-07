@@ -4,39 +4,39 @@ S> Que voulez-vous faire?
 --- call
 U> passer un appel
 S> Qui voulez-vous appeler?
-U> John
-S> J'appelle John.
+U> Élise
+S> J'appelle Élise.
 
 --- call one-shot
-U> appellez John
-S> J'appelle John.
+U> appellez Élise
+S> J'appelle Élise.
 
 --- call invalid number
 U> passer un appel
 S> Qui voulez-vous appeler?
-U> Andy
-# Should be "d'Andy" (see task #652)
-S> Je n'ai pas le numéro de Andy.
-U> John
-S> J'appelle John.
+U> André
+# Should be "d'André" (see task #652)
+S> Je n'ai pas le numéro de André.
+U> Élise
+S> J'appelle Élise.
 
 --- call invalid number one-shot
-U> appellez Andy
-# Should be "d'Andy" (see task #652)
-S> Je n'ai pas le numéro de Andy.
-U> John
-S> J'appelle John.
+U> appellez André
+# Should be "d'André" (see task #652)
+S> Je n'ai pas le numéro de André.
+U> Élise
+S> J'appelle Élise.
 
 --- request number
 U> donnez-moi un numéro de téléphone
 S> Le numéro de téléphone de qui?
-U> John
-S> Le numéro de John est le 0701234567.
+U> Élise
+S> Le numéro de Élise est le 0709876543.
 
 --- ask for number one-shot
-U> quel est le numéro de John
-S> Le numéro de John est le 0701234567.
+U> quel est le numéro de Élise
+S> Le numéro de Élise est le 0709876543.
 
 --- request number one-shot
-U> donnez-moi le numéro de John
-S> Le numéro de John est le 0701234567.
+U> donnez-moi le numéro de Élise
+S> Le numéro de Élise est le 0709876543.

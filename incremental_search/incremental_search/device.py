@@ -1,15 +1,20 @@
 from sets import Set
+
 from tdm.lib.device import DeviceWHQuery, DeviceAction, EntityRecognizer, DddDevice
-from incremental_search.contacts import CONTACTS
+
+from incremental_search.contacts import CONTACTS, FIRST_NAMES, LAST_NAMES, PHONE_NUMBERS
+
 
 class IncrementalSearchDevice(DddDevice):
+    language = "eng"
+
     class Call(DeviceAction):
         PARAMETERS = ["selected_contact"]
         def perform(self, selected_contact):
             number = self.device.number_of(selected_contact)
-            full_name = self.device.full_name_of(selected_contact)
-            print "Calling %s at %s" % (full_name, number)
-            return True
+            # TODO: Implement calling
+            success = True
+            return success
 
     class selected_contact(DeviceWHQuery):
         PARAMETERS = ["selected_first_name=''", "selected_last_name=''"]
@@ -22,29 +27,59 @@ class IncrementalSearchDevice(DddDevice):
             return result
 
     class ContactNameRecognizer(EntityRecognizer):
-        def recognize_entity(self, string):
+        def recognize(self, string, language):
+            self.device.__class__.language = language
             result = []
             words = string.lower().split()
-            for contact_id, contact in CONTACTS.iteritems():
-                first_name = contact["first_name"]
-                last_name = contact["last_name"]
-                if first_name.lower() in words:
-                    result.append({"name": first_name, "sort": "first_name", "grammar_entry": first_name.lower()})
-                if last_name.lower() in words:
-                    result.append({"name": last_name, "sort": "last_name", "grammar_entry": last_name.lower()})
+            first_names = self._entities_of_first_names(words, language)
+            result.extend(first_names)
+            last_names = self._entities_of_last_names(words, language)
+            result.extend(last_names)
             return result
+
+        def _entities_of_first_names(self, words, language):
+            first_names = FIRST_NAMES[language]
+            return self._entities_of_names(words, first_names, "first_name")
+
+        def _entities_of_last_names(self, words, language):
+            last_names = LAST_NAMES[language]
+            return self._entities_of_names(words, last_names, "last_name")
+
+        def _entities_of_names(self, words, names, sort):
+            results = []
+            for name, identifier in names.iteritems():
+                if name.lower() in words:
+                    results.append({"name": identifier, "sort": sort, "grammar_entry": name.lower()})
+            return results
 
     @classmethod
     def number_of(cls, contact_id):
-        contact = CONTACTS[contact_id]
-        number = contact["number"]
+        number = PHONE_NUMBERS[contact_id]
         return number
 
     @classmethod
     def full_name_of(cls, contact_id):
-        contact = CONTACTS[contact_id]
-        full_name = "%s %s" % (contact["first_name"], contact["last_name"])
+        first_name = cls.first_name_of_contact(contact_id)
+        last_name = cls.last_name_of_contact(contact_id)
+        full_name = "%s %s" % (first_name, last_name)
         return full_name
+
+    @classmethod
+    def first_name_of_contact(cls, contact):
+        identifier = CONTACTS[contact]["first_name"]
+        return cls.name_of_identifier(FIRST_NAMES[cls.language], identifier)
+
+    @classmethod
+    def last_name_of_contact(cls, contact):
+        identifier = CONTACTS[contact]["last_name"]
+        return cls.name_of_identifier(LAST_NAMES[cls.language], identifier)
+
+    @classmethod
+    def name_of_identifier(cls, names, identifier):
+        matching_names = [name for name, actual_id in names.iteritems() if actual_id == identifier]
+        assert len(matching_names) == 1, "Expected to find one matching name but found %s for %s among %s" %\
+                                         (matching_names, identifier, names)
+        return matching_names.pop()
 
     @classmethod
     def available_contacts(cls, first_name, last_name):

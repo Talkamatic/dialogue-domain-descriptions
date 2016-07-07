@@ -10,7 +10,7 @@ class AndroidDevice(DddDevice):
 
     class ContactRecognizer(EntityRecognizer):
         @send_to_frontend_device
-        def recognize_entity(self, string):
+        def recognize(self, string, language):
             pass
 
     class CallerNumberAvailable(Validity):

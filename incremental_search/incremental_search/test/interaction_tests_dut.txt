@@ -1,16 +1,16 @@
 --- call first-name
 S> Wat wilt u doen?
-U> ik wil john bellen
+U> ik wil jan bellen
 S> Wat is de achternaam?
-U> johnson
-S> John Johnson wordt gebeld.
+U> janssen
+S> Jan Janssen wordt gebeld.
 
 --- call one-shot
 S> Wat wilt u doen?
-U> ik wil john thompson bellen
-S> John Thompson wordt gebeld.
+U> ik wil jan thomassen bellen
+S> Jan Thomassen wordt gebeld.
 
 --- call last-name
 S> Wat wilt u doen?
-U> ik wil johnson bellen
-S> John Johnson wordt gebeld.
+U> ik wil janssen bellen
+S> Jan Janssen wordt gebeld.
