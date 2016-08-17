@@ -4,6 +4,7 @@
     "ddds": [
         "parameter_validation"
     ],
+    "repeat_questions": true,
     "supported_languages": [
         "eng",
         "fre",

@@ -4,6 +4,7 @@
     "ddds": [
         "basic_query"
     ],
+    "repeat_questions": true,
     "supported_languages": [
         "eng",
         "fre",
