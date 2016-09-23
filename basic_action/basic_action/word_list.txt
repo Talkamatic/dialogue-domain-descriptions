@@ -1,0 +1,8 @@
+# This word list is used for spelling correction if the feature is enabled in the backend config.
+#
+# Each line should contain a single word. For example:
+# Lorem
+# ipsum
+# dolor
+# sit
+# amet

@@ -10,5 +10,6 @@
         "fre",
         "dut"
     ],
-    "use_recognition_profile": false
+    "use_recognition_profile": false,
+    "use_word_list_correction": true
 }

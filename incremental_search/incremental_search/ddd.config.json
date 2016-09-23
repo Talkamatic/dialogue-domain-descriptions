@@ -1,5 +1,6 @@
 {
     "device_module": "device.py",
     "use_rgl": true,
-    "use_third_party_parser": false
+    "use_third_party_parser": false,
+    "word_list": "word_list.txt"
 }
