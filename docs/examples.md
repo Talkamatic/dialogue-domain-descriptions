@@ -49,13 +49,4 @@ Is your user looking for a single item in a set of many? Make sure your applicat
 Incremental search utilizes predicate features, which are declared in the ontology of the DDD. When a service is queried for individuals of the predicate, the features need to match. By asking the user to specify more features, the search can be narrowed down to finally match a single individual.
 
 
-# Android
-
-Is your Android device performing the actions and recognizing the entities, for instance with the contacts of your phone book? Forward selected events to your Android frontend and do the job there.
-
-    U> Call John
-    S> Calling John.
-
-This example combines the examples of action, query, parameter validation and entity recognition into one DDD. It forwards all the events to the frontend. It can be used together with the [android-example](https://github.com/Talkamatic/android-example), an Android app to showcase how your frontend hears, speaks and thinks.
-
 [github file browser]: https://github.com/Talkamatic/dialogue-domain-descriptions/tree/master
