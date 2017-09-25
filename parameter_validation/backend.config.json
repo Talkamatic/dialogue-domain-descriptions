@@ -4,7 +4,9 @@
     "ddds": [
         "parameter_validation"
     ],
+    "overrides": null,
     "repeat_questions": true,
+    "rerank_amount": 0.2,
     "supported_languages": [
         "eng",
         "fre",
