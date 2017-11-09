@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<service_interface>
+  <action name="Call">
+    <parameters>
+      <parameter predicate="selected_contact" format="value"/>
+    </parameters>
+    <failure_reasons/>
+    <target>
+      <device_module device="IncrementalSearchDevice"/>
+    </target>
+  </action>
+  <query name="selected_contact">
+    <parameters>
+      <parameter predicate="selected_first_name" format="value" default=""/>
+      <parameter predicate="selected_last_name" format="value" default=""/>
+    </parameters>
+    <target>
+      <device_module device="IncrementalSearchDevice"/>
+    </target>
+  </query>
+  <entity_recognizer name="ContactNameRecognizer">
+    <target>
+      <device_module device="IncrementalSearchDevice"/>
+    </target>
+  </entity_recognizer>
+</service_interface>

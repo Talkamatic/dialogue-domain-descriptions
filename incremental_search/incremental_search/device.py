@@ -9,7 +9,6 @@ class IncrementalSearchDevice(DddDevice):
     language = "eng"
 
     class Call(DeviceAction):
-        PARAMETERS = ["selected_contact"]
         def perform(self, selected_contact):
             number = self.device.number_of(selected_contact)
             # TODO: Implement calling
@@ -17,7 +16,6 @@ class IncrementalSearchDevice(DddDevice):
             return success
 
     class selected_contact(DeviceWHQuery):
-        PARAMETERS = ["selected_first_name=''", "selected_last_name=''"]
         def perform(self, first_name, last_name):
             available_contacts = self.device.available_contacts(first_name, last_name)
             result = []

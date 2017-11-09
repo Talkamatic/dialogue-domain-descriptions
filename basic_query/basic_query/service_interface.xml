@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<service_interface>
+  <query name="phone_number_of_contact">
+    <parameters>
+      <parameter predicate="selected_contact" format="value"/>
+    </parameters>
+    <target>
+      <device_module device="BasicQueryDevice"/>
+    </target>
+  </query>
+  <entity_recognizer name="ContactRecognizer">
+    <target>
+      <device_module device="BasicQueryDevice"/>
+    </target>
+  </entity_recognizer>
+</service_interface>

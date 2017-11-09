@@ -44,7 +44,6 @@ class BasicActionDevice(DddDevice):
     }
 
     class Call(DeviceAction):
-        PARAMETERS = ["selected_contact"]
         def perform(self, selected_contact):
             number = self.device.PHONE_NUMBERS.get(selected_contact)
             # TODO: Implement calling

@@ -9,7 +9,7 @@
   <goal type="resolve" question_type="wh_question" predicate="phone_number_of_contact">
     <plan>
       <findout type="wh_question" predicate="selected_contact"/>
-      <dev_query device="BasicQueryDevice" type="wh_question" predicate="phone_number_of_contact"/>
+      <dev_query type="wh_question" predicate="phone_number_of_contact"/>
     </plan>
   </goal>
   <parameters predicate="phone_number_of_contact">

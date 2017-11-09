@@ -44,7 +44,6 @@ class BasicQueryDevice(DddDevice):
     }
 
     class phone_number_of_contact(DeviceWHQuery):
-        PARAMETERS = ["selected_contact"]
         def perform(self, selected_contact):
             number = self.device.PHONE_NUMBERS.get(selected_contact)
 

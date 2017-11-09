@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<service_interface>
+  <action name="Call">
+    <parameters>
+      <parameter predicate="selected_contact" format="value"/>
+    </parameters>
+    <failure_reasons/>
+    <target>
+      <device_module device="BasicActionDevice"/>
+    </target>
+  </action>
+  <entity_recognizer name="ContactRecognizer">
+    <target>
+      <device_module device="BasicActionDevice"/>
+    </target>
+  </entity_recognizer>
+</service_interface>

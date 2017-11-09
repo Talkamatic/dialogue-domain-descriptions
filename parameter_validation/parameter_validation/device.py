@@ -43,7 +43,6 @@ class ParameterValidationDevice(DddDevice):
         "dut": CONTACTS_DUTCH,
     }
     class Call(DeviceAction):
-        PARAMETERS = ["selected_contact"]
         def perform(self, selected_contact):
             number = self.device.PHONE_NUMBERS.get(selected_contact)
             # TODO: Implement calling
@@ -66,7 +65,6 @@ class ParameterValidationDevice(DddDevice):
             return result
 
     class PhoneNumberAvailable(Validity):
-        PARAMETERS = ["selected_contact"]
         def is_valid(self, selected_contact):
             number = self.device.PHONE_NUMBERS.get(selected_contact)
             if number:
