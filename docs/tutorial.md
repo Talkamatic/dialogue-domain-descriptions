@@ -4,7 +4,7 @@ First we need to create the DDD boilerplate.
 
 ```bash
 mkdir ddd_root; cd ddd_root 
-tdm create basic_action
+tdm create-ddd basic_action
 ```
 
 Before your DDD can be used, it needs to be built.
@@ -51,13 +51,12 @@ tdm test eng
 TDM will complain that it does not understand instead the user.
 
 ```diff
-call:
-basic_action/test/interaction_tests_eng.txt at line 7: system output
-Expected:
-- Who do you want to call?
-Got:
-+ I heard you say call. I don't understand. So, What would you like to do?
-(...)
+On line 7 of basic_action/test/interaction_tests_eng.txt,
+expected:
+  S> Who do you want to call?
+
+but got:
+  S> I heard you say call. I don't understand. So, What would you like to do?
 ```
 
 This happens because there's no notion of calling in the DDD.
@@ -93,22 +92,24 @@ tdm build
 We now receive a warning.
 
 ```diff
-Building grammar with GF 3.7 for DDD 'basic_action'.
-[eng] Cleaning build directory u'build/eng'...Done.
-[eng] Generating GF 3.7 grammar.
+Building generated grammar for DDD 'basic_action'.
+[eng] Cleaning build directory 'build/eng'...Done.
+Not using RASA NLU, will not clean RASA build directories.
+[eng] Generating grammar.
 
 Missing grammar entry: How do speakers talk about the action 'call'? Possible contents of the <action> element:
 
   <verb-phrase>
   <noun-phrase>
   <one-of>
-[eng] Asserting that included grammars are lower case...Done.
-[eng] Finished generating GF 3.7 grammar.
-[eng] Building GF 3.7 grammar.
-[eng] Finished building GF 3.7 grammar.
-[eng] Text-only, skipped building ASR language model.
-[eng] Copying build results from u'build/eng' to ddd directory...Done.
-Finished building grammar with GF 3.7 for DDD 'basic_action'.
+[eng] Asserting that language grammar is lower case...Done.
+[eng] Finished generating grammar.
+[eng] Building generated grammar.
+[eng] Finished building generated grammar.
+[eng] Not using RASA NLU, will not generate and build RASA models.
+[eng] Not using word list correction, will not generate word list.
+[eng] No ASR specified, will not build language model.
+Finished building generated grammar for DDD 'basic_action'.
 ```
 
 Apparently, ontology entries require their corresponding grammar entries.
@@ -144,12 +145,12 @@ tdm test eng
 ```
 
 ```diff
-call:
-basic_action/test/interaction_tests_eng.txt at line 7: system output
-Expected:
-- Who do you want to call?
-Got:
-+ The function is not implemented.
+On line 7 of basic_action/test/interaction_tests_eng.txt,
+expected:
+  S> Who do you want to call?
+
+but got:
+  S> The function is not implemented.
 ```
 
 TDM replies! It means we did something right but apparently we need to implement the functionality as well. We need to add a plan for calling.
@@ -193,7 +194,7 @@ Anyway, let's add a new goal and plan, corresponding to our `call` action. Exten
   <goal type="perform" action="call">
     <plan>
       <findout type="wh_question" predicate="selected_contact"/>
-      <dev_perform action="Call" device="BasicActionDevice" postconfirm="true"/>
+      <dev_perform action="Call" postconfirm="true"/>
     </plan>
     <postcond><device_activity_terminated action="Call"/></postcond>
   </goal>
@@ -257,7 +258,7 @@ tdm test eng
 ```
 
 ```diff
-Ran 1 test in 1.202s
+Ran 2 tests in 0.363s
 
 OK
 ```
@@ -284,28 +285,71 @@ tdm test eng
 ```
 
 ```diff
-call:
-basic_action/test/interaction_tests_eng.txt at line 9: system output
-Expected:
-- Calling John.
-Got:
-+ I heard you say John. I don't understand. So, Who do you want to call?
+On line 9 of basic_action/test/interaction_tests_eng.txt,
+expected:
+  S> Calling John.
+
+but got:
+  S> I heard you say John. I don't understand. So, Who do you want to call?
 ```
 
 As can be seen, the system doesn't understand John. We need to add an entity recognizer to our service interface. It needs to recognize entities of our `contact` sort.
 
-The service interface is written in python, in `basic_action/device.py`. This gives us freedom when implementing the entity recognizer, but it's under great responsibility. We can unexpectedly affect performance and stability if we're not careful. This entity recognizer should however be simple.
+Check the boilerplate service interface in `basic_action/service_interface.xml`:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<service_interface>
+    <entity_recognizer name="BasicActionRecognizer">
+        <target>
+            <device_module device="BasicActionDevice"/>
+        </target>
+    </entity_recognizer>
+</service_interface>
+```
+
+It already contains an entity recognizer that we can use directly. It's defined in `basic_action/device.py`, in plain python. This gives us freedom when implementing the entity recognizer, but it's under great responsibility. We can unexpectedly affect performance and stability if we're not careful. This entity recognizer should however be simple.
 
 Let's check the boilerplate.
 
 ```python
-from tdm.lib.device import DddDevice
+from tdm.lib.device import DddDevice, EntityRecognizer
+
 
 class BasicActionDevice(DddDevice):
-    pass
+    class BasicActionRecognizer(EntityRecognizer):
+        """Entity recognizer for BasicAction"""
+
+        def recognize(self, utterance, language):
+            """Recognize entities in a user utterance, given the specified language.
+
+            This method is responsible for finding all dynamic entities in the utterance. Its accuracy affects the
+            behaviour of the dialogue system.
+
+            Since the search is conducted during runtime, particular care should be taken to ensure that the method is
+            accurate, robust and has sufficient performance.
+
+            Args:
+                utterance (str): The utterance to be searched. For example 'call John'.
+                language  (str): The language code of the utterance according to the ISO 639-2/B standard.
+                                 Exceptions are Swedish ('sv' instead of 'swe') and Italian ('it' instead of 'ita').
+
+            Returns:
+                list of dicts: Given the example utterance "call John", the following entity could be returned
+                [
+                    {
+                        "sort": "contact",       # The sort must be declared in the ontology.
+                        "grammar_entry": "John", # The grammar entry as it occurred in 'utterance'.
+                        "name": "contact_john",  # [optional] Should be a globally unique identifier. Must never be
+                                                 # found as is in a user utterance. Use for example the form Sort_ID
+                                                 # (e.g. contact_john).
+                    },
+                ]
+            """
+            return []
 ```
 
-Let's add the recognizer.
+And add the recognizer.
 
 ```python
 from tdm.lib.device import DddDevice, EntityRecognizer
@@ -318,7 +362,7 @@ class BasicActionDevice(DddDevice):
         "Andy": None,
     }
     
-    class ContactRecognizer(EntityRecognizer):
+    class BasicActionRecognizer(EntityRecognizer):
         def recognize(self, string, unused_language):
             result = []
             words = string.lower().split()
@@ -340,10 +384,42 @@ tdm test eng
 ```
 
 ```diff
-DeviceError: unknown device action: Call
+UnexpectedActionException: Expected one of the known actions [] but got 'Call'
 ```
 
-Great, TDM appears to understand John. It wants to execute the `call` action using our service interface, but could not find it. Let's add it.
+Great, TDM appears to understand John. It wants to execute the `Call` action using our service interface, but could not find it. Let's add it to `basic_action/service_interface.xml`.
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<service_interface>
+    <action name="Call">
+        <parameters>
+            <parameter predicate="selected_contact" format="value"/>
+        </parameters>
+        <failure_reasons/>
+        <target>
+            <device_module device="BasicActionDevice"/>
+        </target>
+    </action>
+    <entity_recognizer name="BasicActionRecognizer">
+        <target>
+            <device_module device="BasicActionDevice"/>
+        </target>
+    </entity_recognizer>
+</service_interface>
+```
+
+If we build now...
+
+```bash
+tdm build
+```
+
+```diff
+tdm.ddd.device_handler.MissingDeviceMethodException: The service interface defines actions [u'Call']. Expected to find [u'Call'] as 'DeviceAction' methods in device 'BasicActionDevice', but found []
+```
+
+TDM complains that the `Call` action is not found in `basic_action/device.py`. Let's add it:  
 
 ```python
 from tdm.lib.device import DddDevice, EntityRecognizer, DeviceAction
@@ -357,14 +433,13 @@ class BasicActionDevice(DddDevice):
     }
     
     class Call(DeviceAction):
-        PARAMETERS = ["selected_contact.grammar_entry"]
         def perform(self, selected_contact):
             number = self.device.CONTACT_NUMBERS.get(selected_contact)
             # TODO: Implement calling
             success = True
             return success
             
-    class ContactRecognizer(EntityRecognizer):
+    class BasicActionRecognizer(EntityRecognizer):
         def recognize(self, string, unused_language):
             result = []
             words = string.lower().split()
@@ -385,9 +460,10 @@ tdm build
 ```
 
 ```diff
-Building grammar with GF 3.7 for DDD 'basic_action'.
-[eng] Cleaning build directory u'build/eng'...Done.
-[eng] Generating GF 3.7 grammar.
+Building generated grammar for DDD 'basic_action'.
+[eng] Cleaning build directory 'build/eng'...Done.
+Not using RASA NLU, will not clean RASA build directories.
+[eng] Generating grammar.
 
 Missing grammar entry: How does the system report that the device action 'Call' ended? Example:
 
@@ -396,13 +472,14 @@ Missing grammar entry: How does the system report that the device action 'Call' 
   </report>
 
 
-[eng] Asserting that included grammars are lower case...Done.
-[eng] Finished generating GF 3.7 grammar.
-[eng] Building GF 3.7 grammar.
-[eng] Finished building GF 3.7 grammar.
-[eng] Text-only, skipped building ASR language model.
-[eng] Copying build results from u'build/eng' to ddd directory...Done.
-Finished building grammar with GF 3.7 for DDD 'basic_action'.
+[eng] Asserting that language grammar is lower case...Done.
+[eng] Finished generating grammar.
+[eng] Building generated grammar.
+[eng] Finished building generated grammar.
+[eng] Not using RASA NLU, will not generate and build RASA models.
+[eng] Not using word list correction, will not generate word list.
+[eng] No ASR specified, will not build language model.
+Finished building generated grammar for DDD 'basic_action'.
 ```
 
 As can be seen, we need to add a grammar entry for the device action `Call`. This is required because we said so in the plan. Remember `postconfirm="true"` in the `dev_perform` entry of the plan?
@@ -423,7 +500,7 @@ tdm test eng
 ```
 
 ```diff
-Ran 1 test in 1.202s
+Ran 2 tests in 0.363s
 
 OK
 ```
@@ -447,12 +524,12 @@ tdm test eng
 ```
 
 ```bash
-one-shot utterance:
-basic_action/test/interaction_tests_eng.txt at line 13: system output
-Expected:
-- Calling John.
-Got:
-+ I heard you say call John. I don't understand. So, What would you like to do?
+On line 13 of basic_action/test/interaction_tests_eng.txt,
+expected:
+  S> Calling John.
+
+but got:
+  S> I heard you say call John. I don't understand. So, What would you like to do?
 ```
 
 We now add the following lines to `basic_action/grammar/grammar_eng.xml`:
@@ -473,7 +550,7 @@ tdm test eng
 ```
 
 ```bash
-Ran 1 test in 2.912s
+Ran 3 tests in 0.523s
 
 OK
 ```
@@ -552,14 +629,13 @@ class BasicActionDevice(DddDevice):
     }
 
     class Call(DeviceAction):
-        PARAMETERS = ["selected_contact"]
         def perform(self, selected_contact):
             number = self.device.PHONE_NUMBERS.get(selected_contact)
             # TODO: Implement calling
             success = True
             return success
 
-    class ContactRecognizer(EntityRecognizer):
+    class BasicActionRecognizer(EntityRecognizer):
         def recognize(self, string, language):
             result = []
             words = string.lower().split()
@@ -616,7 +692,7 @@ tdm test fre
 ```
 
 ```bash
-Ran 1 test in 1.312s
+Ran 3 tests in 0.509s
 
 OK
 ```
