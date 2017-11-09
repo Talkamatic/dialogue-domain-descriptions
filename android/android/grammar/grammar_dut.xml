@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<grammar>
+  <action name="call">
+    <verb-phrase>
+      <verb ref="call"/>
+    </verb-phrase>
+  </action>
+
+  <request action="call">
+    <utterance>
+      <one-of>
+        <item>ik wil bellen</item>
+        <item>ik wil <individual sort="contact"/> bellen</item>
+      </one-of>
+    </utterance>
+  </request>
+
+  <report action="ReportCall" status="ended">
+    <utterance><individual predicate="selected_contact"/> wordt gebeld</utterance>
+  </report>
+
+  <question speaker="system" predicate="contact_to_call" type="wh_question">
+    <utterance>welke contact</utterance>
+  </question>
+
+  <question speaker="system" predicate="selected_contact" type="wh_question">
+    <utterance>welke contact</utterance>
+  </question>
+
+  <predicate name="phone_number_of_contact">
+    <noun-phrase>
+      <noun ref="number" />
+    </noun-phrase>
+  </predicate>
+
+  <question speaker="user" predicate="phone_number_of_contact">
+    <utterance>
+      <one-of>
+        <item>ik wil een telefoonnummer weten</item>
+        <item>wat is het telefoonnummer van <individual sort="contact"/></item>
+        <item>vertel me wat het nummer van <individual sort="contact"/> is</item>
+      </one-of>
+    </utterance>
+  </question>
+
+  <answer speaker="system" predicate="phone_number_of_contact">
+    <utterance>
+      Het nummer van <individual predicate="selected_contact"/> is
+      <individual predicate="phone_number_of_contact"/>
+    </utterance>
+  </answer>
+
+  <validity name="PhoneNumberAvailable">
+    <utterance><individual predicate="selected_contact"/> heeft geen telefoonnummer</utterance>
+  </validity>
+
+  <validity name="PhoneNumberToCallAvailable">
+    <utterance><individual predicate="contact_to_call"/> heeft geen telefoonnummer</utterance>
+  </validity>
+
+  <lexicon>
+    <verb id="call">
+      <infinitive>bellen</infinitive>
+    </verb>
+    <noun id="number">
+      <singular>nummer</singular>
+    </noun>
+  </lexicon>
+</grammar>

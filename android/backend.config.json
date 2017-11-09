@@ -1,0 +1,17 @@
+{
+    "active_ddd": "android",
+    "asr": "android",
+    "ddds": [
+        "android"
+    ],
+    "overrides": null,
+    "repeat_questions": true,
+    "rerank_amount": 0.2,
+    "supported_languages": [
+        "eng",
+        "fre",
+        "dut"
+    ],
+    "use_recognition_profile": false,
+    "use_word_list_correction": true
+}

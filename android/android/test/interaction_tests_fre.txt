@@ -1,0 +1,42 @@
+--- main menu
+S> Que voulez-vous faire?
+
+--- call
+U> passer un appel
+S> Quel contact?
+U> Élise
+S> J'appelle Élise.
+
+--- call one-shot
+U> appellez Élise
+S> J'appelle Élise.
+
+--- call invalid number
+U> passer un appel
+S> Quel contact?
+U> André
+# Should be "d'André" (see task #652)
+S> Je n'ai pas le numéro de André.
+U> Élise
+S> J'appelle Élise.
+
+--- call invalid number one-shot
+U> appellez André
+# Should be "d'André" (see task #652)
+S> Je n'ai pas le numéro de André.
+U> Élise
+S> J'appelle Élise.
+
+--- request number
+U> donnez-moi un numéro de téléphone
+S> Quel contact?
+U> Élise
+S> Le numéro de Élise est le 0709876543.
+
+--- ask for number one-shot
+U> quel est le numéro de Élise
+S> Le numéro de Élise est le 0709876543.
+
+--- request number one-shot
+U> donnez-moi le numéro de Élise
+S> Le numéro de Élise est le 0709876543.
