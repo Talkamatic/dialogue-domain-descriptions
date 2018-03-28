@@ -4,6 +4,7 @@
     "ddds": [
         "parameter_validation"
     ],
+    "inactive_seconds_allowed": 7200,
     "overrides": null,
     "repeat_questions": true,
     "rerank_amount": 0.2,
