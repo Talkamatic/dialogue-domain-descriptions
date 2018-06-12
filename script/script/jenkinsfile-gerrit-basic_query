@@ -121,9 +121,15 @@ node('tdm') {
         sh '''#!/bin/bash -ex
         source venv/bin/activate
 
+        export FLASK_APP=http_service/http_service.py
+        flask run --port 10103 &
+        PID=$!
+
         cd basic_query
         tdm test eng
         cd ..
+
+        kill $PID
         '''
     }
 }

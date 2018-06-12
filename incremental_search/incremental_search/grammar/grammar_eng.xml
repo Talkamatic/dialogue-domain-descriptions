@@ -11,9 +11,9 @@
       <one-of>
         <item>make a call</item>
         <item>call <individual sort="contact"/></item>
-	<item>call <individual sort="first_name"/> <individual sort="last_name"/></item>
-	<item>call <individual sort="first_name"/></item>
-	<item>call <individual sort="last_name"/></item>
+        <item>call <individual sort="first_name"/> <individual sort="last_name"/></item>
+        <item>call <individual sort="first_name"/></item>
+        <item>call <individual sort="last_name"/></item>
       </one-of>
     </utterance>
   </request>

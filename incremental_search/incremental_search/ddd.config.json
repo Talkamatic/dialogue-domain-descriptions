@@ -1,5 +1,5 @@
 {
-    "device_module": "device.py",
+    "device_module": null,
     "enable_rasa_nlu": false,
     "overrides": null,
     "use_rgl": true,

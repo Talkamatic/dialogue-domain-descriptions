@@ -5,12 +5,12 @@
       <parameter predicate="selected_contact" format="value"/>
     </parameters>
     <target>
-      <device_module device="BasicQueryDevice"/>
+      <http endpoint="http://127.0.0.1:10103/phone_number_of_contact"/>
     </target>
   </query>
   <entity_recognizer name="ContactRecognizer">
     <target>
-      <device_module device="BasicQueryDevice"/>
+      <http endpoint="http://127.0.0.1:10103/contact_recognizer"/>
     </target>
   </entity_recognizer>
 </service_interface>

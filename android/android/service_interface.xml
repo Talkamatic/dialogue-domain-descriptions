@@ -24,7 +24,7 @@
             <parameter predicate="selected_contact"/>
         </parameters>
         <target>
-            <device_module device="ContactBookDevice"/>
+            <http endpoint="http://127.0.0.1:10101/phone_number_of_contact"/>
         </target>
     </query>
     <validator name="PhoneNumberAvailable">
@@ -32,12 +32,12 @@
             <parameter predicate="selected_contact"/>
         </parameters>
         <target>
-            <device_module device="ContactBookDevice"/>
+            <http endpoint="http://127.0.0.1:10101/phone_number_available_validator"/>
         </target>
     </validator>
     <entity_recognizer name="ContactRecognizer">
         <target>
-            <device_module device="ContactBookDevice"/>
+            <http endpoint="http://127.0.0.1:10101/contact_recognizer"/>
         </target>
     </entity_recognizer>
 </service_interface>

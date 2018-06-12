@@ -6,7 +6,7 @@
     </parameters>
     <failure_reasons/>
     <target>
-      <device_module device="ParameterValidationDevice"/>
+      <http endpoint="http://127.0.0.1:10105/call"/>
     </target>
   </action>
   <validator name="PhoneNumberAvailable">
@@ -14,12 +14,12 @@
       <parameter predicate="selected_contact" format="value"/>
     </parameters>
     <target>
-      <device_module device="ParameterValidationDevice"/>
+      <http endpoint="http://127.0.0.1:10105/phone_number_available_validator"/>
     </target>
   </validator>
   <entity_recognizer name="ContactRecognizer">
     <target>
-      <device_module device="ParameterValidationDevice"/>
+      <http endpoint="http://127.0.0.1:10105/contact_recognizer"/>
     </target>
   </entity_recognizer>
 </service_interface>

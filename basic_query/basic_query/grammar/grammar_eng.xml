@@ -22,7 +22,7 @@
 
   <answer speaker="system" predicate="phone_number_of_contact">
     <utterance>
-      <individual predicate="selected_contact_of_phone_number"/> has number
+      <individual predicate="selected_contact"/> has number
       <individual predicate="phone_number_of_contact"/>
     </utterance>
   </answer>

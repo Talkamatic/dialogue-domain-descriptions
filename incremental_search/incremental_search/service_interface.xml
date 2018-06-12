@@ -6,21 +6,21 @@
     </parameters>
     <failure_reasons/>
     <target>
-      <device_module device="IncrementalSearchDevice"/>
+      <http endpoint="http://127.0.0.1:10104/call"/>
     </target>
   </action>
   <query name="selected_contact">
     <parameters>
-      <parameter predicate="selected_first_name" format="value" default=""/>
-      <parameter predicate="selected_last_name" format="value" default=""/>
+      <parameter predicate="selected_first_name" format="value" optional="true"/>
+      <parameter predicate="selected_last_name" format="value" optional="true"/>
     </parameters>
     <target>
-      <device_module device="IncrementalSearchDevice"/>
+      <http endpoint="http://127.0.0.1:10104/selected_contact"/>
     </target>
   </query>
-  <entity_recognizer name="ContactNameRecognizer">
+  <entity_recognizer name="ContactRecognizer">
     <target>
-      <device_module device="IncrementalSearchDevice"/>
+      <http endpoint="http://127.0.0.1:10104/contact_recognizer"/>
     </target>
   </entity_recognizer>
 </service_interface>

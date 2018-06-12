@@ -6,12 +6,12 @@
     </parameters>
     <failure_reasons/>
     <target>
-      <device_module device="BasicActionDevice"/>
+      <http endpoint="http://127.0.0.1:10102/call"/>
     </target>
   </action>
   <entity_recognizer name="ContactRecognizer">
     <target>
-      <device_module device="BasicActionDevice"/>
+      <http endpoint="http://127.0.0.1:10102/contact_recognizer"/>
     </target>
   </entity_recognizer>
 </service_interface>
