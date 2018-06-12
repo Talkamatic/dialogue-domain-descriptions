@@ -2,8 +2,8 @@
 <service_interface>
     <action name="Call">
         <parameters>
-            <parameter predicate="contact_to_call" format="grammar_entry"/>
-            <parameter predicate="phone_number_to_call" format="grammar_entry"/>
+            <parameter predicate="selected_contact" format="grammar_entry"/>
+            <parameter predicate="phone_number_of_contact" format="grammar_entry"/>
         </parameters>
         <failure_reasons/>
         <target>
@@ -12,21 +12,13 @@
     </action>
     <action name="ReportCall">
         <parameters>
-            <parameter predicate="contact_to_call" format="grammar_entry"/>
+            <parameter predicate="selected_contact" format="grammar_entry"/>
         </parameters>
         <failure_reasons/>
         <target>
             <device_module device="ContactBookDevice"/>
         </target>
     </action>
-    <query name="phone_number_to_call">
-        <parameters>
-            <parameter predicate="contact_to_call"/>
-        </parameters>
-        <target>
-            <device_module device="ContactBookDevice"/>
-        </target>
-    </query>
     <query name="phone_number_of_contact">
         <parameters>
             <parameter predicate="selected_contact"/>
@@ -38,14 +30,6 @@
     <validator name="PhoneNumberAvailable">
         <parameters>
             <parameter predicate="selected_contact"/>
-        </parameters>
-        <target>
-            <device_module device="ContactBookDevice"/>
-        </target>
-    </validator>
-    <validator name="PhoneNumberToCallAvailable">
-        <parameters>
-            <parameter predicate="contact_to_call"/>
         </parameters>
         <target>
             <device_module device="ContactBookDevice"/>

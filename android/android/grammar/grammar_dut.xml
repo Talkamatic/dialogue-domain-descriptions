@@ -19,10 +19,6 @@
     <utterance><individual predicate="selected_contact"/> wordt gebeld</utterance>
   </report>
 
-  <question speaker="system" predicate="contact_to_call" type="wh_question">
-    <utterance>welke contact</utterance>
-  </question>
-
   <question speaker="system" predicate="selected_contact" type="wh_question">
     <utterance>welke contact</utterance>
   </question>
@@ -52,10 +48,6 @@
 
   <validity name="PhoneNumberAvailable">
     <utterance><individual predicate="selected_contact"/> heeft geen telefoonnummer</utterance>
-  </validity>
-
-  <validity name="PhoneNumberToCallAvailable">
-    <utterance><individual predicate="contact_to_call"/> heeft geen telefoonnummer</utterance>
   </validity>
 
   <lexicon>

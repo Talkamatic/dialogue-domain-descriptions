@@ -44,7 +44,7 @@ class ContactBookDevice(DddDevice):
     }
 
     class ReportCall(DeviceAction):
-        def perform(self, contact_to_call):
+        def perform(self, selected_contact):
             return True
 
     class ContactRecognizer(EntityRecognizer):
@@ -69,20 +69,12 @@ class ContactBookDevice(DddDevice):
                 return True
             return False
 
-    class PhoneNumberToCallAvailable(PhoneNumberAvailable):
-        pass
-
     class phone_number_of_contact(DeviceWHQuery):
         def perform(self, selected_contact):
             number = self.device.PHONE_NUMBERS.get(selected_contact)
-
             if number is None:
                 return []
-
             number_entity = {
                 "grammar_entry": number
             }
             return [number_entity]
-
-    class phone_number_to_call(phone_number_of_contact):
-        pass

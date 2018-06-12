@@ -19,10 +19,6 @@
     <utterance>j'appelle <individual predicate="selected_contact"/></utterance>
   </report>
 
-  <question speaker="system" predicate="contact_to_call" type="wh_question">
-    <utterance>quel contact</utterance>
-  </question>
-
   <question speaker="system" predicate="selected_contact" type="wh_question">
     <utterance>quel contact</utterance>
   </question>
@@ -52,10 +48,6 @@
 
   <validity name="PhoneNumberAvailable">
     <utterance>je n'ai pas le numéro de <individual predicate="selected_contact"/></utterance>
-  </validity>
-
-  <validity name="PhoneNumberToCallAvailable">
-    <utterance>je n'ai pas le numéro de <individual predicate="contact_to_call"/></utterance>
   </validity>
 
   <lexicon>

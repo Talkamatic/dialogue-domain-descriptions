@@ -16,12 +16,8 @@
   </request>
 
   <report action="ReportCall" status="ended">
-    <utterance>calling <individual predicate="contact_to_call"/></utterance>
+    <utterance>calling <individual predicate="selected_contact"/></utterance>
   </report>
-
-  <question speaker="system" predicate="contact_to_call" type="wh_question">
-    <utterance>which contact</utterance>
-  </question>
 
   <question speaker="system" predicate="selected_contact" type="wh_question">
     <utterance>which contact</utterance>
@@ -35,10 +31,6 @@
 
   <validity name="PhoneNumberAvailable">
     <utterance><individual predicate="selected_contact"/> has no phone number</utterance>
-  </validity>
-
-  <validity name="PhoneNumberToCallAvailable">
-    <utterance><individual predicate="contact_to_call"/> has no phone number</utterance>
   </validity>
 
   <question speaker="user" predicate="phone_number_of_contact">
