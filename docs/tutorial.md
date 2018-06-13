@@ -194,9 +194,8 @@ Anyway, let's add a new goal and plan, corresponding to our `call` action. Exten
   <goal type="perform" action="call">
     <plan>
       <findout type="wh_question" predicate="selected_contact"/>
-      <dev_perform action="Call" postconfirm="true"/>
+      <invoke_service_action name="Call" postconfirm="true"/>
     </plan>
-    <postcond><device_activity_terminated action="Call"/></postcond>
   </goal>
 </domain>
 ```
@@ -293,90 +292,33 @@ but got:
   S> I heard you say John. I don't understand. So, Who do you want to call?
 ```
 
-As can be seen, the system doesn't understand John. We need to add an entity recognizer to our service interface. It needs to recognize entities of our `contact` sort.
-
-Check the boilerplate service interface in `basic_action/service_interface.xml`:
+As can be seen, the system doesn't understand John. We need to add an entity recognizer to our service interface. It needs to recognize entities of our `contact` sort. Our boilerplate service interface is basically empty, in `basic_action/service_interface.xml`, so let's just add it.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <service_interface>
     <entity_recognizer name="BasicActionRecognizer">
         <target>
-            <device_module device="BasicActionDevice"/>
+            <http endpoint="http://127.0.0.1:10102/contact_recognizer"/>
         </target>
     </entity_recognizer>
 </service_interface>
 ```
 
-It already contains an entity recognizer that we can use directly. It's defined in `basic_action/device.py`, in plain python. This gives us freedom when implementing the entity recognizer, but it's under great responsibility. We can unexpectedly affect performance and stability if we're not careful. This entity recognizer should however be simple.
+Here, we use an HTTP target with an end-point that runs an HTTP service. An HTTP service can be hosted anywhere where TDM can reach it. In this tutorial, we assume that the service is hosted locally, i.e. on the same machine as TDM (127.0.0.1), but this is not required. Generally, the developer can choose any web development framework as long as it is within the constraints of the [HTTP service API protocol](APIs/http_service_1.0).
 
-Let's check the boilerplate.
+The entity recognizer is responsible for finding all dynamic entities in utterances. Its accuracy affects the behaviour of the dialogue system. Since the search is conducted during runtime, particular care should be taken to ensure that the method is accurate, robust and has sufficient performance. See the [API documentation](APIs/http_service_1.0/#entity-recognizer-requests) for details about request and response formats for entity recognizers.
 
-```python
-from tdm.lib.device import DddDevice, EntityRecognizer
+In this case, we are providing you with a ready-to-use [HTTP service](http_service_example.py), which includes an entity recognizer. It uses [Flask web framework](http://flask.pocoo.org/docs/1.0/) and [jinja2](http://jinja.pocoo.org/docs/2.10/) templates in plain python.
 
+As the service is hosted locally in this case, we recommend to save it in the DDD folder `basic_action`. Then, **spawn** it with Flask:
 
-class BasicActionDevice(DddDevice):
-    class BasicActionRecognizer(EntityRecognizer):
-        """Entity recognizer for BasicAction"""
-
-        def recognize(self, utterance, language):
-            """Recognize entities in a user utterance, given the specified language.
-
-            This method is responsible for finding all dynamic entities in the utterance. Its accuracy affects the
-            behaviour of the dialogue system.
-
-            Since the search is conducted during runtime, particular care should be taken to ensure that the method is
-            accurate, robust and has sufficient performance.
-
-            Args:
-                utterance (str): The utterance to be searched. For example 'call John'.
-                language  (str): The language code of the utterance according to the ISO 639-2/B standard.
-                                 Exceptions are Swedish ('sv' instead of 'swe') and Italian ('it' instead of 'ita').
-
-            Returns:
-                list of dicts: Given the example utterance "call John", the following entity could be returned
-                [
-                    {
-                        "sort": "contact",       # The sort must be declared in the ontology.
-                        "grammar_entry": "John", # The grammar entry as it occurred in 'utterance'.
-                        "name": "contact_john",  # [optional] Should be a globally unique identifier. Must never be
-                                                 # found as is in a user utterance. Use for example the form Sort_ID
-                                                 # (e.g. contact_john).
-                    },
-                ]
-            """
-            return []
+```bash
+export FLASK_APP=basic_action/http_service_example.py
+flask run --port=10102
 ```
 
-And add the recognizer.
-
-```python
-from tdm.lib.device import DddDevice, EntityRecognizer
-
-class BasicActionDevice(DddDevice):
-    CONTACT_NUMBERS = {
-        "John": "0701234567",
-        "Lisa": "0709876543",
-        "Mary": "0706574839",
-        "Andy": None,
-    }
-    
-    class BasicActionRecognizer(EntityRecognizer):
-        def recognize(self, string, unused_language):
-            result = []
-            words = string.lower().split()
-            for contact in self.device.CONTACT_NUMBERS.keys():
-                if contact.lower() in words:
-                    recognized_entity = {
-                        "sort": "contact",
-                        "grammar_entry": contact
-                    }
-                    result.append(recognized_entity)
-            return result
-```
-
-Build and test.
+And then, build and test.
 
 ```bash
 tdm build
@@ -398,62 +340,20 @@ Great, TDM appears to understand John. It wants to execute the `Call` action usi
         </parameters>
         <failure_reasons/>
         <target>
-            <device_module device="BasicActionDevice"/>
+            <http endpoint="http://127.0.0.1:10102/call"/>
         </target>
     </action>
     <entity_recognizer name="BasicActionRecognizer">
         <target>
-            <device_module device="BasicActionDevice"/>
+            <http endpoint="http://127.0.0.1:10102/entity_recognizer"/>
         </target>
     </entity_recognizer>
 </service_interface>
 ```
 
-If we build now...
+To implement the 'call' action, see the [API documentation](APIs/http_service_1.0/#action-requests) for details about request and response formats for actions. However, you can also find and use the 'call' action that has been already implemented in the example HTTP service.
 
-```bash
-tdm build
-```
-
-```diff
-tdm.ddd.device_handler.MissingDeviceMethodException: The service interface defines actions [u'Call']. Expected to find [u'Call'] as 'DeviceAction' methods in device 'BasicActionDevice', but found []
-```
-
-TDM complains that the `Call` action is not found in `basic_action/device.py`. Let's add it:  
-
-```python
-from tdm.lib.device import DddDevice, EntityRecognizer, DeviceAction
-
-class BasicActionDevice(DddDevice):
-    CONTACT_NUMBERS = {
-        "John": "0701234567",
-        "Lisa": "0709876543",
-        "Mary": "0706574839",
-        "Andy": None,
-    }
-    
-    class Call(DeviceAction):
-        def perform(self, selected_contact):
-            number = self.device.CONTACT_NUMBERS.get(selected_contact)
-            # TODO: Implement calling
-            success = True
-            return success
-            
-    class BasicActionRecognizer(EntityRecognizer):
-        def recognize(self, string, unused_language):
-            result = []
-            words = string.lower().split()
-            for contact in self.device.CONTACT_NUMBERS.keys():
-                if contact.lower() in words:
-                    recognized_entity = {
-                        "sort": "contact",
-                        "grammar_entry": contact
-                    }
-                    result.append(recognized_entity)
-            return result
-```
-
-Build.
+Build again.
 
 ```bash
 tdm build
@@ -465,7 +365,7 @@ Building generated grammar for DDD 'basic_action'.
 Not using RASA NLU, will not clean RASA build directories.
 [eng] Generating grammar.
 
-Missing grammar entry: How does the system report that the device action 'Call' ended? Example:
+Missing grammar entry: How does the system report that the service action 'Call' ended? Example:
 
   <report action="Call" status="ended">
     <utterance>performed Call</utterance>
@@ -482,7 +382,7 @@ Missing grammar entry: How does the system report that the device action 'Call' 
 Finished building generated grammar for DDD 'basic_action'.
 ```
 
-As can be seen, we need to add a grammar entry for the device action `Call`. This is required because we said so in the plan. Remember `postconfirm="true"` in the `dev_perform` entry of the plan?
+As can be seen, we need to add a grammar entry for the service action `Call`. This is required because we said so in the plan. Remember `postconfirm="true"` in the `invoke_service_action` entry of the plan?
 
 Let's add a `report` grammar entry in `basic_action/grammar/grammar_eng.xml`. We can reference the `selected_contact` predicate since its part of the `findout` entries of the plan.
 
@@ -588,70 +488,23 @@ S> J'appelle André.
 
 Make sure to save the interaction tests with UTF-8 encoding without byte-order mark (BOM) when using non-ASCII characters.
 
-Next, we need to handle the language inside the entity recognizer. Modify the service interface at `basic_action/device.py` to handle French:
+Check our HTTP service to see that name of the contacts are already there translated in French (and even Dutch):
 
 ```python
-# -*- coding: utf-8 -*-
+CONTACTS_FRENCH = {
+    "Jean": JOHN,
+    u"Élise": LISA,
+    "Marie": MARY,
+    u"André": ANDY,
+}
 
-from tdm.lib.device import EntityRecognizer, DeviceAction, DddDevice
-
-
-class BasicActionDevice(DddDevice):
-    JOHN = "contact_john"
-    LISA = "contact_lisa"
-    MARY = "contact_mary"
-    ANDY = "contact_andy"
-
-    PHONE_NUMBERS = {
-        JOHN: "0701234567",
-        LISA: "0709876543",
-        MARY: "0706574839",
-        ANDY: None,
-    }
-
-    CONTACTS_ENGLISH = {
-        "John": JOHN,
-        "Lisa": LISA,
-        "Mary": MARY,
-        "Andy": ANDY,
-    }
-
-    CONTACTS_FRENCH = {
-        "Jean": JOHN,
-        u"Élise": LISA,
-        "Marie": MARY,
-        u"André": ANDY,
-    }
-
-    CONTACTS = {
-        "eng": CONTACTS_ENGLISH,
-        "fre": CONTACTS_FRENCH,
-    }
-
-    class Call(DeviceAction):
-        def perform(self, selected_contact):
-            number = self.device.PHONE_NUMBERS.get(selected_contact)
-            # TODO: Implement calling
-            success = True
-            return success
-
-    class BasicActionRecognizer(EntityRecognizer):
-        def recognize(self, string, language):
-            result = []
-            words = string.lower().split()
-            contacts = self.device.CONTACTS[language]
-            for contact_name, identifier in contacts.iteritems():
-                if contact_name.lower() in words:
-                    recognized_entity = {
-                        "sort": "contact",
-                        "grammar_entry": contact_name,
-                        "name": identifier,
-                    }
-                    result.append(recognized_entity)
-            return result
+CONTACTS_DUTCH = {
+    "Jan": JOHN,
+    "Lisa": LISA,
+    "Maria": MARY,
+    "Andreas": ANDY,
+}
 ```
-
-Make sure to save it with UTF-8 without BOM as well.
 
 Finally, we need to create a grammar file for the new language. For French, we add the file `basic_action/grammar/grammar_fre.xml` with the following contents:
 
