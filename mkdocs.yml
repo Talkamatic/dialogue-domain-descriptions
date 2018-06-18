@@ -4,5 +4,8 @@ pages:
 - Introduction: index.md
 - "Step-by-step tutorial": tutorial.md
 - Examples: examples.md
+- APIs:
+    - "API 1.0 for HTTP frontends": APIs/http_frontend_1.0.md
+    - "API 1.0 for HTTP services": APIs/http_service_1.0.md
 
 theme: readthedocs
