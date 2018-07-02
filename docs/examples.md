@@ -2,8 +2,6 @@ Below are examples for you to imitate. Find one that matches your desired functi
 
 Remember to work test driven, adding one test at a time, then making it work, according to the [tutorial](tutorial).
 
-The source code of all examples is available on [GitHub][github file browser].
-
 
 # Basic action
 
@@ -16,6 +14,8 @@ Let your user do an action, using an `entity recognizer` for its `findout`. In t
 
 This is an example of the basic [action](/#actions), [answer](/#answers) and [feedback](/#feedback) concepts in TDM. It shows what is needed in order to perform an `action` that you implement yourself in the python `service interface`. In addition, it uses an `entity recognizer` to recognize contacts during run time.
 
+The source code is available on [Github](https://github.com/Talkamatic/dialogue-domain-descriptions/tree/8.0/basic_action).
+
 
 # Basic query
 
@@ -26,6 +26,8 @@ Let your user ask a question. While similar to the [basic action](examples/#basi
 
 This is an example of the basic [query](/#queries) and [answer](/#answers) concepts in TDM. It shows what is needed in order to ask a `query` that is answered by the system. You implement the answer logic yourself in the python `service interface`.
 
+The source code is available on [Github](https://github.com/Talkamatic/dialogue-domain-descriptions/tree/8.0/basic_query).
+
 
 # Parameter validation
 
@@ -35,6 +37,8 @@ Should some actions or questions be unavailable, disallowed or prohibited for yo
     S> Andy has no phone number.
 
 When a service is queried for parameters to actions and queries, the parameter is validated against all matching validators. If invalid, a specific grammar entry is used to provide system feedback and the answer is neglected.
+
+The source code is available on [Github](https://github.com/Talkamatic/dialogue-domain-descriptions/tree/8.0/parameter_validation).
 
 
 # Incremental search
@@ -48,6 +52,8 @@ Is your user looking for a single item in a set of many? Make sure your applicat
 
 Incremental search utilizes predicate features, which are declared in the ontology of the DDD. When a service is queried for individuals of the predicate, the features need to match. By asking the user to specify more features, the search can be narrowed down to finally match a single individual.
 
+The source code is available on [Github](https://github.com/Talkamatic/dialogue-domain-descriptions/tree/8.0/incremental_search).
+
 
 # Android
 
@@ -58,4 +64,4 @@ Is your Android device placing the calls for your users? Forward your actions to
 
 This example combines the examples of action, query, parameter validation and entity recognition into one DDD and forwards the 'Call' action to the frontend. It can be used together with the [android-example](https://github.com/Talkamatic/android-example), an Android app to showcase how your frontend hears, speaks and thinks.
 
-[github file browser]: https://github.com/Talkamatic/dialogue-domain-descriptions/tree/master
+The source code is available on [Github](https://github.com/Talkamatic/dialogue-domain-descriptions/tree/8.0/android).
