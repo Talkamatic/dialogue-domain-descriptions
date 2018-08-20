@@ -192,7 +192,7 @@ The `output` object is provided unless an error has occurred and has the followi
 
 - `utterance`: A string representing the output utterance from the system and should be realized by the client (e.g. by speaking it or displaying it as text).
 - `expected_passivity`: If not null, the value is a number corresponding to the number of seconds of user passivity after which the client is expected to make a [passivity notification request](#passivity-notification). If the value is 0.0, the passivity notification request should be issued immediately after having realized the system output.
-- `actions`: A list of [action invocation objects](#action-invocation-objects), representing action to be invoked by the client. TDM assumes that actions will succeed and reports them accordingly.
+- `actions`: A list of [action invocation objects](#action-invocation-object), which needs to be invoked by the client. TDM assumes that the actions will succeed and reports them accordingly.
 
 The `nlu_result` object is provided for [input requests](#input-requests) unless an error has occurred and contains the following fields:
 
@@ -217,6 +217,20 @@ An action invocation object contains information about an action to be invoked b
      - `sort`: ID of the predicate's sort as defined in the ontology.
      - `value`: ID of the value. For the sorts `integer` and `real`, the ID is a number. For other sorts, e.g. `string`, `datetime` and custom sorts, the ID is a string.
      - `grammar_entry`: Natural-language representation of the value.
+
+Example:
+```json
+{
+  "name": "call",
+  "parameters": {
+    "selected_contact": {
+      "sort": "contact",
+      "value": "contact_john",
+      "grammar_entry": "John"
+    }
+  }
+}
+```
 
 # Facts object
 The `facts` field contains a map of key-value pairs for information gathered during the conversation, e.g. from the user. The map may be empty.
