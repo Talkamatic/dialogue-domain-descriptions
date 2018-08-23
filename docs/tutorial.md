@@ -305,9 +305,9 @@ As can be seen, the system doesn't understand John. We need to add an entity rec
 </service_interface>
 ```
 
-Here, we use an HTTP target with an end-point that runs an HTTP service. An HTTP service can be hosted anywhere where TDM can reach it. In this tutorial, we assume that the service is hosted locally, i.e. on the same machine as TDM (127.0.0.1), but this is not required. Generally, the developer can choose any web development framework as long as it is within the constraints of the [HTTP service API protocol](APIs/http_service_1.0).
+Here, we use an HTTP target with an end-point that runs an HTTP service. An HTTP service can be hosted anywhere where TDM can reach it. In this tutorial, we assume that the service is hosted locally, i.e. on the same machine as TDM (127.0.0.1), but this is not required. Generally, the developer can choose any web development framework as long as it is within the constraints of the [HTTP service API protocol](APIs/http_service).
 
-The entity recognizer is responsible for finding all dynamic entities in utterances. Its accuracy affects the behaviour of the dialogue system. Since the search is conducted during runtime, particular care should be taken to ensure that the method is accurate, robust and has sufficient performance. See the [API documentation](APIs/http_service_1.0/#entity-recognizer-requests) for details about request and response formats for entity recognizers.
+The entity recognizer is responsible for finding all dynamic entities in utterances. Its accuracy affects the behaviour of the dialogue system. Since the search is conducted during runtime, particular care should be taken to ensure that the method is accurate, robust and has sufficient performance. See the [API documentation](APIs/http_service/#entity-recognizer-requests) for details about request and response formats for entity recognizers.
 
 In this case, we are providing you with a ready-to-use [HTTP service](http_service_example.py), which includes an entity recognizer. It uses [Flask web framework](http://flask.pocoo.org/docs/1.0/) and [jinja2](http://jinja.pocoo.org/docs/2.10/) templates in plain python.
 
@@ -351,7 +351,7 @@ Great, TDM appears to understand John. It wants to execute the `Call` action usi
 </service_interface>
 ```
 
-To implement the 'call' action, see the [API documentation](APIs/http_service_1.0/#action-requests) for details about request and response formats for actions. However, you can also find and use the 'call' action that has been already implemented in the example HTTP service.
+To implement the 'call' action, see the [API documentation](APIs/http_service/#action-requests) for details about request and response formats for actions. However, you can also find and use the 'call' action that has been already implemented in the example HTTP service.
 
 Build again.
 

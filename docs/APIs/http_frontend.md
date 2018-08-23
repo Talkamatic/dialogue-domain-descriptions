@@ -1,4 +1,4 @@
-This document describes how to integrate a frontend with TDM over HTTP, covering e.g. how input from the user and output from TDM are communicated between TDM and the client.
+This document describes API version 2.0 for HTTP frontends, enabling frontends to integrate with TDM over HTTP. It covers e.g. how input from the user and output from TDM are communicated between TDM and the client.
 
 The client invokes TDM with an HTTP request to the interaction endpoint, e.g. `http://localhost:9090/interact`, using the POST method and a JSON body. The client should expect the status code to be 200 OK. For other status codes, the client should report an error to the user.
 
@@ -15,7 +15,7 @@ Example:
 
 ```json
 {
-  "version": 1.0,
+  "version": 2.0,
   "request": {
     "type": "start_session"
   }
@@ -41,7 +41,7 @@ Speech input example:
 
 ```json
 {
-  "version": 1.0,
+  "version": 2.0,
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -72,7 +72,7 @@ Text input example:
 
 ```json
 {
-  "version": 1.0,
+  "version": 2.0,
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -105,7 +105,7 @@ Example:
 
 ```json
 {
-  "version": 1.0,
+  "version": 2.0,
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -128,7 +128,7 @@ Example:
 
 ```json
 {
-  "version": 1.0,
+  "version": 2.0,
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -167,7 +167,7 @@ The response from TDM typically contains an output utterance and other relevant 
 
 ```json
 {
-  "version": 1.0,
+  "version": 2.0,
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },

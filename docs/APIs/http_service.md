@@ -1,4 +1,4 @@
-This document describes the API that services invoked by TDM over HTTP need to implement. Services are used by DDDs to invoke actions, invoke queries, recognize entities, and to validate parameters.
+This document describes API version 1.0 for HTTP services. It needs to be implemented by services invoked by TDM over HTTP. Services are used by DDDs to invoke actions, invoke queries, recognize entities, and to validate parameters.
 
 TDM invokes service methods with an HTTP request to the endpoint specified in `service_interface.xml`, using the POST method and a JSON body. It expects the status code to be 200 OK. (For other status codes, TDM reports an error to the user.)
 
