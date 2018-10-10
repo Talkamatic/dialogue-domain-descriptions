@@ -4,6 +4,7 @@ pages:
 - Introduction: index.md
 - "Step-by-step tutorial": tutorial.md
 - Examples: examples.md
+- "Using Rasa NLU": rasa_nlu.md
 - APIs:
     - "API for HTTP frontends": APIs/http_frontend.md
     - "API for HTTP services": APIs/http_service.md
