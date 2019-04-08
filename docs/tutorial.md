@@ -92,9 +92,8 @@ tdm build
 We now receive a warning.
 
 ```diff
-Building generated grammar for DDD 'basic_action'.
+Generating models for DDD 'basic_action'.
 [eng] Cleaning build directory 'build/eng'...Done.
-Not using RASA NLU, will not clean RASA build directories.
 [eng] Generating grammar.
 
 Missing grammar entry: How do speakers talk about the action 'call'? Possible contents of the <action> element:
@@ -102,14 +101,15 @@ Missing grammar entry: How do speakers talk about the action 'call'? Possible co
   <verb-phrase>
   <noun-phrase>
   <one-of>
-[eng] Asserting that language grammar is lower case...Done.
 [eng] Finished generating grammar.
-[eng] Building generated grammar.
-[eng] Finished building generated grammar.
-[eng] Not using RASA NLU, will not generate and build RASA models.
-[eng] Not using word list correction, will not generate word list.
+Finished generating models for DDD 'basic_action'.
+Training models for DDD 'basic_action'.
+[eng] Asserting that language grammar is lower case...Done.
+[eng] Compiling generated grammar.
+[eng] Finished compiling generated grammar.
 [eng] No ASR specified, will not build language model.
-Finished building generated grammar for DDD 'basic_action'.
+[eng] Copying ASR language modules from '/private/tmp/ddd_root/basic_action/grammar/build/eng' to ddd directory...Done.
+[eng] Not using word list correction, will not generate word list.
 ```
 
 Apparently, ontology entries require their corresponding grammar entries.
@@ -220,8 +220,9 @@ tdm build
 ```
 
 ```diff
-[eng] Cleaning build directory u'build/eng'...Done.
-[eng] Generating GF 3.7 grammar.
+Generating models for DDD 'basic_action'.
+[eng] Cleaning build directory 'build/eng'...Done.
+[eng] Generating grammar.
 
 Missing grammar entry: How does the system ask about 'selected_contact'?
 
@@ -232,13 +233,15 @@ Example:
   </question>
 
 
-[eng] Asserting that included grammars are lower case...Done.
-[eng] Finished generating GF 3.7 grammar.
-[eng] Building GF 3.7 grammar.
-[eng] Finished building GF 3.7 grammar.
-[eng] Text-only, skipped building ASR language model.
-[eng] Copying build results from u'build/eng' to ddd directory...Done.
-Finished building grammar with GF 3.7 for DDD 'basic_action'.
+[eng] Finished generating grammar.
+Finished generating models for DDD 'basic_action'.
+Training models for DDD 'basic_action'.
+[eng] Asserting that language grammar is lower case...Done.
+[eng] Compiling generated grammar.
+[eng] Finished compiling generated grammar.
+[eng] No ASR specified, will not build language model.
+[eng] Copying ASR language modules from '/private/tmp/ddd_root/basic_action/grammar/build/eng' to ddd directory...Done.
+[eng] Not using word list correction, will not generate word list.
 ```
 
 We got a new warning about a missing grammar entry. When referencing a predicate in a plan, we apparently need to specify its grammar entry. Since we're using a findout, the grammar entry is to define how TDM should speak the corresponding `question`. Let's extend `basic_action/grammar/grammar_eng.xml` with the following:
@@ -345,7 +348,7 @@ Great, TDM appears to understand John. It wants to execute the `Call` action usi
     </action>
     <entity_recognizer name="BasicActionRecognizer">
         <target>
-            <http endpoint="http://127.0.0.1:10102/entity_recognizer"/>
+            <http endpoint="http://127.0.0.1:10102/contact_recognizer"/>
         </target>
     </entity_recognizer>
 </service_interface>
@@ -359,10 +362,8 @@ Build again.
 tdm build
 ```
 
-```diff
-Building generated grammar for DDD 'basic_action'.
+```diffGenerating models for DDD 'basic_action'.
 [eng] Cleaning build directory 'build/eng'...Done.
-Not using RASA NLU, will not clean RASA build directories.
 [eng] Generating grammar.
 
 Missing grammar entry: How does the system report that the service action 'Call' ended? Example:
@@ -372,14 +373,15 @@ Missing grammar entry: How does the system report that the service action 'Call'
   </report>
 
 
-[eng] Asserting that language grammar is lower case...Done.
 [eng] Finished generating grammar.
-[eng] Building generated grammar.
-[eng] Finished building generated grammar.
-[eng] Not using RASA NLU, will not generate and build RASA models.
-[eng] Not using word list correction, will not generate word list.
+Finished generating models for DDD 'basic_action'.
+Training models for DDD 'basic_action'.
+[eng] Asserting that language grammar is lower case...Done.
+[eng] Compiling generated grammar.
+[eng] Finished compiling generated grammar.
 [eng] No ASR specified, will not build language model.
-Finished building generated grammar for DDD 'basic_action'.
+[eng] Copying ASR language modules from '/private/tmp/ddd_root/basic_action/grammar/build/eng' to ddd directory...Done.
+[eng] Not using word list correction, will not generate word list.
 ```
 
 As can be seen, we need to add a grammar entry for the service action `Call`. This is required because we said so in the plan. Remember `postconfirm="true"` in the `invoke_service_action` entry of the plan?
