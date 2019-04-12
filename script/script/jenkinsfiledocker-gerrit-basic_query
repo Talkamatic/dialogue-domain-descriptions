@@ -84,7 +84,7 @@ node('docker') {
                       }
 
                       docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-                        def tdm = docker.image('talkamatic/tdm:nightly-eng');
+                        def tdm = docker.image('talkamatic/tdm:latest');
 
 
                         stage('Mirror') {
