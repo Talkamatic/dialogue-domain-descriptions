@@ -1,118 +1,105 @@
 node('docker') {
   properties([
-    parameters([
-      string(
-        defaultValue: 'refs/heads/master',
-        description: 'The Git reference used in checkout',
-        name: 'GERRIT_REFSPEC'
-        ),
-        string(
-          defaultValue: 'master',
-          description: 'The Git branch used in checkout',
-          name: 'GERRIT_BRANCH'
+      parameters([
+          string(
+              defaultValue: 'refs/heads/master',
+              description: 'The Git reference used in checkout',
+              name: 'GERRIT_REFSPEC'
           ),
-          ]),
-          buildDiscarder(
-            logRotator(
+          string(
+              defaultValue: 'master',
+              description: 'The Git branch used in checkout',
+              name: 'GERRIT_BRANCH'
+          ),
+      ]),
+      buildDiscarder(
+          logRotator(
               artifactDaysToKeepStr: '',
               artifactNumToKeepStr: '',
               daysToKeepStr: '',
               numToKeepStr: '10'
-              )
-              ),
-              disableConcurrentBuilds(),
-              pipelineTriggers([
-                gerrit(
-                  customUrl: '',
-                  gerritProjects:[
+          )
+      ),
+      disableConcurrentBuilds(),
+      pipelineTriggers([
+          gerrit(
+              customUrl: '',
+              gerritProjects:[
                   [
-                  branches: [
-                  [
-                  compareType: 'ANT',
-                  pattern: '**'
+                      branches: [
+                          [
+                              compareType: 'ANT',
+                              pattern: '**'
+                          ]
+                      ],
+                      compareType: 'PLAIN',
+                      disableStrictForbiddenFileVerification: false,
+                      pattern: 'github/dialogue-domain-descriptions'
                   ]
-                  ],
-                  compareType: 'PLAIN',
-                  disableStrictForbiddenFileVerification: false,
-                  pattern: 'github/dialogue-domain-descriptions'
-                  ]
-                  ],
-                  serverName: 'Talkamatic',
-                  triggerOnEvents: [
+              ],
+              serverName: 'Talkamatic',
+              triggerOnEvents: [
                   patchsetCreated(
-                    excludeDrafts: true,
-                    excludeNoCodeChange: false,
-                    excludeTrivialRebase: false
-                    )
-                    ]
-                    )
-                    ])
-                    ])
+                      excludeDrafts: true,
+                      excludeNoCodeChange: false,
+                      excludeTrivialRebase: false
+                  )
+              ]
+          )
+      ])
+  ])
 
-                    stage('cleanup') {
-                      step([$class: 'WsCleanup'])
-                    }
+  stage('cleanup') {
+    step([$class: 'WsCleanup'])
+  }
 
-                    stage('checkout') {
-                      checkout(
-                        changelog: false,
-                        poll: false,
-                        scm: [
-                        $class: 'GitSCM',
-                        branches: [
-                        [name: params.GERRIT_BRANCH]
-                        ],
-                        doGenerateSubmoduleConfigurations: false,
-                        extensions: [
-                        [
-                        $class: 'BuildChooserSetting',
-                        buildChooser: [
+  stage('checkout') {
+    checkout(
+        changelog: false,
+        poll: false,
+        scm: [
+            $class: 'GitSCM',
+            branches: [
+                [name: params.GERRIT_BRANCH]
+            ],
+            doGenerateSubmoduleConfigurations: false,
+            extensions: [
+                [
+                    $class: 'BuildChooserSetting',
+                    buildChooser: [
                         $class: 'GerritTriggerBuildChooser'
-                        ]
-                        ]
-                        ],
-                        submoduleCfg: [],
-                        userRemoteConfigs: [
-                        [
-                        credentialsId: 'jenkinsatgerrit',
-                        refspec: params.GERRIT_REFSPEC,
-                        url: 'ssh://jenkins@gerrit.talkamatic.se:29418/github/dialogue-domain-descriptions'
-                        ]
-                        ]
-                        ]
-                        )
-                      }
+                    ]
+                ]
+            ],
+            submoduleCfg: [],
+            userRemoteConfigs: [
+                [
+                    credentialsId: 'jenkinsatgerrit',
+                    refspec: params.GERRIT_REFSPEC,
+                    url: 'ssh://jenkins@gerrit.talkamatic.se:29418/github/dialogue-domain-descriptions'
+                ]
+            ]
+        ]
+    )
+  }
 
-                      docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-                        def tdm = docker.image('talkamatic/tdm:latest');
+  docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+    def tdm = docker.image('talkamatic/tdm:latest');
 
+    stage('pull') {
+      tdm.pull()
+    }
 
-                        stage('Mirror') {
-                          // First make sure the slave has this image.
-                          tdm.pull()
-                        }
-                        tdm.inside {
+    tdm.inside {
+      stage('build') {
+        sh 'cd parameter_validation; tdm build'
+      }
 
-
-                          stage('build') {
-                            sh '''#!/bin/bash -ex
-                            cd parameter_validation
-                            tdm build
-                            cd ..
-                            '''
-                          }
-
-                          stage('test') {
-                            sh '''#!/bin/bash -ex
-
-                            FLASK_APP=http_service/http_service.py flask run --port 10105 &
-                            sleep 1 #Allow flask 1 second to start
-
-                            cd parameter_validation
-                            tdm test eng
-
-                            '''
-                          }
-                        }
-                      }
-                    }
+      stage('test') {
+        sh 'FLASK_APP=http_service/http_service.py flask run --port 10105 &'
+        sh 'sleep 1 #Allow flask 1 second to start'
+        sh 'cd parameter_validation; tdm test eng'
+      }
+    }
+  }
+}

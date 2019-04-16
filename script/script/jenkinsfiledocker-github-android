@@ -1,54 +1,53 @@
 node('docker') {
   properties([
-    buildDiscarder(
-      logRotator(
-        artifactDaysToKeepStr: '',
-        artifactNumToKeepStr: '',
-        daysToKeepStr: '',
-        numToKeepStr: '10'
-        )
-        ),
-        disableConcurrentBuilds()
-        ])
+      buildDiscarder(
+          logRotator(
+              artifactDaysToKeepStr: '',
+              artifactNumToKeepStr: '',
+              daysToKeepStr: '',
+              numToKeepStr: '10'
+          )
+      ),
+      disableConcurrentBuilds()
+  ])
 
-        stage('cleanup') {
-          step([$class: 'WsCleanup'])
-        }
+  stage('cleanup') {
+    step([$class: 'WsCleanup'])
+  }
 
-        stage('checkout') {
-          checkout([$class: 'GitSCM', branches: [[name: 'refs/heads/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'jenkinsatgerrit', url: 'https://github.com/Talkamatic/dialogue-domain-descriptions.git']]])
-        }
+  stage('checkout') {
+    checkout([
+        $class: 'GitSCM',
+        branches: [[name: 'refs/heads/master']],
+        doGenerateSubmoduleConfigurations: false,
+        extensions: [],
+        submoduleCfg: [],
+        userRemoteConfigs: [
+            [
+                credentialsId: 'jenkinsatgerrit',
+                url: 'https://github.com/Talkamatic/dialogue-domain-descriptions.git'
+            ]
+        ]
+    ])
+  }
 
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-          def tdm = docker.image('talkamatic/tdm:latest');
+  docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+    def tdm = docker.image('talkamatic/tdm:latest');
 
+    stage('pull') {
+      tdm.pull()
+    }
 
-          stage('Mirror') {
-            // First make sure the slave has this image.
-            tdm.pull()
-          }
-
-          tdm.inside {
-
-
-            stage('build') {
-              sh '''#!/bin/bash -ex
-              cd android
-              tdm build
-              cd ..
-              '''
-            }
-
-            stage('test') {
-              sh '''#!/bin/bash -ex
-
-              FLASK_APP=http_service/http_service.py flask run --port 10101 &
-              sleep 1 #Allow flask 1 second to start
-              cd android
-              tdm test eng
-
-              '''
-            }
-          }
-        }
+    tdm.inside {
+      stage('build') {
+        sh 'cd android; tdm build'
       }
+
+      stage('test') {
+        sh 'FLASK_APP=http_service/http_service.py flask run --port 10101 &'
+        sh 'sleep 1 #Allow flask 1 second to start'
+        sh 'cd android; tdm test eng'
+      }
+    }
+  }
+}
