@@ -84,7 +84,7 @@ node('docker') {
   }
 
   docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-    def tdm = docker.image('talkamatic/tdm:master');
+    def tdm = docker.image('talkamatic/tdm:candidate');
 
     stage('pull') {
       tdm.pull()
