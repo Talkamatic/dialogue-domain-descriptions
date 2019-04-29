@@ -554,6 +554,6 @@ OK
 
 # Step 9. How to continue
 
-This tutorial has illustrated how to implement the [basic action example](examples#basic-action). The source code is available on [Github](https://github.com/Talkamatic/dialogue-domain-descriptions/tree/10.0/basic_action).
+This tutorial has illustrated how to implement the [basic action example](examples#basic-action). The source code is available on [Github](https://github.com/Talkamatic/dialogue-domain-descriptions/tree/11.0/basic_action).
 
 In order to continue, go to the [examples](examples) section to find an example similar to your desired functionality. Steal the best ideas from there, adjusting them for yor domain. Remember to work test driven, adding a test first, then making it work.
