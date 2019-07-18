@@ -39,13 +39,14 @@ pipeline:
 
 # Add pre-trained named entity recognizers (NERs)
 
-Rasa NLU [supports pre-trained NERs](https://legacy-docs.rasa.com/docs/nlu/0.14.6/entities/) to be part of the pipeline, for instance the NER from [Duckling](https://legacy-docs.rasa.com/docs/nlu/0.14.6/components/#ner-duckling-http) which can be used together with TDM.
+Rasa NLU [supports pre-trained NERs](https://legacy-docs.rasa.com/docs/nlu/0.14.6/entities/) to be part of the pipeline, for instance the NERs from [Duckling](https://legacy-docs.rasa.com/docs/nlu/0.14.6/components/#ner-duckling-http) and [Spacy](https://legacy-docs.rasa.com/docs/nlu/0.14.6/components/#ner-spacy) which can be used together with TDM.
 
+## Duckling
 In this version of TDM, the following Duckling entities are supported:
 - `number`: maps to the `integer` sort.
 - `time`: maps to the `datetime` sort.
 
-To enable it, make sure it's available to the Rasa server and add its component to an explicit pipeline:
+To enable Duckling, make sure it's available to the Rasa server and add its component to an explicit pipeline:
 
 ```yml
 - name: "DucklingHTTPExtractor"
@@ -65,6 +66,24 @@ pipeline:
 - name: "SklearnIntentClassifier"
 - name: "DucklingHTTPExtractor"
   url: "http://duckling:8000"
+```
+
+## Spacy
+In this version of TDM, the following Spacy entity types are supported:
+- `PERSON` and `PER`: map to the `person_name` sort.
+
+To enable Spacy, make sure it's available to the Rasa server and use a pipeline that contains `SpacyEntityExtractor`, e.g.
+
+```yml
+pipeline:
+- name: "SpacyNLP"
+- name: "SpacyTokenizer"
+- name: "RegexFeaturizer"
+- name: "SpacyFeaturizer"
+- name: "CRFEntityExtractor"
+- name: "EntitySynonymMapper"
+- name: "SklearnIntentClassifier"
+- name: "SpacyEntityExtractor"
 ```
 
 # Train the model
