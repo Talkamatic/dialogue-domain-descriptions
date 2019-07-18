@@ -4,7 +4,7 @@ This guide is written for version `0.14.6` of Rasa NLU.
 
 Before getting started, make sure to use hosted a Rasa NLU with the necessary dependencies installed. For instance, if you plan on using a Spacy pipeline, ensure that it has the appropriate language models and Spacy itself installed.
 
-For more information, read up on the [Rasa NLU documentation](https://rasa.com/docs/nlu/). We recommend [running it in Docker](https://rasa.com/docs/nlu/docker/).
+For more information, read up on the [Rasa NLU documentation](https://legacy-docs.rasa.com/docs/nlu/0.14.6/). We recommend [running it in Docker](https://legacy-docs.rasa.com/docs/nlu/0.14.6/docker/).
 
 # Generate training data
 
@@ -23,7 +23,7 @@ data: |
 ...
 ```
 
-Here, the pre-configured `spacy_sklearn` pipeline will be used, but [there are others to choose from too](https://rasa.com/docs/nlu/choosing_pipeline/).
+Here, the pre-configured `spacy_sklearn` pipeline will be used, but [there are others to choose from too](https://legacy-docs.rasa.com/docs/nlu/0.14.6/choosing_pipeline/).
 
 It's also possible to configure the pipeline oneself, by listing the components explicitly. For instance, this is the `spacy_sklearn` pipeline:
 ```yml
@@ -39,7 +39,7 @@ pipeline:
 
 # Add pre-trained named entity recognizers (NERs)
 
-Rasa NLU [supports pre-trained NERs](https://rasa.com/docs/nlu/entities/) to be part of the pipeline, for instance the NER from [Duckling](https://rasa.com/docs/nlu/components/#ner-duckling-http) which can be used together with TDM.
+Rasa NLU [supports pre-trained NERs](https://legacy-docs.rasa.com/docs/nlu/0.14.6/entities/) to be part of the pipeline, for instance the NER from [Duckling](https://legacy-docs.rasa.com/docs/nlu/0.14.6/components/#ner-duckling-http) which can be used together with TDM.
 
 In this version of TDM, the following Duckling entities are supported:
 - `number`: maps to the `integer` sort.
@@ -69,7 +69,7 @@ pipeline:
 
 # Train the model
 
-Once the training data and pipeline are configured, train your model according to the [Rasa NLU HTTP API](https://rasa.com/docs/nlu/http/#post-train).
+Once the training data and pipeline are configured, train your model according to the [Rasa NLU HTTP API](https://legacy-docs.rasa.com/docs/nlu/0.14.6/http/#post-train).
 
 For instance with:
 
@@ -100,8 +100,8 @@ Make sure to configure Rasa NLU in the DDD config, for instance at `my_ddd/ddd.c
 
 The `rasa_nlu` object contains the following fields:
 
-- `url`: A string URL, pointing to the [`/parse` endpoint of a Rasa NLU server](https://rasa.com/docs/nlu/http/#post-parse).
-- `config`: An object sent in the JSON payload when TDM posts it to the `url`. It can contain for instance `project` and `model`, as specified by [the Rasa NLU HTTP API](https://rasa.com/docs/nlu/http/#post-parse). TDM also adds the field `"q": "<user utterance>"`.
+- `url`: A string URL, pointing to the [`/parse` endpoint of a Rasa NLU server](https://legacy-docs.rasa.com/docs/nlu/0.14.6/http/#post-parse).
+- `config`: An object sent in the JSON payload when TDM posts it to the `url`. It can contain for instance `project` and `model`, as specified by [the Rasa NLU HTTP API](https://legacy-docs.rasa.com/docs/nlu/0.14.6/http/#post-parse). TDM also adds the field `"q": "<user utterance>"`.
 
 If Rasa NLU should not be used for a particular language, remove the language altogether:
 
