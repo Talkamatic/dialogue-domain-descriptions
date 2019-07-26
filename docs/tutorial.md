@@ -362,7 +362,8 @@ Build again.
 tdm build
 ```
 
-```diffGenerating models for DDD 'basic_action'.
+```diff
+Generating models for DDD 'basic_action'.
 [eng] Cleaning build directory 'build/eng'...Done.
 [eng] Generating grammar.
 
