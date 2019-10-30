@@ -8,7 +8,7 @@ For more information, read up on the [Rasa NLU documentation](https://legacy-doc
 
 # Generate training data
 
-In order to use Rasa NLU with TDM, we need to train the model. The Tala SDK can be used to generate training data for your DDD: `tala generate-rasa my-ddd eng > training_data.yml`.
+In order to use Rasa NLU with TDM, we need to train the model. The Tala SDK can be used to generate training data for your DDD: `tala generate rasa my-ddd eng > training_data.yml`.
 
 # Configure the pipeline
 
