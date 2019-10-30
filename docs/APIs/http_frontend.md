@@ -24,7 +24,7 @@ Example:
 }
 ```
 
-The `request` object may also contain the following optional fields:
+The `start_session` object may contain the following optional fields:
 
 - `ddd_set`: A string specifying a DDD set for the session. If omitted, a default DDD set configured by the backend is used.
 
