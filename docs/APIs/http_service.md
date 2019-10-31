@@ -4,7 +4,7 @@ TDM invokes service methods with an HTTP request to the endpoint specified in `s
 
 The request body always contains a version number, specifying the version of the service integration format. The service can use the version in the request to validate that the service implementation is compatible with the request. The service also returns a version number in the response body, corresponding to the version of this API used when implementing the service. If the service returns a version number that is not compatible with the request, TDM reports an error to the user.
 
-Responses from services adhere to the [JSend specification](http://labs.omniti.com/labs/jsend). See [response format](#response-format) for a general description.
+Responses from services adhere to the [JSend specification](https://github.com/omniti-labs/jsend). See [response format](#response-format) for a general description.
 
 The exact format of the request and the response depends on the service method and is described below.
 
@@ -436,7 +436,7 @@ Example:
 ```
 
 # Response format
-All service responses adhere to the [JSend specification](http://labs.omniti.com/labs/jsend).
+All service responses adhere to the [JSend specification](https://github.com/omniti-labs/jsend).
 
 In general, responses can have one of three appearances, corresponding to the status of the invocation: `success`, `fail` and `error`. See the examples below.
 
