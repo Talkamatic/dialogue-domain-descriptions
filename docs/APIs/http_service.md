@@ -1,4 +1,4 @@
-This document describes API version 1.0 for HTTP services. It needs to be implemented by services invoked by TDM over HTTP. Services are used by DDDs to invoke actions, invoke queries, recognize entities, and to validate parameters.
+This document describes API version 1.1 for HTTP services. It needs to be implemented by services invoked by TDM over HTTP. Services are used by DDDs to invoke actions, invoke queries, recognize entities, and to validate parameters.
 
 TDM invokes service methods with an HTTP request to the endpoint specified in `service_interface.xml`, using the POST method and a JSON body. It expects the status code to be 200 OK. (For other status codes, TDM reports an error to the user.)
 
@@ -15,7 +15,7 @@ Below is an example of a request body for an action called `SetTemperature`, inv
 
 ```json
 {
-  "version": "1.0",
+  "version": "1.1",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -59,7 +59,7 @@ Actions invoked over HTTP can either succeed or fail with an expected reason. Be
 {
   "status": "success",
   "data": {
-    "version": "1.0"
+    "version": "1.1"
   }
 }
 ```
@@ -72,7 +72,7 @@ But say that someone tries to set the temperature of a refrigerator to 23 degree
 {
   "status": "fail",
   "data": {
-    "version": "1.0",
+    "version": "1.1",
     "reason": "temperature_too_high"
   }
 }
@@ -93,7 +93,7 @@ Below is an example of a request body for a query called `current_temperature` w
 
 ```json
 {
-  "version": "1.0",
+  "version": "1.1",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -144,7 +144,7 @@ Below is an example of a response body for the request above, when the current t
 {
   "status": "success",
   "data": {
-    "version": "1.0",
+    "version": "1.1",
     "result": [
       {
         "value": 17,
@@ -172,7 +172,7 @@ Request:
 
 ```json
 {
-  "version": "1.0",
+  "version": "1.1",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -211,7 +211,7 @@ Response:
 {
   "status": "success",
   "data": {
-    "version": "1.0",
+    "version": "1.1",
     "result": [
       {
         "value": "contact_john_johnson",
@@ -239,7 +239,7 @@ Below is an example of a request body for an entity recognition invocation when 
 
 ```json
 {
-  "version": "1.0",
+  "version": "1.1",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -275,7 +275,7 @@ Below is an example of a response body for the request above:
 {
   "status": "success",
   "data": {
-    "version": "1.0",
+    "version": "1.1",
     "result": [
       {
         "grammar_entry": "London",
@@ -305,7 +305,7 @@ Below is an example of a request body for a validator called `RouteValidator` wi
 
 ```json
 {
-  "version": "1.0",
+  "version": "1.1",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -359,7 +359,7 @@ Below is an example of a response body for the request above:
 {
   "status": "success",
   "data": {
-    "version": "1.0",
+    "version": "1.1",
     "is_valid": false
   }
 }
@@ -403,6 +403,25 @@ Example:
 The `session` object contains the following members:
 
 - `session_id`: String representing the current TDM session.
+
+Additionally, it contains the same data that was injected in the frontend request to TDM. This way, service calls can utilize frontend-specific session data. For more details, read about the session object [in the frontend API docs](http_frontend.md#session-object)
+
+Example:
+
+```json
+{
+  "session": {
+    "session_id": "0000-abcd-1111-efgh",
+    "my_frontend": {
+      "user_id": "123-abc-456-def",
+      "position": {
+        "latitude": "57.699188",
+        "longitude": "11.948313"
+      }
+    }
+  }
+}
+```  
 
 # Context object
 The `context` object contains the following members:
@@ -449,7 +468,7 @@ Success:
 {
   "status": "success",
   "data": {
-    "version": "1.0"
+    "version": "1.1"
   }
 }
 ```
@@ -465,7 +484,7 @@ Fail:
 {
   "status": "fail",
   "data": {
-    "version": "1.0"
+    "version": "1.1"
   }
 }
 ```
@@ -485,7 +504,7 @@ Error:
   "message": "Could not communicate with the database.",
   "code": 135,
   "data": {
-    "version": "1.0"
+    "version": "1.1"
   }
 }
 ```

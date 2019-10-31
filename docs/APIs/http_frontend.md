@@ -1,4 +1,4 @@
-This document describes API version 3.0 for HTTP frontends, enabling frontends to integrate with TDM over HTTP. It covers e.g. how input from the user and output from TDM are communicated between TDM and the client.
+This document describes API version 3.1 for HTTP frontends, enabling frontends to integrate with TDM over HTTP. It covers e.g. how input from the user and output from TDM are communicated between TDM and the client.
 
 The client invokes TDM with an HTTP request to the interaction endpoint, e.g. `http://localhost:9090/interact`, using the POST method and a JSON body. The client should expect the status code to be 200 OK. For other status codes, the client should report an error to the user.
 
@@ -17,14 +17,17 @@ Example:
 
 ```json
 {
-  "version": "3.0",
+  "version": "3.1",
+  "session": {},
   "request": {
     "start_session": {}
   }
 }
 ```
 
-The `start_session` object may contain the following optional fields:
+The `session` object can contain frontend-specific session data to be used in dialog or by services. For more details, see [the session object](#session-object)
+
+The `start_session` object may contain the following optional members:
 
 - `ddd_set`: A string specifying a DDD set for the session. If omitted, a default DDD set configured by the backend is used.
 
@@ -34,7 +37,7 @@ Example when combined with `natural_language_input`:
 
 ```json
 {
-  "version": "3.0",
+  "version": "3.1",
   "request": {
     "start_session": {},
     "natural_language_input": {...}
@@ -55,7 +58,7 @@ Speech input example:
 
 ```json
 {
-  "version": "3.0",
+  "version": "3.1",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -85,7 +88,7 @@ Text input example:
 
 ```json
 {
-  "version": "3.0",
+  "version": "3.1",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -98,7 +101,9 @@ Text input example:
 }
 ```
 
-The `natural_language_input` object contains the following fields:
+The `session` object can contain frontend-specific session data to be used in dialog or by services. For more details, see [the session object](#session-object)
+
+The `natural_language_input` object contains the following members:
 
 - `modality`: Should be either `speech` or `text` depending on how the input was detected.
 - `hypotheses`: A list of [hypothesis objects](#hypothesis-object) which should be provided if `modality` is `speech`; otherwize the field should be omitted.
@@ -109,7 +114,7 @@ The `natural_language_input` request may be combined with the `start_session` re
 Example:
 ```json
 {
-  "version": "3.0",
+  "version": "3.1",
   "request": {
     "start_session": {},
     "natural_language_input": {...}
@@ -132,7 +137,7 @@ The semantic format is different for each of the supported user moves. See [the 
 
 ```json
 {
-  "version": "3.0",
+  "version": "3.1",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -217,7 +222,9 @@ The semantic format is different for each of the supported user moves. See [the 
 }
 ```
 
-The `semantic_input` object contains the following fields:
+The `session` object can contain frontend-specific session data to be used in dialog or by services. For more details, see [the session object](#session-object)
+
+The `semantic_input` object contains the following members:
 
 - `interpretations`: A list of [interpretation objects](#interpretation-object). TDM will use confidence scores and the context of the current state of the session to decide which interpretation to act upon.
 
@@ -227,7 +234,7 @@ Example:
 
 ```json
 {
-  "version": "3.0",
+  "version": "3.1",
   "request": {
     "start_session": {},
     "semantic_input": {...}
@@ -248,7 +255,7 @@ Example:
 
 ```json
 {
-  "version": "3.0",
+  "version": "3.1",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -257,6 +264,8 @@ Example:
   }
 }
 ```
+
+The `session` object can contain frontend-specific session data to be used in dialog or by services. For more details, see [the session object](#session-object)
 
 The `passivity` request may not be combined with other requests in the same call.
 
@@ -273,7 +282,7 @@ Example:
 
 ```json
 {
-  "version": "3.0",
+  "version": "3.1",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -289,7 +298,9 @@ Example:
 }
 ```
 
-The `event` object contains the following fields:
+The `session` object can contain frontend-specific session data to be used in dialog or by services. For more details, see [the session object](#session-object)
+
+The `event` object contains the following members:
 
 - `name`: A string corresponding to the name of the event, specified as an action in the service interface.
 - `status`: Either `started` or `ended`.
@@ -301,7 +312,7 @@ Example:
 
 ```json
 {
-  "version": "3.0",
+  "version": "3.1",
   "request": {
     "start_session": {},
     "event": {...}
@@ -313,15 +324,55 @@ Example:
 
 See [response format](#response-format).
 
-# Hypothesis object
+# Session object
+A session object can contain frontend-specific session data. The data is forwarded as is to all service calls on the [HTTP API for services](http_service.md#session-object). That way, the data can be used in service calls directly; or influence the dialog, for instance by being retrieved through service queries.
 
-A hypothesis object contains information about what the user is believed to have uttered, consisting of the following fields:
+Note that session data is not automatically stored or attached to the session within TDM. It is returned in the [response](#response-format) and can be injected in future requests. If specific data should be available to all service calls on a session, the data needs to be injected in every request on that session, or the DDD needs to retrieve it into the dialog state, for instance by a service query.
+
+For all requests except [start session](#start-session-requests), a `session_id` is required and used to identify to which session the request is being made.
+
+For start session requests however, the `session_id` is disallowed and instead generated by TDM. It should be retrieved from the [response](#response-format).
+
+Example for start session request:
+
+```json
+{
+  "session": {
+    "my_frontend": {
+      "user_id": "123-abc-456-def",
+      "position": {
+        "latitude": "57.699188",
+        "longitude": "11.948313"
+      }
+    }
+  }
+}
+```
+
+Example otherwise:
+
+```json
+{
+  "session": {
+    "session_id": "0000-abcd-1111-efgh",
+    "my_frontend": {
+      "user_id": "123-abc-456-def",
+      "position": {
+        "latitude": "57.699188",
+        "longitude": "11.948313"
+      }
+    }
+  }
+}
+```
+
+# Hypothesis object
+A hypothesis object contains information about what the user is believed to have uttered, consisting of the following members:
 
 - `utterance`: A string containing the utterance.
 - `confidence`: A number from 0.0 to 1.0 representing the confidence of the hypothesis.
 
 # Interpretation object
-
 An interpretation translates an utterance into one or several semantic moves. An interpretation object contains:
 
 - `utterance`: (optional) A string containing the utterance.
@@ -329,8 +380,7 @@ An interpretation translates an utterance into one or several semantic moves. An
 - `moves`: A list of [move objects](#move-object).
 
 # Move object
-
-A move object contains information about how a user move was interpreted. It's fields are:
+A move object contains information about how a user move was interpreted. Its members are:
 
 - `ddd`: (optional) A string containing the DDD name. For DDD independent moves (e.g. `answer(yes)` and `request(up)`), this field may be omitted; in which case the currently active DDD will be used to parse the semantic expression.
 - `perception_confidence`: A float between `0.0` and `1.0`, representing the confidence that a spoken utterance actually matches the textual utterance, for instance when a speech-to-text (STT) component turned it into text. If no perception component was used, the confidence should be set to `1.0`.
@@ -422,7 +472,7 @@ The TDM response from a successful request typically contains an output utteranc
 
 ```json
 {
-  "version": "3.0",
+  "version": "3.1",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -443,7 +493,7 @@ The TDM response from a successful request typically contains an output utteranc
 }
 ```
 
-The `session` object is always provided and contains:
+The `session` object is always provided and contains the same data that was provided in the request. Unlike requests however, it always contains:
 
 - `session_id`: The ID of the current session.
 
@@ -472,7 +522,7 @@ The TDM response when an error was encountered in the request contains an error 
 
 ```json
 {
-  "version": "3.0",
+  "version": "3.1",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
