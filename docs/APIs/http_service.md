@@ -17,7 +17,7 @@ Below is an example of a request body for an action called `SetTemperature`, inv
 {
   "version": "1.0",
   "session": {
-    "session_id": "[session_id]"
+    "session_id": "0000-abcd-1111-efgh"
   },
   "request": {
     "type": "action",
@@ -31,7 +31,7 @@ Below is an example of a request body for an action called `SetTemperature`, inv
     }
   },
   "context": {
-    "active_ddd": "[active_ddd]",
+    "active_ddd": "MyDDD",
     "facts": {
       "degrees": {
         "sort": "integer",
@@ -40,7 +40,7 @@ Below is an example of a request body for an action called `SetTemperature`, inv
       }
     },
     "language": "eng",
-    "invocation_id": "[invocation_id]"
+    "invocation_id": "2222-ijkl-3333-mnop"
   }
 }
 ```
@@ -82,7 +82,7 @@ Format for `status` and `data`: see [Response format](#response-format).
 
 The `data` object additionally contains these action specific members:
 
- - `reason` matching the failure that occurred. It needs to match one of the failure reasons declared for this action in `service_interface.xml`.
+- `reason` matching the failure that occurred. It needs to match one of the failure reasons declared for this action in `service_interface.xml`.
 
 # Query requests
 Queries are invoked by TDM to retrieve information from a service, e.g. in order to be able to respond to a question from a user, or to fetch alternatives for alternative questions.
@@ -95,7 +95,7 @@ Below is an example of a request body for a query called `current_temperature` w
 {
   "version": "1.0",
   "session": {
-    "session_id": "[session_id]"
+    "session_id": "0000-abcd-1111-efgh"
   },
   "request": {
     "type": "query",
@@ -111,7 +111,7 @@ Below is an example of a request body for a query called `current_temperature` w
     "max_results": 1
   },
   "context": {
-    "active_ddd": "[active_ddd]",
+    "active_ddd": "MyDDD",
     "facts": {
       "location": {
         "sort": "city",
@@ -120,7 +120,7 @@ Below is an example of a request body for a query called `current_temperature` w
       }
     },
     "language": "eng",
-    "invocation_id": "[invocation_id]"
+    "invocation_id": "2222-ijkl-3333-mnop"
   }
 }
 ```
@@ -129,8 +129,8 @@ Format for `request`: see [Request object](#request-object).
 
 The `request` object additionally contains these query specific members:
 
- - `min_results` specifies the minimum number of results that the service should return as a non-negative integer. If the service returns fewer results than specified by `min_results`, TDM reports an error to the user.
- - `max_results` specifies the maximum number of results that the service should return. `max_results` is either a positive integer, or `null` meaning that there is no upper bound. If the service returns more results than specified by `max_results`, TDM reports an error to the user.
+- `min_results` specifies the minimum number of results that the service should return as a non-negative integer. If the service returns fewer results than specified by `min_results`, TDM reports an error to the user.
+- `max_results` specifies the maximum number of results that the service should return. `max_results` is either a positive integer, or `null` meaning that there is no upper bound. If the service returns more results than specified by `max_results`, TDM reports an error to the user.
 
 Format for `session`: see [Session object](#session-object).
 
@@ -160,10 +160,10 @@ General format for responses: see [Response format](#response-format).
 
 `data` additionally contains these members specific to queries:
 
- - `result`: contains a list result items. Each result item is an object with the following members:
-     - `value` can be either a number, string or `null`, depending on the query's predicate. For predicates of sort `integer` or `real`, a number is expected. For predicates of sort `datetime`, an ISO 8601 string is expected. For predicates of a custom sort, a string is expected, corresponding to the name of the individual. For dynamic sorts, the value `null` is supported, in which case a grammar entry is required.
-     - `confidence` should normally be set to 1.0. However, when the information is uncertain - e.g. when making a prediction from a user model - `confidence` can be set to a value from 0.0 to 1.0.
-     - `grammar_entry` can be set to specify a natural-language represention of the result. This is required for dynamic sorts, when `value` is `null`.
+- `result`: contains a list result items. Each result item is an object with the following members:
+    - `value` can be either a number, string or `null`, depending on the query's predicate. For predicates of sort `integer` or `real`, a number is expected. For predicates of sort `datetime`, an ISO 8601 string is expected. For predicates of a custom sort, a string is expected, corresponding to the name of the individual. For dynamic sorts, the value `null` is supported, in which case a grammar entry is required.
+    - `confidence` should normally be set to 1.0. However, when the information is uncertain - e.g. when making a prediction from a user model - `confidence` can be set to a value from 0.0 to 1.0.
+    - `grammar_entry` can be set to specify a natural-language represention of the result. This is required for dynamic sorts, when `value` is `null`.
 
 ## Additional query example: Multiple results
 Below is an example of a request and response for a query called `selected_contact` which is used to determine whether a single contact can be identified based on a first and last name. In the example, only the first name is known, and the service returns two matching contacts.
@@ -174,7 +174,7 @@ Request:
 {
   "version": "1.0",
   "session": {
-    "session_id": "[session_id]"
+    "session_id": "0000-abcd-1111-efgh"
   },
   "request": {
     "type": "query",
@@ -191,7 +191,7 @@ Request:
     "max_results": null
   },
   "context": {
-    "active_ddd": "[active_ddd]",
+    "active_ddd": "MyDDD",
     "facts": {
       "selected_first_name": {
         "sort": "first_name",
@@ -200,7 +200,7 @@ Request:
       }
     },
     "language": "eng",
-    "invocation_id": "[invocation_id]"
+    "invocation_id": "2222-ijkl-3333-mnop"
   }
 }
 ```
@@ -241,7 +241,7 @@ Below is an example of a request body for an entity recognition invocation when 
 {
   "version": "1.0",
   "session": {
-    "session_id": "[session_id]"
+    "session_id": "0000-abcd-1111-efgh"
   },
   "request": {
     "type": "entity_recognizer",
@@ -249,10 +249,10 @@ Below is an example of a request body for an entity recognition invocation when 
     "utterance": "what is the temperature in London"
   },
   "context": {
-    "active_ddd": "[active_ddd]",
+    "active_ddd": "MyDDD",
     "facts": {},
     "language": "eng",
-    "invocation_id": "[invocation_id]"
+    "invocation_id": "2222-ijkl-3333-mnop"
   }
 }
 ```
@@ -261,7 +261,7 @@ Format for `request`: see [Request object](#request-object).
 
 The `request` object additionally contains these members specific to entity recognizers:
 
- - `utterance` is the user utterance that should be searched for entities. It's a string.
+- `utterance` is the user utterance that should be searched for entities. It's a string.
 
 Format for `session`: see [Session object](#session-object).
 
@@ -291,10 +291,10 @@ General format for responses: see [Response format](#response-format).
 
 `data` additionally contains these members specific to entity recognizers:
 
- - `result`: contains a list of zero or more result items. Each result item is an object with the following members:
-     - `grammar_entry`: Natural-language representation of the recognized entity.
-     - `sort`: The entity's sort, corresponding to the sort's name in `ontology.xml`.
-     - `value`: ID or semantic representation of the entity if known, otherwise `null`. For static (non-dynamic) sorts, the `value` is mandatory and should correspond to the semantic name of an individual.
+- `result`: contains a list of zero or more result items. Each result item is an object with the following members:
+    - `grammar_entry`: Natural-language representation of the recognized entity.
+    - `sort`: The entity's sort, corresponding to the sort's name in `ontology.xml`.
+    - `value`: ID or semantic representation of the entity if known, otherwise `null`. For static (non-dynamic) sorts, the `value` is mandatory and should correspond to the semantic name of an individual.
 
 # Validator requests
 Validators are invoked by TDM to determine if information provided by the user is valid. If not, relevant feedback is given to the user.
@@ -307,7 +307,7 @@ Below is an example of a request body for a validator called `RouteValidator` wi
 {
   "version": "1.0",
   "session": {
-    "session_id": "[session_id]"
+    "session_id": "0000-abcd-1111-efgh"
   },
   "request": {
     "type": "validator",
@@ -326,7 +326,7 @@ Below is an example of a request body for a validator called `RouteValidator` wi
     }
   },
   "context": {
-    "active_ddd": "[active_ddd]",
+    "active_ddd": "MyDDD",
     "facts": {
       "departure": {
         "sort": "city",
@@ -340,7 +340,7 @@ Below is an example of a request body for a validator called `RouteValidator` wi
       }
     },
     "language": "eng",
-    "invocation_id": "[invocation_id]"
+    "invocation_id": "2222-ijkl-3333-mnop"
   }
 }
 ```
@@ -369,20 +369,21 @@ General format for responses: see [Response format](#response-format).
 
 `data` additionally contains these validator specific members:
 
- - `is_valid`: can be either `true` or `false`, specifying whether the combination of parameters is valid or not.
+- `is_valid`: can be either `true` or `false`, specifying whether the combination of parameters is valid or not.
 
 # Request object
 In general, the `request` object contains the following members. It may also contain additional method specific members.
 
- - `type` is the method type, e.g. `action` or `query`. All methods that can be declared in `service_interface.xml` are supported. See examples for each of them above.
- - `name` is the method name, as specified in `service_interface.xml`.
- - `parameters` contains values for all parameters that are specified for the method in `service_interface.xml`. If a parameter is unknown, its value is `null`. Otherwise it's an object containing:
-     - `sort`: ID of the predicate's sort as defined in the ontology.
-     - `value`: ID of the value. For the sorts `integer` and `real`, the ID is a number. For other sorts, e.g. `string`, `datetime` and custom sorts, the ID is a string.
-     - `grammar_entry`: Natural-language representation of the value.
+- `type` is the method type, e.g. `action` or `query`. All methods that can be declared in `service_interface.xml` are supported. See examples for each of them above.
+- `name` is the method name, as specified in `service_interface.xml`.
+- `parameters` contains values for all parameters that are specified for the method in `service_interface.xml`. If a parameter is unknown, its value is `null`. Otherwise it's an object containing:
+    - `sort`: ID of the predicate's sort as defined in the ontology.
+    - `value`: ID of the value. For the sorts `integer` and `real`, the ID is a number. For other sorts, e.g. `string`, `datetime` and custom sorts, the ID is a string.
+    - `grammar_entry`: Natural-language representation of the value.
 
 Example:
 ```json
+{
   "request": {
     "type": "validator",
     "name": "contact_validator",
@@ -395,32 +396,34 @@ Example:
       "selected_last_name": null
     }
   }
+}
 ```
 
 # Session object
 The `session` object contains the following members:
 
- - `session_id`: String representing the current TDM session.
+- `session_id`: String representing the current TDM session.
 
 # Context object
 The `context` object contains the following members:
 
- - `active_ddd`: The name of the currently active DDD.
- - `facts`: Information gathered during the conversation (see [Facts object](#facts-object)).
- - `language`: ID of the current language.
- - `invocation_id`: A unique identifer for the invocation from TDM. This ID can be logged for analytics and issue reporting.
+- `active_ddd`: The name of the currently active DDD.
+- `facts`: Information gathered during the conversation (see [Facts object](#facts-object)).
+- `language`: ID of the current language.
+- `invocation_id`: A unique identifer for the invocation from TDM. This ID can be logged for analytics and issue reporting.
 
 ## Facts object
 The `facts` object contains a map of key-value pairs for information gathered during the conversation, e.g. from the user. The map may be empty.
 
 The key is a string matching a predicate as defined in the ontology. The value is an object with the following members:
 
- - `sort`: ID of the predicate's sort as defined in the ontology.
- - `value`: ID of the value. For the sorts `integer` and `real`, the ID is a number. For other sorts, e.g. `string`, `datetime` and custom sorts, the ID is a string.
- - `grammar_entry`: Natural-language representation of the value.
+- `sort`: ID of the predicate's sort as defined in the ontology.
+- `value`: ID of the value. For the sorts `integer` and `real`, the ID is a number. For other sorts, e.g. `string`, `datetime` and custom sorts, the ID is a string.
+- `grammar_entry`: Natural-language representation of the value.
 
 Example:
 ```json
+{
   "facts": {
     "departure": {
       "sort": "city",
@@ -433,6 +436,7 @@ Example:
       "grammar_entry": "Newcastle"
     }
   }
+}
 ```
 
 # Response format
@@ -454,7 +458,7 @@ Successful method invocations need to set their `status` to `success`.
 
 The `data` object contains mostly method specific members. All methods need however include:
 
- - `version`: the version of the API used to process the request and format the response. If the version is not compatible with the request, TDM reports an error to the user.
+- `version`: the version of the API used to process the request and format the response. If the version is not compatible with the request, TDM reports an error to the user.
 
 Fail:
 ```json
@@ -472,7 +476,7 @@ To report a failure, the `status` need to be set to `fail`.
 
 The `data` object contains mostly method specific members. All methods need however include:
 
- - `version`: the version of the API used to process the request and format the response.
+- `version`: the version of the API used to process the request and format the response.
 
 Error:
 ```json
@@ -494,4 +498,4 @@ When a service encounters an error, i.e. an exception, the `status` need to be s
 
 The `data` needs to contain:
 
- - `version`: the version of the API used to process the request and format the response.
+- `version`: the version of the API used to process the request and format the response.
