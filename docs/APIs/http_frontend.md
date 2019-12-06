@@ -412,9 +412,13 @@ The builtin and DDD independent actions `top` and `up` can be requested without 
 }
 ```
 
-**Example of an `ask` move:**
+**Example of `ask` moves:**
 
-An `ask` move is a more complex parameter than the `request`. For those who know Prolog this might look familiar. `?X.phone_number(X)` means that we're asking for an unknown phone number individual. In this case, the `phone_number` predicate must be defined in the ontology of the `phone` DDD.
+An `ask` move contains a question. Questions are expressed with a leading `?`. Question in `ask` moves always contain a predicate that must be defined in the ontology of the DDD. There are two supported types of questions in `ask` moves: wh-questions (questions about what, when, whom, which etc.) and yes-no questions (that can be answered with a yes or no).
+
+***Example of an `ask` move containing a wh-question***:
+
+Wh-questions are represented in a lambda-like form. In the case below, the question `?X.phone_number(X)` means that we're asking what someone's phone number is.
 
 ```json
 {
@@ -422,6 +426,19 @@ An `ask` move is a more complex parameter than the `request`. For those who know
   "semantic_expression": "ask(?X.phone_number(X))",
   "perception_confidence": 0.31,
   "understanding_confidence": 0.10126
+}
+```
+
+***Example of an `ask` move containing a yes-no question***:
+
+In the case below, the question `?missed_calls` means that we're asking whether there are any missed calls (without asking e.g. when or from whom).
+
+```json
+{
+  "ddd": "phone",
+  "semantic_expression": "ask(?missed_calls)",
+  "perception_confidence": 0.43,
+  "understanding_confidence": 0.2432
 }
 ```
 
