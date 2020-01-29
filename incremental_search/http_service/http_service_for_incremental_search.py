@@ -165,7 +165,7 @@ def _entities_of_last_names(words, language):
 
 def _entities_of_names(words, names, sort):
     result = []
-    for name, identifier in names.iteritems():
+    for name, identifier in list(names.items()):
         if name.lower() in words:
             result.append({"value": identifier, "sort": sort, "grammar_entry": name.lower()})
     return result
@@ -194,7 +194,7 @@ def last_name_of_contact(contact):
 
 
 def name_of_identifier(names, identifier):
-    matching_names = [name for name, actual_id in names.iteritems() if actual_id == identifier]
+    matching_names = [name for name, actual_id in list(names.items()) if actual_id == identifier]
     assert len(matching_names) == 1, "Expected to find one matching name but found %s for %s among %s" %\
                                          (matching_names, identifier, names)
     return matching_names.pop()
@@ -225,4 +225,4 @@ def contacts_with_matching_last_name(last_name):
 def contacts_with_matching(key, value):
     if not value:
         return set(CONTACTS.keys())
-    return set([contact_id for contact_id, contact in CONTACTS.iteritems() if contact[key].lower() == value.lower()])
+    return set([contact_id for contact_id, contact in list(CONTACTS.items()) if contact[key].lower() == value.lower()])
