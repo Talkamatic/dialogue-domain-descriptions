@@ -216,6 +216,14 @@ The semantic format is different for each of the supported user moves. See [the 
             }
           ]
         }
+      ],
+      "entities": [
+        {
+          "name": "contact_john",
+          "sort": "contact",
+          "natural_language_form": "John",
+          "ddd": "phone"
+        }
       ]
     }
   }
@@ -227,6 +235,7 @@ The `session` object can contain frontend-specific session data to be used in di
 The `semantic_input` object contains the following members:
 
 - `interpretations`: A list of [interpretation objects](#interpretation-object). TDM will use confidence scores and the context of the current state of the session to decide which interpretation to act upon.
+- `entities`: (optional) A list of [entity objects](#entity-object). TDM can use these entities in interpretations and for natural language generation.
 
 The `semantic_input` request may be combined with the `start_session` request when a session does not yet exist, but may not be combined with other requests.
 
@@ -378,6 +387,14 @@ An interpretation translates an utterance into one or several semantic moves. An
 - `utterance`: (optional) A string containing the utterance.
 - `modality`: The modality that the user used to provide the original input. One of `speech`, `text`, `haptic`, `other`.
 - `moves`: A list of [move objects](#move-object).
+
+# Entity object
+These entities are needed when entities are not defined in the DDD and can then be used in interpretations and in downstream natural language generation. An entity object contains:
+
+- `name`: A string containing the semantic name. This name can be used to reference the entity in interpretations.
+- `sort`: A string with the entity sort name.
+- `grammar_entry`: A string containing the natural language form of the entity.
+- `ddd`: A string with the name of the DDD that the entity belongs to.
 
 # Move object
 A move object contains information about how a user move was interpreted. Its members are:
