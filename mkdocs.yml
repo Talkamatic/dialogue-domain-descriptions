@@ -8,5 +8,34 @@ pages:
 - APIs:
     - "API for HTTP frontends": APIs/http_frontend.md
     - "API for HTTP services": APIs/http_service.md
+- TDM Documentation (WIP):
+    - Index: tdm_documentation/index.md
+    - Grammar:
+        - Grammar explanation page (provisional name): tdm_documentation/grammar/grammar.md
+        - Elements:
+            - Action: tdm_documentation/grammar/elements/action.md
+            - Answer: tdm_documentation/grammar/elements/answer.md
+            - Greeting: tdm_documentation/grammar/elements/greeting.md
+            - Individual: tdm_documentation/grammar/elements/individual.md
+            - Preconfirm: tdm_documentation/grammar/elements/preconfirm.md
+            - Question: tdm_documentation/grammar/elements/question.md
+            - Report: tdm_documentation/grammar/elements/report.md
+            - Validity: tdm_documentation/grammar/elements/validity.md
+        - Children:
+            - Item: tdm_documentation/grammar/children/item.md
+            - One-of: tdm_documentation/grammar/children/one-of.md
+            - Slot: tdm_documentation/grammar/children/slot.md
+            - VP: tdm_documentation/grammar/children/vp.md
+    - Service Interface:
+        - Service Interface explanation (provisional name): tdm_documentation/service_interface/service_interface.md
+        - Elements:
+            - Action: tdm_documentation/service_interface/elements/action.md
+            - Entity Recognizer: tdm_documentation/service_interface/elements/entity_recognizer.md
+            - Query: tdm_documentation/service_interface/elements/query.md
+            - Validator: tdm_documentation/service_interface/elements/validator.md
+        - Children:
+            - Failure Reasons: tdm_documentation/service_interface/children/failure_reasons.md
+            - Parameters: tdm_documentation/service_interface/children/parameters.md
+            - Target: tdm_documentation/service_interface/children/target.md
 
 theme: readthedocs
