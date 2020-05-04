@@ -2,6 +2,7 @@ site_name: TDM
 
 pages:
 - Introduction: index.md
+- Dialog Formalism: formalism.md
 - "Step-by-step tutorial": tutorial.md
 - Examples: examples.md
 - "Using Rasa NLU": rasa_nlu.md

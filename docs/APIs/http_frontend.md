@@ -1,4 +1,4 @@
-This document describes API version 3.1 for HTTP frontends, enabling frontends to integrate with TDM over HTTP. It covers e.g. how input from the user and output from TDM are communicated between TDM and the client.
+This document describes API version 3.2 for HTTP frontends, enabling frontends to integrate with TDM over HTTP. It covers e.g. how input from the user and output from TDM are communicated between TDM and the client.
 
 The client invokes TDM with an HTTP request to the interaction endpoint, e.g. `http://localhost:9090/interact`, using the POST method and a JSON body. The client should expect the status code to be 200 OK. For other status codes, the client should report an error to the user.
 
@@ -17,7 +17,7 @@ Example:
 
 ```json
 {
-  "version": "3.1",
+  "version": "3.2",
   "session": {},
   "request": {
     "start_session": {}
@@ -37,7 +37,7 @@ Example when combined with `natural_language_input`:
 
 ```json
 {
-  "version": "3.1",
+  "version": "3.2",
   "request": {
     "start_session": {},
     "natural_language_input": {...}
@@ -58,7 +58,7 @@ Speech input example:
 
 ```json
 {
-  "version": "3.1",
+  "version": "3.2",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -88,7 +88,7 @@ Text input example:
 
 ```json
 {
-  "version": "3.1",
+  "version": "3.2",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -114,7 +114,7 @@ The `natural_language_input` request may be combined with the `start_session` re
 Example:
 ```json
 {
-  "version": "3.1",
+  "version": "3.2",
   "request": {
     "start_session": {},
     "natural_language_input": {...}
@@ -137,7 +137,7 @@ The semantic format is different for each of the supported user moves. See [the 
 
 ```json
 {
-  "version": "3.1",
+  "version": "3.2",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -243,7 +243,7 @@ Example:
 
 ```json
 {
-  "version": "3.1",
+  "version": "3.2",
   "request": {
     "start_session": {},
     "semantic_input": {...}
@@ -264,7 +264,7 @@ Example:
 
 ```json
 {
-  "version": "3.1",
+  "version": "3.2",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -291,7 +291,7 @@ Example:
 
 ```json
 {
-  "version": "3.1",
+  "version": "3.2",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -321,7 +321,7 @@ Example:
 
 ```json
 {
-  "version": "3.1",
+  "version": "3.2",
   "request": {
     "start_session": {},
     "event": {...}
@@ -402,7 +402,7 @@ A move object contains information about how a user move was interpreted. Its me
 - `ddd`: (optional) A string containing the DDD name. For DDD independent moves (e.g. `answer(yes)` and `request(up)`), this field may be omitted; in which case the currently active DDD will be used to parse the semantic expression.
 - `perception_confidence`: A float between `0.0` and `1.0`, representing the confidence that a spoken utterance actually matches the textual utterance, for instance when a speech-to-text (STT) component turned it into text. If no perception component was used, the confidence should be set to `1.0`.
 - `understanding_confidence`: A float between `0.0` and `1.0`, representing the confidence that the textual utterance actually represents this move, for instance when an NLU component interprets the textual utterance. If no understanding component was used, for instance if the user pressed a button, the confidence should be set to `1.0`.
-- `semantic_expression`: A semantic expression, representing the move itself. Supported moves are `request`, `ask` and `answer`. See examples below for details.
+- `semantic_expression`: A semantic expression for the move, expressed in the [dialog formalism](../formalism.md#moves). Supported moves are `request`, `ask` and `answer`. See examples below for details.
 
 **Example of a `request` move:**
 
@@ -433,7 +433,7 @@ The builtin and DDD independent actions `top` and `up` can be requested without 
 
 An `ask` move contains a question. Questions are expressed with a leading `?`. Question in `ask` moves always contain a predicate that must be defined in the ontology of the DDD. There are two supported types of questions in `ask` moves: wh-questions (questions about what, when, whom, which etc.) and yes-no questions (that can be answered with a yes or no).
 
-***Example of an `ask` move containing a wh-question***:
+**Example of an `ask` move containing a wh-question:**
 
 Wh-questions are represented in a lambda-like form. In the case below, the question `?X.phone_number(X)` means that we're asking what someone's phone number is.
 
@@ -446,7 +446,7 @@ Wh-questions are represented in a lambda-like form. In the case below, the quest
 }
 ```
 
-***Example of an `ask` move containing a yes-no question***:
+**Example of an `ask` move containing a yes-no question:**
 
 In the case below, the question `?missed_calls` means that we're asking whether there are any missed calls (without asking e.g. when or from whom).
 
@@ -506,11 +506,12 @@ The TDM response from a successful request typically contains an output utteranc
 
 ```json
 {
-  "version": "3.1",
+  "version": "3.2",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
   "output": {
+    "moves": ["ask(?X.selected_contact(X))"],
     "utterance": "Who do you want to call?",
     "expected_passivity": 5.0,
     "actions": []
@@ -522,7 +523,20 @@ The TDM response from a successful request typically contains an output utteranc
   "context": {
     "active_ddd": "my_ddd",
     "facts": {},
-    "language": "eng"
+    "language": "eng",
+    "goal": "perform(call)",
+    "plan": ["findout(?X.selected_contact(X))"],
+    "facts_being_grounded": {},
+    "selected_hypothesis": {
+      "utterance": "call John",
+      "confidence": 0.88
+    },
+    "selected_interpretation": [{
+      "ddd": "send_to_frontend",
+      "understanding_confidence": "0.749",
+      "perception_confidence": "0.88",
+      "semantic_expression": "request(call)"
+    }]
   }
 }
 ```
@@ -533,6 +547,7 @@ The `session` object is always provided and contains the same data that was prov
 
 The `output` object is provided unless an error has occurred and has the following members:
 
+- `moves`: The moves made by the system this turn. This is a list of [move expressions in the dialog formalism](../formalism.md#moves), where the moves should be uttered in the listed order. Moves here are similar to the `semantic_expression` field of [move objects](#move-object).
 - `utterance`: A string representing the output utterance from the system and should be realized by the client (e.g. by speaking it or displaying it as text).
 - `expected_passivity`: If not null, the value is a number corresponding to the number of seconds of user passivity after which the client is expected to make a [passivity request](#passivity-requests). If the value is 0.0, the passivity notification request should be issued immediately after having realized the system output.
 - `actions`: A list of [action invocation objects](#action-invocation-object), which needs to be invoked by the client. TDM assumes that the actions will succeed and reports them accordingly.
@@ -547,16 +562,21 @@ The `context` object is provided unless an error has occurred and contains the f
 - `active_ddd`: The name of the currently active DDD.
 - `facts`: Information gathered during the conversation (see [facts object](#facts-object)).
 - `language`: ID of the current language.
+- `goal`: Currently active goal, expressed as a [goal in the dialog formalism](../formalism.md#goals).
+- `plan`: Remaining items on the current plan, represented by a list of [plan items in the dialog formalism](../formalism.md#plan-items).
+- `facts_being_grounded`: Information that the system is currently grounding with the user, represented as a list of [facts objects](#facts-object).
+- `selected_hypothesis`: The natural language hypothesis that the system decided to act on. If the system turn was requested with a [natural language input request](#natural-language-input-requests), this corresponds to one of the [hypothesis objects](#hypothesis-object) that were part of it. This field is `null` if a hypothesis could not be determined.
+- `selected_interpretation`: The semantic interpretation that the system decided to act on. If the system turn was requested with a [semantic input request](#semantic-input-requests), this corresponds to one of the [interpretation objects](#interpretation-object) that were part of it. This field is `null` if an interpretation could not be determined.
 
 A `warnings` field is provided if warnings have been issued, as a list of strings, one string per warning. This can for instance happen when TDM is updated to a new version of this frontend API and the previous version is deprecated. In such cases, update your request formats to comply with the warning and avoid potential future errors:
 
-**Request that encountered an error**
+**<a name="error-response"></a>Request that encountered an error**
 
 The TDM response when an error was encountered in the request contains an error description.
 
 ```json
 {
-  "version": "3.1",
+  "version": "3.2",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
