@@ -161,9 +161,13 @@ TDM replies! It means we did something right but apparently we need to implement
 
 ## Step 5. Plan
 
-Plans group together what our users can talk about. The plan is executed in order to reach a goal, for example to perform an action. When talking about something in the plan, TDM infers which goal is being implied and puts it at the top of the agenda.
+A plan is a description of the steps required by the system in order to fulfill a goal. For example, in order to make a phone call, the system first needs to find out who to call. (Typically, a goal is something that is expressed by the user in dialog, but it can also be activated by an event.)
 
-Let's check the boilerplate, in `basic_action/domain.xml`.
+Although plans are sequences of instructions, designing a dialog plan is different from writing a software program, since plans are interpreted much less strictly than a typical programming language. Instead, it is more appropriate to see plans as [behavioural scripts](https://en.wikipedia.org/wiki/Behavioral_script): simplified descriptions that guide the system in executing a commonly performed routine. The "brain" - in TDM's case the dialog move engine - uses the plan as a stereotypical or ideal scenario, rather than as literal instructions to be executed blindly. For example, if the system, in following a plan for making phone calls, asks the user who to call, and the user follows up by asking about the weather, TDM doesn't see this as an exception or failure of the phone-calling plan; instead, it activates a weather plan (if it has one), and is open for resuming the phone-calling activity at a later point.
+
+Seeing plans as behavioural scripts rather than programs can be helpful in the design process. As a dialog developer, you are not supposed to try to imagine all the possible paths that a conversation can take, and to write rules or logic for all those paths. Instead, general dialog capabilities such as asking control questions in the case of uncertainty or switching between topics are provided by the dialog engine (the "brain").   
+
+Zooming in to the specific details, let's first check the boilerplate, in `basic_action/domain.xml`.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
