@@ -1,4 +1,4 @@
-This document describes API version 3.2 for HTTP frontends, enabling frontends to integrate with TDM over HTTP. It covers e.g. how input from the user and output from TDM are communicated between TDM and the client.
+This document describes API version 3.3 for HTTP frontends, enabling frontends to integrate with TDM over HTTP. It covers e.g. how input from the user and output from TDM are communicated between TDM and the client.
 
 The client invokes TDM with an HTTP request to the interaction endpoint, e.g. `http://localhost:9090/interact`, using the POST method and a JSON body. The client should expect the status code to be 200 OK. For other status codes, the client should report an error to the user.
 
@@ -17,7 +17,7 @@ Example:
 
 ```json
 {
-  "version": "3.2",
+  "version": "3.3",
   "session": {},
   "request": {
     "start_session": {}
@@ -37,7 +37,7 @@ Example when combined with `natural_language_input`:
 
 ```json
 {
-  "version": "3.2",
+  "version": "3.3",
   "request": {
     "start_session": {},
     "natural_language_input": {...}
@@ -58,7 +58,7 @@ Speech input example:
 
 ```json
 {
-  "version": "3.2",
+  "version": "3.3",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -88,7 +88,7 @@ Text input example:
 
 ```json
 {
-  "version": "3.2",
+  "version": "3.3",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -114,7 +114,7 @@ The `natural_language_input` request may be combined with the `start_session` re
 Example:
 ```json
 {
-  "version": "3.2",
+  "version": "3.3",
   "request": {
     "start_session": {},
     "natural_language_input": {...}
@@ -137,7 +137,7 @@ The semantic format is different for each of the supported user moves. See [the 
 
 ```json
 {
-  "version": "3.2",
+  "version": "3.3",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -243,7 +243,7 @@ Example:
 
 ```json
 {
-  "version": "3.2",
+  "version": "3.3",
   "request": {
     "start_session": {},
     "semantic_input": {...}
@@ -264,7 +264,7 @@ Example:
 
 ```json
 {
-  "version": "3.2",
+  "version": "3.3",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -291,7 +291,7 @@ Example:
 
 ```json
 {
-  "version": "3.2",
+  "version": "3.3",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -321,7 +321,7 @@ Example:
 
 ```json
 {
-  "version": "3.2",
+  "version": "3.3",
   "request": {
     "start_session": {},
     "event": {...}
@@ -506,7 +506,7 @@ The TDM response from a successful request typically contains an output utteranc
 
 ```json
 {
-  "version": "3.2",
+  "version": "3.3",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -536,7 +536,13 @@ The TDM response from a successful request typically contains an output utteranc
       "understanding_confidence": "0.749",
       "perception_confidence": "0.88",
       "semantic_expression": "request(call)"
-    }]
+    }],
+    "expected_input": {
+      "alternatives": [
+        {"semantic_expression": "answer(contact_john)"},
+        {"semantic_expression": "answer(contact_lisa)"}
+      ]
+    }
   }
 }
 ```
@@ -554,7 +560,7 @@ The `output` object is provided unless an error has occurred and has the followi
 
 The `nlu_result` object is provided for [natural language input requests](#natural-language-input-requests), unless an error has occurred. It has the following members:
 
-- `selected_utterance`: The utterance selected as the best candidate amoung the list of hypotheses.
+- `selected_utterance`: The utterance selected as the best candidate among the list of hypotheses.
 - `confidence`: A number representing the joint confidence of the input and the NLU processing.
 
 The `context` object is provided unless an error has occurred and contains the following members:
@@ -567,6 +573,7 @@ The `context` object is provided unless an error has occurred and contains the f
 - `facts_being_grounded`: Information that the system is currently grounding with the user, represented as a list of [facts objects](#facts-object).
 - `selected_hypothesis`: The natural language hypothesis that the system decided to act on. If the system turn was requested with a [natural language input request](#natural-language-input-requests), this corresponds to one of the [hypothesis objects](#hypothesis-object) that were part of it. This field is `null` if a hypothesis could not be determined.
 - `selected_interpretation`: The semantic interpretation that the system decided to act on. If the system turn was requested with a [semantic input request](#semantic-input-requests), this corresponds to one of the [interpretation objects](#interpretation-object) that were part of it. This field is `null` if an interpretation could not be determined.
+- `expected_input`: An [expected input object](#expected-input-object), containing alternatives that TDM considers expected by the user the next turn. This field is `null` if TDM does not expect input, or if it doesn't know what input to expect.
 
 A `warnings` field is provided if warnings have been issued, as a list of strings, one string per warning. This can for instance happen when TDM is updated to a new version of this frontend API and the previous version is deprecated. In such cases, update your request formats to comply with the warning and avoid potential future errors:
 
@@ -576,7 +583,7 @@ The TDM response when an error was encountered in the request contains an error 
 
 ```json
 {
-  "version": "3.2",
+  "version": "3.3",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -639,3 +646,48 @@ Example:
   }
 }
 ```
+
+# Expected input object
+The expected input object contains alternatives that TDM considers expected by the user the next turn. They can for instance be used to add quick-answer buttons to a GUI or chat client.
+
+The object has the following members:
+
+- `alternatives`: A list of [alternative objects](#alternative-object).
+
+If TDM asks a [yes-no question](../formalism.md#yn-questions), it expects the yes or no [answer](../formalism.md#answer-moves):
+
+```json
+{
+  "alternatives": [
+    {"semantic_expression": "answer(yes)"},
+    {"semantic_expression": "answer(no)"}
+  ]
+}
+```
+
+If TDM asks an [alternative question](../formalism.md#alt-questions) or a [wh-question](../formalism.md#wh-questions) where the alternatives are known, the expected input object either contains [answer moves](../formalism.md#answer-moves) with [unary propositions](../formalism.md#unary-propositions):
+
+```json
+{
+  "alternatives": [
+    {"semantic_expression": "answer(selected_contact(contact_john))"},
+    {"semantic_expression": "answer(selected_contact(contact_lisa))"}
+  ]
+}
+```
+
+... or [request](../formalism.md#request-moves) and [ask moves](../formalism.md#ask-moves):
+
+```json
+{
+  "alternatives": [
+    {"semantic_expression": "request(call)"},
+    {"semantic_expression": "ask(?X.phone_number(X))"}
+  ]
+}
+```
+
+# Alternative object
+An alternative object contains information about the moves that the user is expected to take the next turn. It contains the following members:
+
+- `semantic_expression`: A semantic expression of the expected move, expressed in the [dialog formalism](../formalism.md#moves).

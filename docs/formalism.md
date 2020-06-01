@@ -3,7 +3,7 @@
 The Dialog Formalism is a formal language for expressing semantics and domain knowledge within the framework of issue-based dialog management (Larsson, 2002)[^Larsson, 2002] based on the information state approach (Larsson, Traum, 2000)[^Larsson, Traum, 2000], (Traum, Larsson, 2003)[^Traum, Larsson, 2003], which is the foundation of TDM.
 
 [^Larsson, 2002]:
-    Larsson, S. (2002). Issue-based dialogue management. Department of Linguistics, Göteborg University.
+    Larsson, S. (2002). Issue-based dialogue management. Department of Linguistics, University of Gothenburg.
 [^Larsson, Traum, 2000]:
     Larsson, S., & Traum, D. R. (2000). Information state and dialogue management in the TRINDI dialogue move engine toolkit. Natural language engineering, 6(3-4), 323-340.
 [^Traum, Larsson, 2003]:
