@@ -1,10 +1,52 @@
 This document describes API version 3.3 for HTTP frontends, enabling frontends to integrate with TDM over HTTP. It covers e.g. how input from the user and output from TDM are communicated between TDM and the client.
 
+# Important concepts
+
+This section describes some concepts that are important to understand and comply with when integrating TDM in a dialog system.
+
+**Requests and responses**
+
+TDM serves an HTTP server and responds to requests done by the client. The client is the consumer of the API outlined in this document.
+
 The client invokes TDM with an HTTP request to the interaction endpoint, e.g. `http://localhost:9090/interact`, using the POST method and a JSON body. The client should expect the status code to be 200 OK. For other status codes, the client should report an error to the user.
 
 The request body always contains a version number, specifying the version of the HTTP API format.
 
-The exact format of the request and the response depends on the type of request as described below.
+The exact format of the request and the response depends on the type of request as described in the separate sections below.
+
+**Turn taking**
+
+Turn taking is a vital part of dialog between humans, read for instance [the Wikipedia article](https://en.wikipedia.org/wiki/Turn-taking). Since TDM is based on research on human-human dialog, turn taking is a central concept here too.
+
+The TDM client is responsible for managing turn-taking on behalf of the machine, because it's the component that is closest to the human, in the human-machine dialog that TDM enables. Since the machine is intended to assist the human, the human decides the pace, the turn taking, of the conversation. In spoken dialog, turn taking happens in close collaboration with the spoken output of the system, which means that the system's turn management needs to happen as close to this component, the text-to-speech component (TTS), as possible.
+
+TDM enables intuitive turn taking by instructing its client how to deal with the user input that it's range of sensors can pick up. The instructions are straightforward and revolve around passivity. If the user is passive, for instance doesn't know what to say, for a given amount of time, the client sends TDM a [passivity request](#passivity-requests), which lets the system take the next turn instead of the user.
+
+The user should be considered passive when not doing anything related to the dialog. If the user however takes some action (although not completing its turn just yet), for instance by typing (if it's a text interface) or talking (if it's a spoken interface), the user should be considered active and the passivity request should not be sent to TDM. Instead the user should be allowed to complete its turn, resulting in an input request.
+
+TDM instructs its client about how much time of passivity that should pass before sending the passivity request in the `output.expected_passivity` field of the [response](#response-format).
+
+For instance, if TDM responds with:
+
+```json
+{
+  "output": {
+    ...
+    "expected_passivity": 1.0
+  },
+  ...
+}
+```
+
+then the client should send a [passivity request](#passivity-requests) when the user has been passive for 1 second. The 1 second should start counting when the system utterance has reached the user, which in a spoken interface means when the TTS finished speaking TDM's utterance.
+
+Note that sometimes TDM does not have anything to say when the user becomes passive (`"expected_passivity": null`), and sometimes it just needs to progress the conversation immediately after saying something (`"expected_passivity": 0.0`).
+
+Read the details about how to interpret the `expected_passivity` value in the [response format section](#response-format).
+
+**Errors**
+
+When an error occurs in TDM during a request, for instance due to incomplete turn management, the [response](#response-format) contains the `"error"` field. It's important to note that this could mean that the session stops. If it has stopped, further requests on the same session will report errors that the provided session ID is unknown.
 
 # Start session requests
 When a new session should be started, the client issues a `start_session` request. The response contains initial output from TDM and a session ID that can be used in subsequent requests. For more details, see [the response format](#response-format).
