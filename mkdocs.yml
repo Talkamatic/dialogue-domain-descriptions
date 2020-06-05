@@ -1,44 +1,122 @@
-site_name: TDM
+# Project information
+site_name: Talkamatic Docs
+site_url: https://talkamatic.github.io/
+site_author: Team Talkamatic
+site_description: >-
+    Talkamatic Dialog Manager (TDM) is based on 100 years of research
+    on human dialog. Explore how it can be used to empower natural
+    conversations in chatbots, telephony systems, and any other kinds
+    of dialog systems today.
 
-pages:
-- Introduction: index.md
-- Dialog Formalism: formalism.md
-- "Step-by-step tutorial": tutorial.md
-- Examples: examples.md
-- "Using Rasa NLU": rasa_nlu.md
-- APIs:
-      - "TDM": APIs/http_frontend.md
-      - "Services": APIs/http_service.md
-      - "Shared objects": APIs/shared_objects.md
-      - "NLU": APIs/http_nlu.md
-- TDM Documentation (WIP):
-    - Index: tdm_documentation/index.md
-    - Grammar:
-        - Grammar explanation page (provisional name): tdm_documentation/grammar/grammar.md
-        - Elements:
-            - Action: tdm_documentation/grammar/elements/action.md
-            - Answer: tdm_documentation/grammar/elements/answer.md
-            - Greeting: tdm_documentation/grammar/elements/greeting.md
-            - Individual: tdm_documentation/grammar/elements/individual.md
-            - Preconfirm: tdm_documentation/grammar/elements/preconfirm.md
-            - Question: tdm_documentation/grammar/elements/question.md
-            - Report: tdm_documentation/grammar/elements/report.md
-            - Validity: tdm_documentation/grammar/elements/validity.md
-        - Children:
-            - Item: tdm_documentation/grammar/children/item.md
-            - One-of: tdm_documentation/grammar/children/one-of.md
-            - Slot: tdm_documentation/grammar/children/slot.md
-            - VP: tdm_documentation/grammar/children/vp.md
-    - Service Interface:
-        - Service Interface explanation (provisional name): tdm_documentation/service_interface/service_interface.md
-        - Elements:
-            - Action: tdm_documentation/service_interface/elements/action.md
-            - Entity Recognizer: tdm_documentation/service_interface/elements/entity_recognizer.md
-            - Query: tdm_documentation/service_interface/elements/query.md
-            - Validator: tdm_documentation/service_interface/elements/validator.md
-        - Children:
-            - Failure Reasons: tdm_documentation/service_interface/children/failure_reasons.md
-            - Parameters: tdm_documentation/service_interface/children/parameters.md
-            - Target: tdm_documentation/service_interface/children/target.md
+# Copyright
+copyright: Copyright &copy; 2008 - 2020 Talkamatic
 
-theme: readthedocs
+# Configuration
+theme:
+  name: material
+  custom_dir: theme-overrides
+
+  # 404 page
+  static_templates:
+    - 404.html
+
+  # Don't include MkDocs' JavaScript
+  include_search_page: false
+  search_index_only: true
+
+  # Default values, taken from mkdocs_theme.yml
+  language: en
+  features:
+    - tabs
+  font:
+    text: Roboto
+    code: Roboto Mono
+  icon:
+    logo: talkamatic/logo
+  favicon: favicon.png
+
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+    - Getting started: index.md
+    - The foundation:
+        - Dialog formalism: formalism.md
+    - For dialog designers:
+        - Introduction: for-dialog-designers/index.md
+        - Step-by-step tutorial: for-dialog-designers/tutorial.md
+        - Examples: for-dialog-designers/examples.md
+        - Using Rasa NLU: for-dialog-designers/rasa_nlu.md
+    - API definitions:
+        - Pipeline API: api-definitions/pipeline_api.md
+        - Service API: api-definitions/service_api.md
+        - NLU API: api-definitions/nlu_api.md
+        - Shared objects: api-definitions/shared_objects.md
+    - Dialog Domain Description definitions:
+        - Introduction: dialog-domain-description-definition/index.md
+        - Grammar:
+            - Introduction: dialog-domain-description-definition/grammar/grammar.md
+            - Elements:
+                - Action: dialog-domain-description-definition/grammar/elements/action.md
+                - Answer: dialog-domain-description-definition/grammar/elements/answer.md
+                - Greeting: dialog-domain-description-definition/grammar/elements/greeting.md
+                - Individual: dialog-domain-description-definition/grammar/elements/individual.md
+                - Preconfirm: dialog-domain-description-definition/grammar/elements/preconfirm.md
+                - Question: dialog-domain-description-definition/grammar/elements/question.md
+                - Report: dialog-domain-description-definition/grammar/elements/report.md
+                - Validity: dialog-domain-description-definition/grammar/elements/validity.md
+            - Children:
+                - Item: dialog-domain-description-definition/grammar/children/item.md
+                - One-of: dialog-domain-description-definition/grammar/children/one-of.md
+                - Slot: dialog-domain-description-definition/grammar/children/slot.md
+                - VP: dialog-domain-description-definition/grammar/children/vp.md
+        - Service Interface:
+            - Introduction: dialog-domain-description-definition/service_interface/service_interface.md
+            - Elements:
+                - Action: dialog-domain-description-definition/service_interface/elements/action.md
+                - Entity Recognizer: dialog-domain-description-definition/service_interface/elements/entity_recognizer.md
+                - Query: dialog-domain-description-definition/service_interface/elements/query.md
+                - Validator: dialog-domain-description-definition/service_interface/elements/validator.md
+            - Children:
+                - Failure Reasons: dialog-domain-description-definition/service_interface/children/failure_reasons.md
+                - Parameters: dialog-domain-description-definition/service_interface/children/parameters.md
+                - Target: dialog-domain-description-definition/service_interface/children/target.md
+
+markdown_extensions:
+  - markdown.extensions.admonition
+  - markdown.extensions.attr_list
+  - markdown.extensions.codehilite:
+      guess_lang: false
+  - markdown.extensions.def_list
+  - markdown.extensions.footnotes
+  - markdown.extensions.meta
+  - markdown.extensions.toc:
+      permalink: true
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  # - pymdownx.highlight:
+  #     linenums_style: pymdownx-inline
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      check_paths: true
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+plugins:
+  - search # necessary for search to work
+  - git-revision-date-localized
+  - minify:
+      minify_html: true

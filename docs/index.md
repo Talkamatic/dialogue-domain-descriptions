@@ -1,59 +1,9 @@
-A number of concepts need to be known to the developer when creating TDM Dialogue Domain Descriptions (DDDs).
+# Getting started
 
-We recommend new developers to start by reading [the introductory presentation](https://github.com/Talkamatic/dialogue-domain-descriptions/blob/master/tdm-ddd-development.pdf) by Alexander and studying the basic concepts below.
+Welcome to the Talkamatic documentation. The site you just entered describes:
 
-After that, work through [the tutorial](tutorial) for hands on practice, or skip straight to [the example DDDs](examples)
+- the foundation of our technologies, most notably the [Dialog formalism](formalism.md) that models our entire dialog universe
+- some [assistance for dialog designers](for-dialog-designers), a [tutorial](for-dialog-designers/tutorial.md) and some publicly available [code examples](for-dialog-designers/examples.md) among other things
+- [API definitions](api-definitions), whether you integrate the [TDM Pipeline](api-definitions/pipeline_api.md) into your software stack, build your own [NLU](api-definitions/nlu_api.md) or create your own domain-specific [service](api-definitions/service_api.md) doesn't matter, it's all there
 
-
-# Actions
-
-An action is requested by the user and performed by the system. It may or may not require a number of answers in order to be performed. Example:
-
-```diff
-U> Call.
-```
-
-or
-
-```diff
-U> Call John.
-```
-
-
-# Queries
-
-A query is asked by the user or the system, when they want a piece of information. It can be formulated as a question, or as a request. Similar to an action, it may or may not require a number of answers in order to be answered.
-
-```diff
-U> What is John's number?
-```
-
-or
-
-```diff
-U> Tell me John's number.
-```
-
-
-# Answers
-
-An answer is provided by the user or the system, providing information that is relevant for a question or request. When provided by the user, it can be resolving or not. If the question is about a contact, the following would be an answer:
-
-```diff
-U> John
-```
-
-
-# Feedback
-
-Feedback is given by the system to inform the user. For example that actions have been performed, that the system did not hear what the user said, etc.
-
-```diff
-S> Calling John.
-```
-
-or
-
-```diff
-S> I did not hear.
-```
+Additionally, there's further illustrated reading about TDM wrapped into a [PDF here](https://github.com/Talkamatic/dialogue-domain-descriptions/blob/master/dialog-design.pdf).
