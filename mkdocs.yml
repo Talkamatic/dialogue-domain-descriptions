@@ -7,8 +7,9 @@ pages:
 - Examples: examples.md
 - "Using Rasa NLU": rasa_nlu.md
 - APIs:
-    - "API for HTTP frontends": APIs/http_frontend.md
-    - "API for HTTP services": APIs/http_service.md
+      - "TDM": APIs/http_frontend.md
+      - "Services": APIs/http_service.md
+      - "Shared objects": APIs/shared_objects.md
 - TDM Documentation (WIP):
     - Index: tdm_documentation/index.md
     - Grammar:

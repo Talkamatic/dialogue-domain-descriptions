@@ -67,7 +67,7 @@ Example:
 }
 ```
 
-The `session` object can contain frontend-specific session data to be used in dialog or by services. For more details, see [the session object](#session-object)
+The `session` object can contain frontend-specific session data to be used in dialog or by services. For more details, see [the session object](#session-object).
 
 The `start_session` object may contain the following optional members:
 
@@ -95,8 +95,6 @@ See [response format](#response-format).
 When the client detects natural language input from the user, it issues a request and receives output from TDM. The request can contain either hypotheses with the `speech` modality, or a single utterance with the `text` modality.
 
 **Request**
-
-Speech input example:
 
 ```json
 {
@@ -126,30 +124,9 @@ Speech input example:
 }
 ```
 
-Text input example:
+The `session` object can contain frontend-specific session data to be used in dialog or by services. For more details, see [the session object](session-object).
 
-```json
-{
-  "version": "3.3",
-  "session": {
-    "session_id": "0000-abcd-1111-efgh"
-  },
-  "request": {
-    "natural_language_input": {
-      "modality": "text",
-      "utterance": "I'm searching for flights from London to Paris tomorrow"
-    }
-  }
-}
-```
-
-The `session` object can contain frontend-specific session data to be used in dialog or by services. For more details, see [the session object](#session-object)
-
-The `natural_language_input` object contains the following members:
-
-- `modality`: Should be either `speech` or `text` depending on how the input was detected.
-- `hypotheses`: A list of [hypothesis objects](#hypothesis-object) which should be provided if `modality` is `speech`; otherwize the field should be omitted.
-- `utterance`: A string containing the utterance if `modality` is `text`; otherwize the field should be omitted.
+See the [natural language input object](shared_objects.md#natural-language-input-object) for more details.
 
 The `natural_language_input` request may be combined with the `start_session` request when a session does not yet exist, but may not be combined with other requests.
 
@@ -172,8 +149,6 @@ See [response format](#response-format).
 When the client has user input on a semantic format, as a user move, it should issue the `semantic_input` request.
 
 Semantic in this case means that the user input does not need to be interpreted; the user move is already known. This is useful when an external natural language understanding (NLU) component has already interpreted the input; when the user presses a button in a GUI; or for instance when the user makes a gesture which is interpreted as a user move.
-
-The semantic format is different for each of the supported user moves. See [the move object section](#move-object) for examples.
 
 **Request**
 
@@ -272,12 +247,13 @@ The semantic format is different for each of the supported user moves. See [the 
 }
 ```
 
-The `session` object can contain frontend-specific session data to be used in dialog or by services. For more details, see [the session object](#session-object)
-
-The `semantic_input` object contains the following members:
+The `session` object can contain frontend-specific session data to be used in dialog or by services. For more details, see [the session object](#session-object).
 
 - `interpretations`: A list of [interpretation objects](#interpretation-object). TDM will use confidence scores and the context of the current state of the session to decide which interpretation to act upon.
 - `entities`: (optional) A list of [entity objects](#entity-object). TDM can use these entities in interpretations and for natural language generation.
+
+See the [semantic input object](shared_objects.md#semantic-input-object) for more details.
+
 
 The `semantic_input` request may be combined with the `start_session` request when a session does not yet exist, but may not be combined with other requests.
 
@@ -316,7 +292,7 @@ Example:
 }
 ```
 
-The `session` object can contain frontend-specific session data to be used in dialog or by services. For more details, see [the session object](#session-object)
+The `session` object can contain frontend-specific session data to be used in dialog or by services. For more details, see [the session object](#session-object).
 
 The `passivity` request may not be combined with other requests in the same call.
 
@@ -349,7 +325,7 @@ Example:
 }
 ```
 
-The `session` object can contain frontend-specific session data to be used in dialog or by services. For more details, see [the session object](#session-object)
+The `session` object can contain frontend-specific session data to be used in dialog or by services. For more details, see [the session object](#session-object).
 
 The `event` object contains the following members:
 
@@ -374,170 +350,6 @@ Example:
 **Response**
 
 See [response format](#response-format).
-
-# Session object
-A session object can contain frontend-specific session data. The data is forwarded as is to all service calls on the [HTTP API for services](http_service.md#session-object). That way, the data can be used in service calls directly; or influence the dialog, for instance by being retrieved through service queries.
-
-Note that session data is not automatically stored or attached to the session within TDM. It is returned in the [response](#response-format) and can be injected in future requests. If specific data should be available to all service calls on a session, the data needs to be injected in every request on that session, or the DDD needs to retrieve it into the dialog state, for instance by a service query.
-
-For all requests except [start session](#start-session-requests), a `session_id` is required and used to identify to which session the request is being made.
-
-For start session requests however, the `session_id` is disallowed and instead generated by TDM. It should be retrieved from the [response](#response-format).
-
-Example for start session request:
-
-```json
-{
-  "session": {
-    "my_frontend": {
-      "user_id": "123-abc-456-def",
-      "position": {
-        "latitude": "57.699188",
-        "longitude": "11.948313"
-      }
-    }
-  }
-}
-```
-
-Example otherwise:
-
-```json
-{
-  "session": {
-    "session_id": "0000-abcd-1111-efgh",
-    "my_frontend": {
-      "user_id": "123-abc-456-def",
-      "position": {
-        "latitude": "57.699188",
-        "longitude": "11.948313"
-      }
-    }
-  }
-}
-```
-
-# Hypothesis object
-A hypothesis object contains information about what the user is believed to have uttered, consisting of the following members:
-
-- `utterance`: A string containing the utterance.
-- `confidence`: A number from 0.0 to 1.0 representing the confidence of the hypothesis.
-
-# Interpretation object
-An interpretation translates an utterance into one or several semantic moves. An interpretation object contains:
-
-- `utterance`: (optional) A string containing the utterance.
-- `modality`: The modality that the user used to provide the original input. One of `speech`, `text`, `haptic`, `other`.
-- `moves`: A list of [move objects](#move-object).
-
-# Entity object
-These entities are needed when entities are not defined in the DDD and can then be used in interpretations and in downstream natural language generation. An entity object contains:
-
-- `name`: A string containing the semantic name. This name can be used to reference the entity in interpretations.
-- `sort`: A string with the entity sort name.
-- `grammar_entry`: A string containing the natural language form of the entity.
-- `ddd`: A string with the name of the DDD that the entity belongs to.
-
-# Move object
-A move object contains information about how a user move was interpreted. Its members are:
-
-- `ddd`: (optional) A string containing the DDD name. For DDD independent moves (e.g. `answer(yes)` and `request(up)`), this field may be omitted; in which case the currently active DDD will be used to parse the semantic expression.
-- `perception_confidence`: A float between `0.0` and `1.0`, representing the confidence that a spoken utterance actually matches the textual utterance, for instance when a speech-to-text (STT) component turned it into text. If no perception component was used, the confidence should be set to `1.0`.
-- `understanding_confidence`: A float between `0.0` and `1.0`, representing the confidence that the textual utterance actually represents this move, for instance when an NLU component interprets the textual utterance. If no understanding component was used, for instance if the user pressed a button, the confidence should be set to `1.0`.
-- `semantic_expression`: A semantic expression for the move, expressed in the [dialog formalism](../formalism.md#moves). Supported moves are `request`, `ask` and `answer`. See examples below for details.
-
-**Example of a `request` move:**
-
-A `request` move has just one parameter: An action. In this case the `call` action, which must be defined in the ontology of the `phone` DDD.
-
-```json
-{
-  "ddd": "phone",
-  "semantic_expression": "request(call)",
-  "perception_confidence": 0.65,
-  "understanding_confidence": 0.5234
-}
-```
-
-**Example of builtin `request` move:**
-
-The builtin and DDD independent actions `top` and `up` can be requested without including the DDD name:
-
-```json
-{
-  "semantic_expression": "request(top)",
-  "perception_confidence": 0.56,
-  "understanding_confidence": 0.65305
-}
-```
-
-**Example of `ask` moves:**
-
-An `ask` move contains a question. Questions are expressed with a leading `?`. Question in `ask` moves always contain a predicate that must be defined in the ontology of the DDD. There are two supported types of questions in `ask` moves: wh-questions (questions about what, when, whom, which etc.) and yes-no questions (that can be answered with a yes or no).
-
-**Example of an `ask` move containing a wh-question:**
-
-Wh-questions are represented in a lambda-like form. In the case below, the question `?X.phone_number(X)` means that we're asking what someone's phone number is.
-
-```json
-{
-  "ddd": "phone",
-  "semantic_expression": "ask(?X.phone_number(X))",
-  "perception_confidence": 0.31,
-  "understanding_confidence": 0.10126
-}
-```
-
-**Example of an `ask` move containing a yes-no question:**
-
-In the case below, the question `?missed_calls` means that we're asking whether there are any missed calls (without asking e.g. when or from whom).
-
-```json
-{
-  "ddd": "phone",
-  "semantic_expression": "ask(?missed_calls)",
-  "perception_confidence": 0.43,
-  "understanding_confidence": 0.2432
-}
-```
-
-**Example of a sortal `answer` move:**
-
-A sortal `answer` move has an individual as its parameter. In this case, the individual `contact_john`, must be defined in the ontology of the `phone` DDD.
-
-```json
-{
-  "ddd": "phone",
-  "semantic_expression": "answer(contact_john)",
-  "perception_confidence": 0.65,
-  "understanding_confidence": 0.98532
-}
-```
-
-**Example of a propositional `answer` move:**
-
-A propositional `answer` move has a proposition as its parameter, consisting of a predicate and an individual. In this case, the predicate `selected_contact`, and the individual `contact_john`, must be defined in the ontology of the `phone` DDD.
-
-```json
-{
-  "ddd": "phone",
-  "semantic_expression": "answer(selected_contact(contact_john))",
-  "perception_confidence": 0.65,
-  "understanding_confidence": 0.71347
-}
-```
-
-**Example of builtin sortal `answer` move:**
-
-The builtin and DDD independent answers `yes` and `no` can be used without including the DDD name:
-
-```json
-{
-  "semantic_expression": "answer(yes)",
-  "perception_confidence": 0.834,
-  "understanding_confidence": 0.71359
-}
-```
 
 # Response format
 The response format differs when the request was successful compared to when it encountered an error.
@@ -613,8 +425,8 @@ The `context` object is provided unless an error has occurred and contains the f
 - `goal`: Currently active goal, expressed as a [goal in the dialog formalism](../formalism.md#goals).
 - `plan`: Remaining items on the current plan, represented by a list of [plan items in the dialog formalism](../formalism.md#plan-items).
 - `facts_being_grounded`: Information that the system is currently grounding with the user, represented as a list of [facts objects](#facts-object).
-- `selected_hypothesis`: The natural language hypothesis that the system decided to act on. If the system turn was requested with a [natural language input request](#natural-language-input-requests), this corresponds to one of the [hypothesis objects](#hypothesis-object) that were part of it. This field is `null` if a hypothesis could not be determined.
-- `selected_interpretation`: The semantic interpretation that the system decided to act on. If the system turn was requested with a [semantic input request](#semantic-input-requests), this corresponds to one of the [interpretation objects](#interpretation-object) that were part of it. This field is `null` if an interpretation could not be determined.
+- `selected_hypothesis`: The natural language hypothesis that the system decided to act on. If the system turn was requested with a [natural language input request](#natural-language-input-requests), this corresponds to one of the [hypothesis objects](shared_objects.md#hypothesis-object) that were part of it. This field is `null` if a hypothesis could not be determined.
+- `selected_interpretation`: The semantic interpretation that the system decided to act on. If the system turn was requested with a [semantic input request](#semantic-input-requests), this corresponds to one of the [interpretation objects](shared_objects.md#interpretation-object) that were part of it. This field is `null` if an interpretation could not be determined.
 - `expected_input`: An [expected input object](#expected-input-object), containing alternatives that TDM considers expected by the user the next turn. This field is `null` if TDM does not expect input, or if it doesn't know what input to expect.
 
 A `warnings` field is provided if warnings have been issued, as a list of strings, one string per warning. This can for instance happen when TDM is updated to a new version of this frontend API and the previous version is deprecated. In such cases, update your request formats to comply with the warning and avoid potential future errors:
@@ -639,7 +451,78 @@ An `error` object is provided if an error has occurred. In such cases, an error 
 
 - `description`: A human readable technical description of the error.
 
+# Session object
+
+A session object can contain frontend-specific session data. The data is forwarded as is to all service calls on the [HTTP API for services](http_service.md#session-object). That way, the data can be used in service calls directly; or influence the dialog, for instance by being retrieved through service queries.
+Note that session data is not automatically stored or attached to the session within TDM. It is returned in the [response](#response-format) and can be injected in future requests. If specific data should be available to all service calls on a session, the data needs to be injected in every request on that session, or the DDD needs to retrieve it into the dialog state, for instance by a service query.
+For all requests except [start session](http_frontend.md#start-session-requests), a `session_id` is required and used to identify to which session the request is being made.
+For start session requests however, the `session_id` is disallowed and instead generated by TDM. It should be retrieved from the [response](#response-format).
+
+Example for start session request:
+
+```json
+{
+  "session": {
+    "my_frontend": {
+      "user_id": "123-abc-456-def",
+      "position": {
+        "latitude": "57.699188",
+        "longitude": "11.948313"
+      }
+    }
+  }
+}
+```
+
+Example otherwise:
+
+```json
+{
+  "session": {
+    "session_id": "0000-abcd-1111-efgh",
+    "my_frontend": {
+      "user_id": "123-abc-456-def",
+      "position": {
+        "latitude": "57.699188",
+        "longitude": "11.948313"
+      }
+    }
+  }
+}
+```
+
+# Output object
+
+The `output` object contains the following members:
+
+- `moves`: The moves made by the system this turn. This is a list of [move expressions in the dialog formalism](../formalism.md#moves). Moves here are similar to the `semantic_expression` field of [move objects](#move-object).
+- `utterance`: A string representing the output utterance from the system and should be realized by the client (e.g. by speaking it or displaying it as text).
+- `expected_passivity`: If not null, the value is a number corresponding to the number of seconds of user passivity after which the client is expected to make a [passivity request](#passivity-requests). If the value is 0.0, the passivity notification request should be issued immediately after having realized the system output.
+- `actions`: A list of [action invocation objects](action-invocation-object), which needs to be invoked by the client. TDM assumes that the actions will succeed and reports them accordingly.
+
+# Nlu results object
+
+The `nlu_result` object contains the following members:
+
+- `selected_utterance`: The utterance selected as the best candidate amoung the list of natural language input hypotheses.
+- `confidence`: A number representing the joint confidence of the input and the NLU processing.
+
+# Context object
+
+The `context` object contains the following members:
+
+- `active_ddd`: The name of the currently active DDD.
+- `facts`: Information gathered during the conversation (see [facts object](facts-object)).
+- `language`: ID of the current language.
+- `goal`: Currently active goal, expressed as a [goal proposition in the dialog formalism](../formalism.md#goal-propositions).
+- `plan`: Remaining items on the current plan, represented by a list of [plan items in the dialog formalism](../formalism.md#plan-items).
+- `facts_being_grounded`: Information that the system is currently grounding with the user, represented as a list of [facts objects](facts-object).
+- `selected_hypothesis`: The natural language hypothesis that the system decided to act on. If the system turn was requested with a [natural language input request](#natural-language-input-requests), this corresponds to one of the [hypothesis objects](shared_objects.md#hypothesis-object) that were part of it. This field is `null` if a hypothesis could not be determined.
+- `selected_interpretation`: The semantic interpretation that the system decided to act on. If the system turn was requested with a [semantic input request](#semantic-input-requests), this corresponds to one of the [interpretation objects](shared_objects.md#interpretation-object) that were part of it. This field is `null` if an interpretation could not be determined.
+- `expected_input`: An [expected input object](expected-input-object), containing alternatives that TDM considers expected by the user the next turn. This field is `null` if TDM does not expect input, or if it doesn't know what input to expect.
+
 # Action invocation object
+
 An action invocation object contains information about an action to be invoked by the client. The object has the following members:
 
 - `name` is a string corresponding to the action's name in `service_interface.xml`.
@@ -649,6 +532,7 @@ An action invocation object contains information about an action to be invoked b
     - `grammar_entry`: Natural-language representation of the value.
 
 Example:
+
 ```json
 {
   "name": "call",
@@ -663,6 +547,7 @@ Example:
 ```
 
 # Facts object
+
 The `facts` field contains a map of key-value pairs for information gathered during the conversation, e.g. from the user. The map may be empty.
 
 The key is a string matching a predicate as defined in the ontology. The value is an object with the following members:
@@ -672,6 +557,7 @@ The key is a string matching a predicate as defined in the ontology. The value i
 - `grammar_entry`: Natural-language representation of the value.
 
 Example:
+
 ```json
 {
   "facts": {
