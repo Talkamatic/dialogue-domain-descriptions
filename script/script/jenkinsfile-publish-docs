@@ -1,0 +1,115 @@
+pipeline {
+    agent { label 'docker' }
+
+    options {
+        buildDiscarder(
+            logRotator(
+                artifactDaysToKeepStr: '',
+                artifactNumToKeepStr: '',
+                daysToKeepStr: '',
+                numToKeepStr: '10'
+            )
+        )
+        timestamps()
+        timeout(time: 5, unit: 'MINUTES')
+    }
+
+    triggers {
+        gerrit(
+            customUrl: '',
+            gerritProjects:[
+                [
+                    branches: [
+                        [
+                            compareType: 'ANT',
+                            pattern: 'master'
+                        ]
+                    ],
+                    compareType: 'PLAIN',
+                    disableStrictForbiddenFileVerification: false,
+                    pattern: 'github/dialogue-domain-descriptions'
+                ]
+            ],
+            serverName: 'Talkamatic',
+            triggerOnEvents: [
+                refUpdated()
+            ],
+            skipVote: [
+              onSuccessful: false,
+              onFailed    : false,
+              onUnstable  : false,
+              onNotBuilt  : false
+            ]
+        )
+    }
+
+    stages {
+        stage('checkout') {
+            steps {
+                sh "rm -rf *"
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: '*/master']],
+                    doGenerateSubmoduleConfigurations: false,
+                    extensions: [
+                        [
+                            $class: 'SubmoduleOption',
+                            disableSubmodules: false,
+                            parentCredentials: true
+                        ],
+                        [
+                            $class: 'RelativeTargetDirectory',
+                            relativeTargetDir: 'dialogue-domain-descriptions'
+                        ]
+                    ],
+                    submoduleCfg: [],
+                    userRemoteConfigs: [[
+                        credentialsId: 'jenkinsatgerrit',
+                        url: 'ssh://jenkins@gerrit.talkamatic.se:29418/github/dialogue-domain-descriptions'
+                    ]]
+                ])
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: '*/master']],
+                    doGenerateSubmoduleConfigurations: false,
+                    extensions: [
+                        [
+                            $class: 'SubmoduleOption',
+                            disableSubmodules: false,
+                            parentCredentials: true
+                        ],
+                        [
+                            $class: 'RelativeTargetDirectory',
+                            relativeTargetDir: 'talkamatic.github.io'
+                        ]
+                    ],
+                    submoduleCfg: [],
+                    userRemoteConfigs: [[
+                        credentialsId: 'jenkinsatgithub',
+                        url: 'git@github.com:Talkamatic/talkamatic.github.io.git'
+                    ]]
+                ])
+            }
+        }
+
+        stage ('publish') {
+            agent {
+                docker {
+                    image 'python:3.7-slim'
+                    alwaysPull true
+                    reuseNode true
+                }
+            }
+            steps {
+                dir('dialogue-domain-descriptions') {
+                    sh "pip install -r requirements.txt"
+                }
+                sshagent (credentials: ['jenkinsatgithub']) {
+                    dir('talkamatic.github.io') {
+                        sh "mkdocs gh-deploy --config-file ../dialogue-domain-descriptions/mkdocs.yml --remote-branch master"
+                    }
+                }
+            }
+        }
+    }
+}
