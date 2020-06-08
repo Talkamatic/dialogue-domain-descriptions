@@ -10,6 +10,7 @@ pages:
       - "TDM": APIs/http_frontend.md
       - "Services": APIs/http_service.md
       - "Shared objects": APIs/shared_objects.md
+      - "NLU": APIs/http_nlu.md
 - TDM Documentation (WIP):
     - Index: tdm_documentation/index.md
     - Grammar:
