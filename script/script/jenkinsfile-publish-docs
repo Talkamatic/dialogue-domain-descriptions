@@ -94,16 +94,13 @@ pipeline {
 
         stage ('publish') {
             agent {
-                docker {
-                    image 'python:3.7-slim'
-                    alwaysPull true
+                dockerfile {
+                    filename 'Dockerfile'
+                    additionalBuildArgs '--pull'
                     reuseNode true
                 }
             }
             steps {
-                dir('dialogue-domain-descriptions') {
-                    sh "pip install -r requirements.txt"
-                }
                 sshagent (credentials: ['jenkinsatgithub']) {
                     dir('talkamatic.github.io') {
                         sh "mkdocs gh-deploy --config-file ../dialogue-domain-descriptions/mkdocs.yml --remote-branch master"
