@@ -98,6 +98,7 @@ pipeline {
                     filename 'Dockerfile'
                     dir 'dialogue-domain-descriptions'
                     additionalBuildArgs '--pull'
+                    args '-v /etc/passwd:/etc/passwd'
                     reuseNode true
                 }
             }
