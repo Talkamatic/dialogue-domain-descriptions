@@ -19,12 +19,12 @@ default | string | Optional. Default 'value' or 'grammar_entry' for the predicat
 
 ## Children
 
-- [<parameter\>](/tdm_documentation/service_interface/children/parameters)
+- [<parameter\>](/dialog-domain-description-definition/service_interface/children/parameters)
 
 
 ## Behaviour
 
-The <parameters\> element in the service interface contains all the parameters sent as arguments to the [<target\>](/tdm_documentation/service_interface/children/target) service.
+The <parameters\> element in the service interface contains all the parameters sent as arguments to the [<target\>](/dialog-domain-description-definition/service_interface/children/target) service.
 
 Each of the parameters used by the specified target must be passed in a <parameter\> child.
 
@@ -36,7 +36,7 @@ The `format` attribute specifies if the parameter passed to the target service h
 
 The `default` attribute contains a string that is used as a 'value' or 'grammar_entry' if the predicate in the <parameter\> doesn't have any content in that 'value' or 'grammar_entry' (the one specified in the `format` attribute).
 
-This attribute is necessary when the parameter is resolved in the Domain with a [<bind\>](/domain/children/bind) or a [<raise\>](/domain/children/raise) element since the user doesn't need to answer to these. If the user didn't answer those and a `default` value hasn't been specified, the predicate would be empty.
+This attribute is necessary when the parameter is resolved in the Domain with a [<bind\>](/dialog-domain-description-definition/domain/children/bind) or a [<raise\>](/dialog-domain-description-definition/domain/children/raise) element since the user doesn't need to answer to these. If the user didn't answer those and a `default` value hasn't been specified, the predicate would be empty.
 
 
 ## Examples

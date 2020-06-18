@@ -12,13 +12,13 @@ The grammar entry specifying how the system reports to the user that one or more
 
 ## Children
 
-- [<slot\>](/tdm_documentation/grammar/children/slot)
+- [<slot\>](/dialog-domain-description-definition/grammar/children/slot)
 
 ## Behaviour
 
 The <validity\> element in the grammar defines the way in which the system informs users about the parameters they have given being invalid. The attribute `name` specifies the name of the validator and needs to match the name of the corresponding validator in service_interface.
 
-A validity entry in the grammar contains one phrase which the system can use to inform the user of invalid parameters. This phrase can contain [<slot\>](/tdm_documentation/grammar/children/slot) tags.
+A validity entry in the grammar contains one phrase which the system can use to inform the user of invalid parameters. This phrase can contain [<slot\>](/dialog-domain-description-definition/grammar/children/slot) tags.
 
 ## Examples
 

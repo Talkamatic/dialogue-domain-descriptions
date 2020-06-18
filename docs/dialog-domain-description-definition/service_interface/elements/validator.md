@@ -14,20 +14,20 @@ name | string | Required. The name of the validator class. Names are written acc
 
 ## Children
 
-- [<parameters\>](/tdm_documentation/service_interface/children/parameters)
-    - [<parameter\>](/tdm_documentation/service_interface/children/parameters)
-- [<target\>](/tdm_documentation/service_interface/children/target)
-    - [<http\>](/tdm_documentation/service_interface/children/target)
-    - [<device_module\>](/tdm_documentation/service_interface/children/target)
+- [<parameters\>](/dialog-domain-description-definition/service_interface/children/parameters)
+    - [<parameter\>](/dialog-domain-description-definition/service_interface/children/parameters)
+- [<target\>](/dialog-domain-description-definition/service_interface/children/target)
+    - [<http\>](/dialog-domain-description-definition/service_interface/children/target)
+    - [<device_module\>](/dialog-domain-description-definition/service_interface/children/target)
 
 
 ## Behaviour
 
-The <validator\> element in the service interface checks the validity of a parameter using the specified module in [<target\>](/tdm_documentation/service_interface/children/target). The target service must be either an http_service or a device module, which would return either `true` or `false` as the value for `"is_valid"` inside a validator response.
+The <validator\> element in the service interface checks the validity of a parameter using the specified module in [<target\>](/dialog-domain-description-definition/service_interface/children/target). The target service must be either an http_service or a device module, which would return either `true` or `false` as the value for `"is_valid"` inside a validator response.
 
 <!-- Include a link to action response in the HTTP service API doc? -->
 
-If the target module returns a `"is_valid": false`, that will trigger the system to reject the user utterance, and explain to the user why the parameter was rejected. The rejecting utterance will need to be defined in the [grammar](/tdm_documentation/grammar/children/validity).
+If the target module returns a `"is_valid": false`, that will trigger the system to reject the user utterance, and explain to the user why the parameter was rejected. The rejecting utterance will need to be defined in the [grammar](/dialog-domain-description-definition/grammar/children/validity).
 
 
 ## Examples

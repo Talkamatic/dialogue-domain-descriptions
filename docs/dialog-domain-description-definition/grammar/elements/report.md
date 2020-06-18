@@ -14,15 +14,15 @@ The grammar entry of a report given by the system.
 
 ## Children
 
-- [<one-of selection="..."\>](/tdm_documentation/grammar/children/one-of)
-    - [<item\>](/tdm_documentation/grammar/children/item)
-        - [<slot\>](/tdm_documentation/grammar/children/slot)
+- [<one-of selection="..."\>](/dialog-domain-description-definition/grammar/children/one-of)
+    - [<item\>](/dialog-domain-description-definition/grammar/children/item)
+        - [<slot\>](/dialog-domain-description-definition/grammar/children/slot)
 
 ## Behaviour
 
 The <report\> element in the grammar defines the way in which the system makes reports about actions before or after performing them. The attribute `action` specifies which action the report is for, and the attribute `status` specifies the outcome of the performed action.
 
-A report action can contain one of more phrases which are used by the system to report the result of the report's specified action. These phrases can also contain [<slot\>](/tdm_documentation/grammar/children/slot) tags. When a <report\> element contains multiple phrases, these are specified in [<item\>](/tdm_documentation/grammar/children/item) tags inside a [<one-of\>](/tdm_documentation/grammar/children/one-of) tag. In the case of <report\>, these <one-of\> tags have an attribute called 'selection' which specifies the order in which the contained items are used.
+A report action can contain one of more phrases which are used by the system to report the result of the report's specified action. These phrases can also contain [<slot\>](/dialog-domain-description-definition/grammar/children/slot) tags. When a <report\> element contains multiple phrases, these are specified in [<item\>](/dialog-domain-description-definition/grammar/children/item) tags inside a [<one-of\>](/dialog-domain-description-definition/grammar/children/one-of) tag. In the case of <report\>, these <one-of\> tags have an attribute called 'selection' which specifies the order in which the contained items are used.
 
 Reports can make use of the attribute `reason` in situations where the system reports on an action failure that could be due to multiple different reasons. An example of this is a situation where the action "CancelReservation" fails as the user is trying to cancel their booking of a hotel room. The reasons could for instance be that the user has no booked hotel room to cancel, or that the user is trying to cancel the reservation less than 24 hours before when this is not allowed.
 

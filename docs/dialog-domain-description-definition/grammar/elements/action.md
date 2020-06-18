@@ -11,19 +11,19 @@ Attribute | Type | Description |
 name | string | Required. Should match the name of the corresponding action in ontology. The action names in <action> elements are written using lowercase separated by underscores, e.g. 'set_temperature'. |
 
 ## Children
-- [<one-of\>](/tdm_documentation/grammar/children/one-of)
-    - [<item\>](/tdm_documentation/grammar/children/item)
-        - [<slot\>](/tdm_documentation/grammar/children/slot)
-        - [<vp\>](/tdm_documentation/grammar/children/vp)
-            - [<infinitive\>](/tdm_documentation/grammar/children/vp)
-            - [<imperative\>](/tdm_documentation/grammar/children/vp)
-            - [<ing-form\>](/tdm_documentation/grammar/children/vp)
-            - [<object\>](/tdm_documentation/grammar/children/vp)
+- [<one-of\>](/dialog-domain-description-definition/grammar/children/one-of)
+    - [<item\>](/dialog-domain-description-definition/grammar/children/item)
+        - [<slot\>](/dialog-domain-description-definition/grammar/children/slot)
+        - [<vp\>](/dialog-domain-description-definition/grammar/children/vp)
+            - [<infinitive\>](/dialog-domain-description-definition/grammar/children/vp)
+            - [<imperative\>](/dialog-domain-description-definition/grammar/children/vp)
+            - [<ing-form\>](/dialog-domain-description-definition/grammar/children/vp)
+            - [<object\>](/dialog-domain-description-definition/grammar/children/vp)
 
 ## Behaviour
 The <action\> element in the grammar defines the way in which the system and users can speak about a given action. The attribute `name` indicates which action in the ontology the grammar entry is for.
 
-An action entry in the grammar should cover the different ways a user could speak about the action, such as different expressions and word choices. These options are given using the [<one-of\>](/tdm_documentation/grammar/children/one-of) tag, where each alternative expression is an [<item\>](/tdm_documentation/grammar/children/item). [<item\>](/tdm_documentation/grammar/children/item) tags can contain [<vp\>](/tdm_documentation/grammar/children/vp) or [<slot\>](/tdm_documentation/grammar/children/slot) tags.
+An action entry in the grammar should cover the different ways a user could speak about the action, such as different expressions and word choices. These options are given using the [<one-of\>](/dialog-domain-description-definition/grammar/children/one-of) tag, where each alternative expression is an [<item\>](/dialog-domain-description-definition/grammar/children/item). [<item\>](/dialog-domain-description-definition/grammar/children/item) tags can contain [<vp\>](/dialog-domain-description-definition/grammar/children/vp) or [<slot\>](/dialog-domain-description-definition/grammar/children/slot) tags.
 
 ## Examples
 ### Action entry for setting an alarm with three different expressions:

@@ -14,14 +14,14 @@ name | string | Required. The name of the entity recognizer. Names are written a
 
 ## Children
 
-- [<target\>](/tdm_documentation/service_interface/children/target)
-    - [<http\>](/tdm_documentation/service_interface/children/target)
-    - [<device_module\>](/tdm_documentation/service_interface/children/target)
+- [<target\>](/dialog-domain-description-definition/service_interface/children/target)
+    - [<http\>](/dialog-domain-description-definition/service_interface/children/target)
+    - [<device_module\>](/dialog-domain-description-definition/service_interface/children/target)
 
 
 ## Behaviour
 
-The <entity_recognizer\> element in the service interface requests entities from the [<target\>](/tdm_documentation/service_interface/children/target) http_service or device module. The endpoint function will collect the entities and return each of the entities' `value`, `grammar_entry` and `sort` in the response. <!-- Include a LINK to entity_recognizer response in the API documentation -->
+The <entity_recognizer\> element in the service interface requests entities from the [<target\>](/dialog-domain-description-definition/service_interface/children/target) http_service or device module. The endpoint function will collect the entities and return each of the entities' `value`, `grammar_entry` and `sort` in the response. <!-- Include a LINK to entity_recognizer response in the API documentation -->
 
 
 ## Examples

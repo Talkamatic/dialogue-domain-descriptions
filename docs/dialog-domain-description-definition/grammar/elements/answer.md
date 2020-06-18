@@ -14,15 +14,15 @@ The grammar entry of an answer given by the system or the user.
 
 ## Children
 
-- [<one-of\>](/tdm_documentation/grammar/children/one-of)
-    - [<item\>](/tdm_documentation/grammar/children/item)
-        - [<slot\>](/tdm_documentation/grammar/children/slot)
+- [<one-of\>](/dialog-domain-description-definition/grammar/children/one-of)
+    - [<item\>](/dialog-domain-description-definition/grammar/children/item)
+        - [<slot\>](/dialog-domain-description-definition/grammar/children/slot)
 
 ## Behaviour
 
 The <answer\> element in the grammar defines the way in which the system and users can give answers to questions. The attribute `polarity` specifies whether the answer is positive or negative, the attribute `predicate` indicates which predicate in the ontology the grammar entry is for, and the attribute `speaker` specifies the speaker of the answer.
 
-An answer entry in the grammar should cover the different ways in which the system and users can answer questions, such as different expressions and word choices. These options are given using the [<one-of\>](/tdm_documentation/grammar/children/one-of) tag, where each alternative expression is an [<item\>](/tdm_documentation/grammar/children/item), which in turn can contain [<slot\>](/tdm_documentation/grammar/children/slot) tags.
+An answer entry in the grammar should cover the different ways in which the system and users can answer questions, such as different expressions and word choices. These options are given using the [<one-of\>](/dialog-domain-description-definition/grammar/children/one-of) tag, where each alternative expression is an [<item\>](/dialog-domain-description-definition/grammar/children/item), which in turn can contain [<slot\>](/dialog-domain-description-definition/grammar/children/slot) tags.
 
 System answers can make use of the attribute `polarity` in situations where a question could have different answers depending on whether the answer is positive or negative. An example of this is the possible answers to the question "Are there rooms available?" from a user wanting to book a hotel room.
 

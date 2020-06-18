@@ -41,7 +41,7 @@ device | string | Required. The name of the device module to run. |
 
 ## Behaviour
 
-The <target\> element in the service interface specifies the target service that will handle its parent [<action\>](/tdm_documentation/service_interface/elements/action), [<query\>](/tdm_documentation/service_interface/elements/query), [<validator\>](/tdm_documentation/service_interface/elements/validator) or [<entity_recognizer\>](/tdm_documentation/service_interface/elements/entity_recognizer).
+The <target\> element in the service interface specifies the target service that will handle its parent [<action\>](/dialog-domain-description-definition/service_interface/elements/action), [<query\>](/dialog-domain-description-definition/service_interface/elements/query), [<validator\>](/dialog-domain-description-definition/service_interface/elements/validator) or [<entity_recognizer\>](/dialog-domain-description-definition/service_interface/elements/entity_recognizer).
 
 ### <http>
 
@@ -49,13 +49,13 @@ Points the parent element to a function of an http_service served on a Flask ins
 
 ### <frontend>
 
-Points the parent [<action\>](/tdm_documentation/service_interface/elements/action) to an integrated frontend service such as Twilio or Alexa. This allows for performing actions like forwarding a call using a frontend service.
+Points the parent [<action\>](/dialog-domain-description-definition/service_interface/elements/action) to an integrated frontend service such as Twilio or Alexa. This allows for performing actions like forwarding a call using a frontend service.
 
 <!-- I think it would be good to point (or have it here) to some list of the frontend actions already implemented in TDM. There is one in the Taiga wiki. -->
 
 ### <device_module>
 
-Points the parent element to a device module. This will run a class inside the device module which must have the same name as the parent [<action\>](/tdm_documentation/service_interface/elements/action), [<query\>](/tdm_documentation/service_interface/elements/action), etc.
+Points the parent element to a device module. This will run a class inside the device module which must have the same name as the parent [<action\>](/dialog-domain-description-definition/service_interface/elements/action), [<query\>](/dialog-domain-description-definition/service_interface/elements/action), etc.
 
 
 ## Examples

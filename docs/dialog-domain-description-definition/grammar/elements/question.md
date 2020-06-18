@@ -16,14 +16,14 @@ The grammar entry of a question asked by the system or the user.
 
 ## Children
 
-- [<one-of\>](/tdm_documentation/grammar/children/one-of)
-    - [<item\>](/tdm_documentation/grammar/children/item)
-        - [<slot\>](/tdm_documentation/grammar/children/slot)
-        - [<vp\>](/tdm_documentation/grammar/children/vp)
-            - [<infinitive\>](/tdm_documentation/grammar/children/vp)
-            - [<imperative\>](/tdm_documentation/grammar/children/vp)
-            - [<ing-form\>](/tdm_documentation/grammar/children/vp)
-            - [<object\>](/tdm_documentation/grammar/children/vp)
+- [<one-of\>](/dialog-domain-description-definition/grammar/children/one-of)
+    - [<item\>](/dialog-domain-description-definition/grammar/children/item)
+        - [<slot\>](/dialog-domain-description-definition/grammar/children/slot)
+        - [<vp\>](/dialog-domain-description-definition/grammar/children/vp)
+            - [<infinitive\>](/dialog-domain-description-definition/grammar/children/vp)
+            - [<imperative\>](/dialog-domain-description-definition/grammar/children/vp)
+            - [<ing-form\>](/dialog-domain-description-definition/grammar/children/vp)
+            - [<object\>](/dialog-domain-description-definition/grammar/children/vp)
 
 ## Behaviour
 

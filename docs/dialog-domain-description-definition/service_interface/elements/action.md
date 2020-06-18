@@ -14,25 +14,25 @@ name | string | Required. The name of the action. Action names are written accor
 
 ## Children
 
-- [<parameters\>](/tdm_documentation/service_interface/children/parameters)
-    - [<parameter\>](/tdm_documentation/service_interface/children/parameters)
-- [<failure_reasons\>](/tdm_documentation/service_interface/children/failure_reasons)
-    - [<failure_reason\>](/tdm_documentation/service_interface/children/failure_reasons)
-- [<target\>](/tdm_documentation/service_interface/children/target)
-    - [<http\>](/tdm_documentation/service_interface/children/target)
-    - [<device_module\>](/tdm_documentation/service_interface/children/target)
-    - [<frontend\>](/tdm_documentation/service_interface/children/target)
+- [<parameters\>](/dialog-domain-description-definition/service_interface/children/parameters)
+    - [<parameter\>](/dialog-domain-description-definition/service_interface/children/parameters)
+- [<failure_reasons\>](/dialog-domain-description-definition/service_interface/children/failure_reasons)
+    - [<failure_reason\>](/dialog-domain-description-definition/service_interface/children/failure_reasons)
+- [<target\>](/dialog-domain-description-definition/service_interface/children/target)
+    - [<http\>](/dialog-domain-description-definition/service_interface/children/target)
+    - [<device_module\>](/dialog-domain-description-definition/service_interface/children/target)
+    - [<frontend\>](/dialog-domain-description-definition/service_interface/children/target)
 
 
 ## Behaviour
 
-The <action\> element in the service interface connects the corresponding [<invoke_service_action\>](/domain/children/invoke_service_action) element in the domain to a specific service action inside [<target\>](/tdm_documentation/service_interface/children/target). The target service must be either an http_service, device module or frontend service, which would return either `success` or `fail` status inside an action response.
+The <action\> element in the service interface connects the corresponding [<invoke_service_action\>](/dialog-domain-description-definition/domain/children/invoke_service_action) element in the domain to a specific service action inside [<target\>](/dialog-domain-description-definition/service_interface/children/target). The target service must be either an http_service, device module or frontend service, which would return either `success` or `fail` status inside an action response.
 
 <!-- Include a link to action response in the HTTP service API doc? -->
 
-Each of the parameters used by the specified [<target\>](/tdm_documentation/service_interface/children/target) must be passed under [<parameters\>](/tdm_documentation/service_interface/children/parameters).
+Each of the parameters used by the specified [<target\>](/dialog-domain-description-definition/service_interface/children/target) must be passed under [<parameters\>](/dialog-domain-description-definition/service_interface/children/parameters).
 
-If the <action\> contains a [<failure_reason\>](/tdm_documentation/service_interface/children/failure_reasons), the target service must be able to return a `fail` status with the reason name in the response. Check the documentation of this child element for more information.
+If the <action\> contains a [<failure_reason\>](/dialog-domain-description-definition/service_interface/children/failure_reasons), the target service must be able to return a `fail` status with the reason name in the response. Check the documentation of this child element for more information.
 
 
 ## Examples

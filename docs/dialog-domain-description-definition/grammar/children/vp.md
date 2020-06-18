@@ -12,14 +12,14 @@ The grammar entry of the verb phrase (VP) child of the <item\> element.
 
 ## Parents
 
-- [<item\>](/tdm_documentation/grammar/children/item)
+- [<item\>](/dialog-domain-description-definition/grammar/children/item)
 
 ## Children
 
-- [<infinitive\>](/tdm_documentation/grammar/children/vp)
-- [<imperative\>](/tdm_documentation/grammar/children/vp)
-- [<ing-form\>](/tdm_documentation/grammar/children/vp)
-- [<object\>](/tdm_documentation/grammar/children/vp)
+- [<infinitive\>](/dialog-domain-description-definition/grammar/children/vp)
+- [<imperative\>](/dialog-domain-description-definition/grammar/children/vp)
+- [<ing-form\>](/dialog-domain-description-definition/grammar/children/vp)
+- [<object\>](/dialog-domain-description-definition/grammar/children/vp)
 
 ## Behaviour
 

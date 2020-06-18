@@ -12,11 +12,11 @@ The grammar entry of the verb phrase (VP) child of the <item\> element.
 
 ## Parents
 
-- [<answer\>](/tdm_documentation/grammar/elements/answer)
-- [<report\>](/tdm_documentation/grammar/elements/report)
-- [<validity\>](/tdm_documentation/grammar/elements/validity)
+- [<answer\>](/dialog-domain-description-definition/grammar/elements/answer)
+- [<report\>](/dialog-domain-description-definition/grammar/elements/report)
+- [<validity\>](/dialog-domain-description-definition/grammar/elements/validity)
 <!--(Can it also be a part of a <question> or an <action> without <item> being between them? If not, should we maybe add these as parents with <item> under them otherwise, for clarity?-->
-- [<item\>](/tdm_documentation/grammar/children/item)
+- [<item\>](/dialog-domain-description-definition/grammar/children/item)
 
 ## Behaviour
 

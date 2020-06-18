@@ -7,7 +7,7 @@
 </failure_reasons>
 ```
 
-Specifies the reasons for an [<action\>](/tdm_documentation/service_interface/elements/action) to return a failure.
+Specifies the reasons for an [<action\>](/dialog-domain-description-definition/service_interface/elements/action) to return a failure.
 
 
 Attribute | Type | Description |
@@ -17,18 +17,18 @@ name | string | Required. The name of the failure reason. The names are written 
 
 ## Children
 
-- [<failure_reason\>](/tdm_documentation/service_interface/children/failure_reasons)
+- [<failure_reason\>](/dialog-domain-description-definition/service_interface/children/failure_reasons)
 
 
 ## Behaviour
 
-The <failure_reasons\> element in the service interface contains all the possible reasons for the [<target\>](/tdm_documentation/service_interface/children/target) service inside an [<action\>](/tdm_documentation/service_interface/elements/action) to return a `fail` status in its response. <!-- Link to the API for HTTP services doc (action response)? -->
+The <failure_reasons\> element in the service interface contains all the possible reasons for the [<target\>](/dialog-domain-description-definition/service_interface/children/target) service inside an [<action\>](/dialog-domain-description-definition/service_interface/elements/action) to return a `fail` status in its response. <!-- Link to the API for HTTP services doc (action response)? -->
 
 Each of the reasons must be passed in a <failure_reason\> child. For each <failure_reason\>, the response from the target service must also contain a reason that matches the name of the <failure_reason\>.
 
 It is possible for an <action\> to not contain any <failure_reason\>, in which case the <action\> is expected to always return a `"status": "success"`.
 
-The `"status": "fail"` (and the <failure_reason\>) is meant for action failures expected by the DDD developer. Such a failure could be, for instance, an action receiving a parameter with an invalid value (see the [example](/tdm_documentation/service_interface/children/failure_reasons/#examples) below). This will trigger the system to report to the user why the action has failed. The failure utterance will need to be defined in the [grammar](/tdm_documentation/grammar/children/report).
+The `"status": "fail"` (and the <failure_reason\>) is meant for action failures expected by the DDD developer. Such a failure could be, for instance, an action receiving a parameter with an invalid value (see the [example](/dialog-domain-description-definition/service_interface/children/failure_reasons/#examples) below). This will trigger the system to report to the user why the action has failed. The failure utterance will need to be defined in the [grammar](/dialog-domain-description-definition/grammar/elements/report).
 
 
 ## Examples
