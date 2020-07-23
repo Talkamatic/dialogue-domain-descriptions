@@ -46,7 +46,9 @@ node('docker') {
       stage('test') {
         sh 'FLASK_APP=http_service/http_service.py flask run --port 10103 &'
         sh 'sleep 1 #Allow flask 1 second to start'
-        sh 'cd basic_query; tdm test eng'
+        sh 'cd basic_query; tdm serve eng &'
+        sh 'tala test http://localhost:9090/interact basic_query/basic_query/test/interaction_tests_eng.txt'
+        sh 'killall tdm'
       }
     }
   }

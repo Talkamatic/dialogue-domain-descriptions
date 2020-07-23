@@ -46,7 +46,9 @@ node('docker') {
       stage('test') {
         sh 'FLASK_APP=incremental_search/http_service/http_service_for_incremental_search.py flask run --port 10104 &'
         sh 'sleep 1 #Allow flask 1 second to start'
-        sh 'cd incremental_search; tdm test eng'
+        sh 'cd incremental_search; tdm serve eng &'
+        sh 'tala test http://localhost:9090/interact incremental_search/incremental_search/test/interaction_tests_eng.txt'
+        sh 'killall tdm'
       }
     }
   }
