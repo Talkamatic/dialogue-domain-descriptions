@@ -96,6 +96,12 @@ An alternative question is a question containing multiple alternative answers ex
 
 Example: `?set([number_to_call(home), number_to_call(mobile)])` expresses a question about whether to call the home or mobile number.
 
+#### <a name="knowledge-precondition-questions">Knowledge precondition questions
+
+A knowledge precondition question is a question about whether the the answer to a question is known.
+
+Example: `?know_answer(?X.contact_to_call_first_name(X))` expresses a question about whether the first name of the contact to call is known.
+
 ### Moves
 (Dialog) moves reflect the meaning and function of something that is communicated in a dialog. Utterances spoken by the user or system correspond to sequences of moves. TDM supports many different kinds of dialog moves, the most common of which are described below.
 
