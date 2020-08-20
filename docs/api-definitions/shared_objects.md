@@ -141,7 +141,7 @@ The semantic input contains the following members:
 - `interpretations`: A list of [interpretation objects](#interpretation-object). TDM will use confidence scores and the context of the current state of the session to decide which interpretation to act upon.
 - `entities`: (optional) A list of [entity objects](#entity-object). TDM can use these entities in interpretations and for natural language generation.
 
-The semantic format is different for each of the supported user moves. See [the move object](#move-object) for examples.
+The semantic format is different for each of the supported user moves. See [the move object](#nlu-move-object) for examples.
 
 ## Interpretation object
 
@@ -149,7 +149,7 @@ An interpretation translates an utterance into one or several semantic moves. An
 
 - `utterance`: (optional) A string containing the utterance.
 - `modality`: The modality that the user used to provide the original input. One of `speech`, `text`, `haptic`, `other`.
-- `moves`: A list of [move objects](#move-object).
+- `moves`: A list of [move objects](#nlu-move-object).
 
 ## Entity object
 
@@ -160,7 +160,10 @@ These entities are needed when entities are not defined in the DDD and can then 
 - `natural_language_form`: A string containing the natural language or surface form of the entity.
 - `ddd`: A string with the name of the DDD that the entity belongs to.
 
-## Move object
+## NLU move object
+
+!!! note
+    Move objects used for NLU differ from [those used for NLG](#nlg-move-object).
 
 A move object contains information about how a user move was interpreted (see [moves](../formalism.md#moves)). Its members are:
 
@@ -261,3 +264,18 @@ The builtin and DDD independent answers `yes` and `no` can be used without inclu
   "understanding_confidence": 0.71359
 }
 ```
+
+## NLG Move object
+
+!!! note
+    Move objects used for NLG differ from [those used for NLU](#nlu-move-object)
+
+Example:
+
+```json
+{"semantic_expression": "ask(?X.selected_contact(X))"}
+```
+
+The Move object contains the following members:
+
+- `semantic_expression`: A semantic expression of the expected move, expressed in the [dialog formalism](../formalism.md#moves).

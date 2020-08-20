@@ -428,7 +428,7 @@ The `session` object is always provided and contains the same data that was prov
 
 The `output` object is provided unless an error has occurred and has the following members:
 
-- `moves`: The moves made by the system this turn. This is a list of [move expressions in the dialog formalism](../formalism.md#moves), where the moves should be uttered in the listed order. Moves here are similar to the `semantic_expression` field of [move objects](#move-object).
+- `moves`: The moves made by the system this turn. This is a list of [move expressions in the dialog formalism](../formalism.md#moves), where the moves should be uttered in the listed order. Moves here are similar to the `semantic_expression` field of [move objects](#nlu-move-object).
 - `utterance`: A string representing the output utterance from the system and should be realized by the client (e.g. by speaking it or displaying it as text).
 - `expected_passivity`: If not null, the value is a number corresponding to the number of seconds of user passivity after which the client is expected to make a [passivity request](#passivity-requests). If the value is 0.0, the passivity notification request should be issued immediately after having realized the system output.
 - `actions`: A list of [action invocation objects](#action-invocation-object), which needs to be invoked by the client. TDM assumes that the actions will succeed and reports them accordingly.
@@ -516,7 +516,7 @@ Example otherwise:
 
 The `output` object contains the following members:
 
-- `moves`: The moves made by the system this turn. This is a list of [move expressions in the dialog formalism](../formalism.md#moves). Moves here are similar to the `semantic_expression` field of [move objects](#move-object).
+- `moves`: The moves made by the system this turn. This is a list of [move expressions in the dialog formalism](../formalism.md#moves). Moves here are similar to the `semantic_expression` field of [move objects](#nlu-move-object).
 - `utterance`: A string representing the output utterance from the system and should be realized by the client (e.g. by speaking it or displaying it as text).
 - `expected_passivity`: If not null, the value is a number corresponding to the number of seconds of user passivity after which the client is expected to make a [passivity request](#passivity-requests). If the value is 0.0, the passivity notification request should be issued immediately after having realized the system output.
 - `actions`: A list of [action invocation objects](action-invocation-object), which needs to be invoked by the client. TDM assumes that the actions will succeed and reports them accordingly.

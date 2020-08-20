@@ -51,6 +51,7 @@ nav:
         - Pipeline API: api-definitions/pipeline_api.md
         - Service API: api-definitions/service_api.md
         - NLU API: api-definitions/nlu_api.md
+        - NLG API: api-definitions/nlg_api.md
         - Shared objects: api-definitions/shared_objects.md
     - Dialog Domain Description definitions:
         - Introduction: dialog-domain-description-definition/index.md
