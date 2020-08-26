@@ -81,6 +81,16 @@ nav:
                 - Failure Reasons: dialog-domain-description-definition/service_interface/children/failure_reasons.md
                 - Parameters: dialog-domain-description-definition/service_interface/children/parameters.md
                 - Target: dialog-domain-description-definition/service_interface/children/target.md
+        - Domain:
+            - Introduction: dialog-domain-description-definition/domain/domain.md
+            - Children:
+                - Assume Issue: dialog-domain-description-definition/domain/children/assume_issue.md
+                - Assume System Belief: dialog-domain-description-definition/domain/children/assume_system_belief.md
+                - Downdate Condition: dialog-domain-description-definition/domain/children/downdate_condition.md
+                - Has Value: dialog-domain-description-definition/domain/children/has_value.md
+                - Is Shared Fact: dialog-domain-description-definition/domain/children/is_shared_fact.md
+                - Log: dialog-domain-description-definition/domain/children/log.md
+                - Proposition: dialog-domain-description-definition/domain/children/proposition.md
 
 markdown_extensions:
   - markdown.extensions.admonition
