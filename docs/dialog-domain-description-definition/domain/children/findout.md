@@ -11,8 +11,8 @@ user, or by some service connected to TDM capable of answering it.
 Attribute | Type | Description |
 --- | --- | --- |
 question\_type | string | Required. Must be one of `goal`, `wh_question`, `alt_question` or `yn_question`. |
-predicate | string | Optional. Required if question_type is `wh\_question` or `yn\_question`.|
-
+predicate | string | Optional. Required if question\_type is `wh\_question` or `yn\_question`.|
+allow\_answer\_from\_pcom | string | Optional. Defaults to `false`. If set to `true`, this allows TDM to recycle an old answer that the user has previously provided. |
 
 ## Parents
 - [<plan\>](/dialog-domain-description-definition/domain/children/plan)
@@ -41,6 +41,12 @@ predicate | string | Optional. Required if question_type is `wh\_question` or `y
 
 ```xml
   <findout type="yn_question" predicate="side_order_fries"/>
+```
+
+### A findout about a WH question, "What is your destination?", where the answer can be recycled from old answers
+
+```xml
+  <findout type="wh_question" predicate="destination" allow_answer_from_pcom="true"/>
 ```
 
 ### A findout about an alt question, "Would you like to calculate the monthly payment or would you like to know the interest rate?"
