@@ -41,6 +41,7 @@ extra_css:
 nav:
     - Getting started: index.md
     - The foundation:
+        - Issue-based Dialogue Management: ibdm.md
         - Dialog formalism: formalism.md
     - For dialog designers:
         - Introduction: for-dialog-designers/index.md
