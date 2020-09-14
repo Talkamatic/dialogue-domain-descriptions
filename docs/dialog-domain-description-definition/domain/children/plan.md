@@ -19,13 +19,13 @@ A dialogue plan, consisting of a sequence of plan items.
 - [<forget\>]
 - [<forget_all\>]
 - [<log\>](/dialog-domain-description-definition/domain/children/log)
-- [<invoke_service_query\>](/dialog-domain-description-definition/domain/children/invoke_service_query/)
-- [<invoke_service_action\>](/dialog-domain-description-definition/domain/children/invoke_service_action/)
-- [<findout\>]
+- [<invoke_service_query\>](/dialog-domain-description-definition/domain/children/invoke_service_query)
+- [<invoke_service_action\>](/dialog-domain-description-definition/domain/children/invoke_service_action)
+- [<findout\>](/dialog-domain-description-definition/domain/children/findout)
 - [<raise\>]
 - [<bind\>]
 - [<get_done\>]
-- [<assume_issue\>](/dialog-domain-description-definition/domain/children/assume_issue/)
+- [<assume_issue\>](/dialog-domain-description-definition/domain/children/assume_issue)
 - [<assume_shared\>]
 - [<assume_system_belief\>](/dialog-domain-description-definition/domain/children/assume_system_belief)
 - [<if\>]
@@ -35,7 +35,7 @@ A dialogue plan, consisting of a sequence of plan items.
 
 ## Behaviour
 
-To resolve questions, or perform actions, TDM executes a dialogue plan. In some cases the plan is equivalent to a form with slots and values that need to be filled, after which the requested action can be carried out, or the asked question can be answered by the system. However, dialogue plans are more powerful than forms in the kinds of dialogue behaviours they can produce. 
+To resolve questions, or perform actions, TDM executes a dialogue plan. In some cases the plan is equivalent to a form with slots and values that need to be filled, after which the requested action can be carried out, or the asked question can be answered by the system. However, dialogue plans are more powerful than forms in the kinds of dialogue behaviours they can produce.
 
 
 
