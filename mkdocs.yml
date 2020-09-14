@@ -111,7 +111,14 @@ nav:
                 - Proposition: dialog-domain-description-definition/domain/children/proposition.md
                 - Raise: dialog-domain-description-definition/domain/children/raise.md
                 - Superaction: dialog-domain-description-definition/domain/children/superaction.md
-
+        - Ontology:
+            - Introduction: dialog-domain-description-definition/ontology/ontology.md
+            - Elements:
+                - Sort: dialog-domain-description-definition/ontology/elements/sort.md
+                - Predicate: dialog-domain-description-definition/ontology/elements/predicate.md
+                - Individual: dialog-domain-description-definition/ontology/elements/individual.md
+                - Action: dialog-domain-description-definition/ontology/elements/action.md
+                
 markdown_extensions:
   - markdown.extensions.admonition
   - markdown.extensions.attr_list
