@@ -26,7 +26,7 @@ Using the <log/> element will log the message on debug level. The log entry will
 ```
 
 ## Examples
-### Assume-issue entry for assuming the issue about the departure time (which is the resolve goal of another plan):
+### Log element for logging a string:
 
 ```xml
 <log message="This is a log message">
