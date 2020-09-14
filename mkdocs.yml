@@ -90,40 +90,28 @@ nav:
                 - Parameters: dialog-domain-description-definition/domain/elements/parameters.md
             - Children:
                 - Ask Feature: dialog-domain-description-definition/domain/children/ask_feature.md
-                - Alternatives Predicate: dialog-domain-description-definition/domain/elements/alternatives_predicate.md
-                - Max Answers: dialog-domain-description-definition/domain/elements/max_answers.md
-                - Postcond: dialog-domain-description-definition/domain/elements/postcond.md
-                - Downdate Condition: dialog-domain-description-definition/domain/elements/downdate_condition.md
-                - Postplan: dialog-domain-description-definition/domain/elements/postplan.md
-                - Proposition: dialog-domain-description-definition/domain/elements/proposition.md
-                - Preferred: dialog-domain-description-definition/domain/elements/preferred.md
-                - Superaction: dialog-domain-description-definition/domain/elements/superaction.md
-                - Accommodate Without Feedback: dialog-domain-description-definition/domain/elements/accommodate_without_feedback.md
-                - IO Status: dialog-domain-description-definition/domain/elements/io_status.md
-                - Reraise On Resume: dialog-domain-description-definition/domain/elements/reraise_on_resume.md
-                - Restart On Completion: dialog-domain-description-definition/domain/elements/restart_on_completion.md
-            - Children:
-                - Plan: dialog-domain-description-definition/domain/children/plan.md
-                - Findout: dialog-domain-description-definition/domain/children/findout.md
-                - Raise: dialog-domain-description-definition/domain/children/raise.md
-                - Bind: dialog-domain-description-definition/domain/children/bind.md
-                - Get Done: dialog-domain-description-definition/domain/children/get_done.md
-                - Invoke Service Action: dialog-domain-description-definition/domain/children/invoke_service_action.md 
                 - Assume Issue: dialog-domain-description-definition/domain/children/assume_issue.md
                 - Assume Shared: dialog-domain-description-definition/domain/children/assume_shared.md
                 - Assume System Belief: dialog-domain-description-definition/domain/children/assume_system_belief.md
-                - Forget All: dialog-domain-description-definition/domain/children/forget_all.md
-                - Forget: dialog-domain-description-definition/domain/children/forget.md
-                - If: dialog-domain-description-definition/domain/children/if.md
-                - Jumpto: dialog-domain-description-definition/domain/children/jumpto.md
+                - Bind: dialog-domain-description-definition/domain/children/bind.md
                 - Downdate Condition: dialog-domain-description-definition/domain/children/downdate_condition.md
                 - Findout: dialog-domain-description-definition/domain/children/findout.md
+                - Forget All: dialog-domain-description-definition/domain/children/forget_all.md
+                - Forget: dialog-domain-description-definition/domain/children/forget.md
+                - Get Done: dialog-domain-description-definition/domain/children/get_done.md
                 - Has Value: dialog-domain-description-definition/domain/children/has_value.md
+                - If: dialog-domain-description-definition/domain/children/if.md
+                - Invoke Service Action: dialog-domain-description-definition/domain/children/invoke_service_action.md
                 - Is Shared Fact: dialog-domain-description-definition/domain/children/is_shared_fact.md
+                - Jumpto: dialog-domain-description-definition/domain/children/jumpto.md
                 - Log: dialog-domain-description-definition/domain/children/log.md
-                - Plan: dialog-domain-description-definition/domain/children/proposition.md
+                - Plan: dialog-domain-description-definition/domain/children/plan.md
+                - Postplan: dialog-domain-description-definition/domain/children/postplan.md
+                - Preferred: dialog-domain-description-definition/domain/children/preferred.md
                 - Proposition: dialog-domain-description-definition/domain/children/proposition.md
-                
+                - Raise: dialog-domain-description-definition/domain/children/raise.md
+                - Superaction: dialog-domain-description-definition/domain/children/superaction.md
+
 markdown_extensions:
   - markdown.extensions.admonition
   - markdown.extensions.attr_list
