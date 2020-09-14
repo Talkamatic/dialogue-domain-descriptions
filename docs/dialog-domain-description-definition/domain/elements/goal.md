@@ -23,7 +23,6 @@ alternatives\_predicate | string | Optional. If max\_answers>1, alternatives_pre
 ## Children
 - [<proposition\>](/dialog-domain-description-definition/domain/children/proposition)
 - [<plan\>](/dialog-domain-description-definition/domain/children/plan)
-- [<postcond\>](/dialog-domain-description-definition/domain/children/postcond)
 - [<downdate\_condition\>](/dialog-domain-description-definition/domain/children/downdate_condition)
 - [<postplan\>](/dialog-domain-description-definition/domain/children/postplan)
 - [<preferred\>](/dialog-domain-description-definition/domain/children/preferred)
