@@ -85,6 +85,7 @@ nav:
         - Domain:
             - Introduction: dialog-domain-description-definition/domain/domain.md
             - Elements:
+                - Goal: dialog-domain-description-definition/domain/elements/goal.md
                 - Parameters: dialog-domain-description-definition/domain/elements/parameters.md
             - Children:
                 - Ask Feature: dialog-domain-description-definition/domain/children/ask_feature.md
@@ -95,6 +96,7 @@ nav:
                 - Has Value: dialog-domain-description-definition/domain/children/has_value.md
                 - Is Shared Fact: dialog-domain-description-definition/domain/children/is_shared_fact.md
                 - Log: dialog-domain-description-definition/domain/children/log.md
+                - Plan: dialog-domain-description-definition/domain/children/proposition.md
                 - Proposition: dialog-domain-description-definition/domain/children/proposition.md
 
 markdown_extensions:
