@@ -1,7 +1,7 @@
 # Assume Issue
 ## Definition
 ```xml
-<assume-issue type="question_type" predicate="p">
+<assume_issue type="question_type" predicate="p">
 ```
 
 The plan item that assumes that a question is relevant to the user. Defines a question that should be assumed.
