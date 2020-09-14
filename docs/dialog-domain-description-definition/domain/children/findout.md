@@ -11,7 +11,7 @@ user, or by some service connected to TDM capable of answering it.
 Attribute | Type | Description |
 --- | --- | --- |
 question\_type | string | Required. Must be one of `goal`, `wh_question`, `alt_question` or `yn_question`. |
-predicate | string | Optional. Required if question\_type is `wh\_question` or `yn\_question`.|
+predicate | string | Optional. Required if question\_type is `wh_question` or `yn_question`.|
 allow\_answer\_from\_pcom | string | Optional. Defaults to `false`. If set to `true`, this allows TDM to recycle an old answer that the user has previously provided. |
 
 ## Parents
