@@ -85,7 +85,7 @@ nav:
         - Domain:
             - Introduction: dialog-domain-description-definition/domain/domain.md
             - Elements:
-                - Parameters: dialog-domain-description-definition/domain/parameters.md
+                - Parameters: dialog-domain-description-definition/domain/elements/parameters.md
             - Children:
                 - Ask Feature: dialog-domain-description-definition/domain/children/ask_feature.md
                 - Assume Issue: dialog-domain-description-definition/domain/children/assume_issue.md
