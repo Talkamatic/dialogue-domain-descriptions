@@ -1,7 +1,7 @@
 # Bind
 ## Definition
 ```xml
-<bind question_type="type" predicate="p" allow_answer_from_pcom="false">
+<bind question_type="type" predicate="p">
 ```
 
 The element defines a question that can be answered by the user, but will not be asked by the system.
@@ -24,7 +24,7 @@ predicate | string | Optional. Required if question_type is `wh_question` or `yn
 
 ## Behaviour
 
-The element defines a question that can be answered by the user, but will not be asked by the system, thereby `binding' that answer to the goal in question. This makes it possible to take into consideration optional and unrequested parameters.  
+The element defines a question that can be answered by the user, but will not be asked by the system, thereby `binding' that answer to the goal in question. This makes it possible to take into consideration optional and unrequested parameters.
 
 
 
@@ -36,4 +36,3 @@ The element defines a question that can be answered by the user, but will not be
 ```xml
   <bind type="wh_question" predicate="price-class"/>
 ```
-
