@@ -102,6 +102,7 @@ nav:
                 - Has Value: dialog-domain-description-definition/domain/children/has_value.md
                 - If: dialog-domain-description-definition/domain/children/if.md
                 - Invoke Service Action: dialog-domain-description-definition/domain/children/invoke_service_action.md
+                - Invoke Service Query: dialog-domain-description-definition/domain/children/invoke_service_query.md
                 - Is Shared Fact: dialog-domain-description-definition/domain/children/is_shared_fact.md
                 - Jumpto: dialog-domain-description-definition/domain/children/jumpto.md
                 - Log: dialog-domain-description-definition/domain/children/log.md
@@ -118,7 +119,7 @@ nav:
                 - Predicate: dialog-domain-description-definition/ontology/elements/predicate.md
                 - Individual: dialog-domain-description-definition/ontology/elements/individual.md
                 - Action: dialog-domain-description-definition/ontology/elements/action.md
-                
+
 markdown_extensions:
   - markdown.extensions.admonition
   - markdown.extensions.attr_list
