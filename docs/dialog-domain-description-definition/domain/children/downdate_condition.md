@@ -15,7 +15,7 @@ Attribute | Type | Description |
 ## Children
 - [<has\_value\>](/dialog-domain-description-definition/domain/children/has_value)
 - [<is\_shared\_fact\>](/dialog-domain-description-definition/domain/children/is_shared_fact)
-- [<proposition\>](/dialog-domain-description-definition/domain/children/proposition)
+  - [<proposition\>](/dialog-domain-description-definition/domain/children/proposition)
 
 ## Behaviour
 If the condition embedded in a downdate\_condition element evaluates to true, the goal is considered to be fulfilled, and the goal is downdated -- which means that the plan associated with the goal will no longer be running. More than one downdate\_condition can be specified for each goal. If more than one condition is present, they will be treated as a logical or: any condition evaluated to true is enough for downdating the goal.
