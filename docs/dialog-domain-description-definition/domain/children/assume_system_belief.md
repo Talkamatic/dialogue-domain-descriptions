@@ -31,3 +31,15 @@ Using the <assume_system_belief/> element has the effect of adding the assumed p
   <proposition predicate="user_age_category" value="adult"/>
 </assume_system_belief>
 ```
+
+### Resolve goal utilising assume\_system\_belief element for assuming the answer to the question
+
+```xml
+<goal type="resolve" question_type="wh_question" predicate="quantity_of_water">
+  <plan>
+    <assume_system_belief>
+      <proposition predicate="quantity_of_water" value="20"/>
+    </assume_system_belief>
+  </plan>
+</goal>
+```
