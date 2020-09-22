@@ -14,7 +14,7 @@
 </if>
 ```
 
-The element that specifies the conditions for downdating a particular perform goal.
+An if then else element for branching plans. The `if` element can be used recursively. Both the `then` and `else` elements are optional (but to be meaningful at least one is needed).
 
 ## Parents
 - [<plan\>](/dialog-domain-description-definition/domain/elements/plan)
