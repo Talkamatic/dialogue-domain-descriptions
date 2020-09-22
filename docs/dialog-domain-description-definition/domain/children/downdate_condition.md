@@ -4,7 +4,7 @@
 <downdate_condition>
 ```
 
-The element that specifies the conditions for downdating a particular perform goal.
+The element that specifies the conditions for downdating a particular perform goal. Downdating in TDM lingo means that the goal has been fulfilled, and that the plan can be stopped from executing.
 
 Attribute | Type | Description |
 --- | --- | --- |
