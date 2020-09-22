@@ -73,3 +73,19 @@ An if then else element for branching plans. The `if` element can be used recurs
   </then>
 </if>
 ```
+
+### If/Then/Else element for jumping to another goal depending on a proposition
+
+```xml
+<if>
+  <condition>
+    <proposition predicate="sourdough_status" value="existing"/>
+  </condition>
+  <then>
+    <jumpto action="freshen_up_sourdough"
+  </then>
+  <else>
+    <jumpto action="start_sourdough"
+  </else>
+</if>
+```
