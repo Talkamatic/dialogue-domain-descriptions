@@ -17,7 +17,7 @@
 An if then else element for branching plans. The `if` element can be used recursively. Both the `then` and `else` elements are optional (but to be meaningful at least one is needed).
 
 ## Parents
-- [<plan\>](/dialog-domain-description-definition/domain/elements/plan)
+- [<plan\>](/dialog-domain-description-definition/domain/children/plan)
 - [<then\>](/dialog-domain-description-definition/domain/children/if)
 - [<else\>](/dialog-domain-description-definition/domain/children/if)
 
