@@ -36,7 +36,7 @@ An if then else element for branching plans. The `if` element can be used recurs
     - [<get\_done\>](/dialog-domain-description-definition/domain/children/get_done)
     - [<assume\_issue\>](/dialog-domain-description-definition/domain/children/assume_issue)
     - [<assume\_shared\>](/dialog-domain-description-definition/domain/children/assume_shared)
-    - [<assume\_system/_belief\>](/dialog-domain-description-definition/domain/children/assume_system_belief)
+    - [<assume\_system\_belief\>](/dialog-domain-description-definition/domain/children/assume_system_belief)
     - [<if\>](/dialog-domain-description-definition/domain/children/if)
     - [<jumpto\>](/dialog-domain-description-definition/domain/children/jumpto)
 - [<else\>](/dialog-domain-description-definition/domain/children/proposition)

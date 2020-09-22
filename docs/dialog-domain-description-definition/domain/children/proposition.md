@@ -12,14 +12,17 @@ predicate | string | Required. The value must be enumerated in the ontology.|
 value | string | Required. The value must be known to TDM e.g. by being a static individual enumerated in the ontology.|
 
 ## Parents
-- [<is_shared_fact\>](/dialog-domain-description-definition/domain/children/is_shared_fact)
+- [<assume\_shared\>](/dialog-domain-description-definition/domain/children/assume_shared)
+- [<assume\_system\_belief\>](/dialog-domain-description-definition/domain/children/assume_system_belief)
+- [<condition\>](/dialog-domain-description-definition/domain/children/if)
+- [<is\_shared\_fact\>](/dialog-domain-description-definition/domain/children/is_shared_fact)
 
 ## Children
 None.
 
 
 ## Behaviour
-The proposition is used in conditional constructs in the domain language.
+The proposition is used in conditional constructs in the domain language, in conditions, for assuming etc.
 
 
 ## Examples
