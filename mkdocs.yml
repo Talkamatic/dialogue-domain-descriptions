@@ -88,30 +88,31 @@ nav:
             - Elements:
                 - Goal: dialog-domain-description-definition/domain/elements/goal.md
                 - Parameters: dialog-domain-description-definition/domain/elements/parameters.md
-            - Children:
-                - Ask Feature: dialog-domain-description-definition/domain/children/ask_feature.md
+                - Plan: dialog-domain-description-definition/domain/children/plan.md
+            - Plan Items:
                 - Assume Issue: dialog-domain-description-definition/domain/children/assume_issue.md
                 - Assume Shared: dialog-domain-description-definition/domain/children/assume_shared.md
                 - Assume System Belief: dialog-domain-description-definition/domain/children/assume_system_belief.md
-                - Background: dialog-domain-description-definition/domain/children/background.md
-                - Bind: dialog-domain-description-definition/domain/children/bind.md
-                - Downdate Condition: dialog-domain-description-definition/domain/children/downdate_condition.md
                 - Findout: dialog-domain-description-definition/domain/children/findout.md
                 - Forget All: dialog-domain-description-definition/domain/children/forget_all.md
                 - Forget: dialog-domain-description-definition/domain/children/forget.md
                 - Get Done: dialog-domain-description-definition/domain/children/get_done.md
-                - Has Value: dialog-domain-description-definition/domain/children/has_value.md
                 - If: dialog-domain-description-definition/domain/children/if.md
                 - Invoke Service Action: dialog-domain-description-definition/domain/children/invoke_service_action.md
                 - Invoke Service Query: dialog-domain-description-definition/domain/children/invoke_service_query.md
-                - Is Shared Fact: dialog-domain-description-definition/domain/children/is_shared_fact.md
                 - Jumpto: dialog-domain-description-definition/domain/children/jumpto.md
                 - Log: dialog-domain-description-definition/domain/children/log.md
-                - Plan: dialog-domain-description-definition/domain/children/plan.md
+                - Raise: dialog-domain-description-definition/domain/children/raise.md
+            - Children:
+                - Ask Feature: dialog-domain-description-definition/domain/children/ask_feature.md
+                - Background: dialog-domain-description-definition/domain/children/background.md
+                - Bind: dialog-domain-description-definition/domain/children/bind.md
+                - Downdate Condition: dialog-domain-description-definition/domain/children/downdate_condition.md
+                - Has Value: dialog-domain-description-definition/domain/children/has_value.md
+                - Is Shared Fact: dialog-domain-description-definition/domain/children/is_shared_fact.md
                 - Postplan: dialog-domain-description-definition/domain/children/postplan.md
                 - Preferred: dialog-domain-description-definition/domain/children/preferred.md
                 - Proposition: dialog-domain-description-definition/domain/children/proposition.md
-                - Raise: dialog-domain-description-definition/domain/children/raise.md
                 - Superaction: dialog-domain-description-definition/domain/children/superaction.md
         - Ontology:
             - Introduction: dialog-domain-description-definition/ontology/ontology.md
