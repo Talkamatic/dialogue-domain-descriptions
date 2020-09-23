@@ -24,6 +24,8 @@ predicate | string | Required if type="wh_question". This attribute specifies th
 ## Parents
 
 - [<plan\>](/dialog-domain-description-definition/domain/children/plan)
+- [<then\>](/dialog-domain-description-definition/domain/children/if)
+- [<else\>](/dialog-domain-description-definition/domain/children/if)
 
 
 ## Children

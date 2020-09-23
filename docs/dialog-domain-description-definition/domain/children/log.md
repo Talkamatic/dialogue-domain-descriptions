@@ -12,6 +12,8 @@ message | string | Required. The value of the message attribute is currently the
 
 ## Parents
 - [<plan\>](/dialog-domain-description-definition/domain/children/plan)
+- [<then\>](/dialog-domain-description-definition/domain/children/if)
+- [<else\>](/dialog-domain-description-definition/domain/children/if)
 
 ## Children
 None
