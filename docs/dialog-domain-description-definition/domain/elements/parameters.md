@@ -22,6 +22,7 @@ source | string | Optional. One of the values "domain" or "service" is expected.
 
 ## Children
 - [<ask_feature\>](/dialog-domain-description-definition/domain/children/ask_feature)
+- [<background\>](/dialog-domain-description-definition/domain/children/background)
 
 
 ## Behaviour
@@ -38,5 +39,15 @@ The question that is supposed to get an answer from a findout is the WH-question
     <ask_feature predicate="person_name"/>
     <ask_feature predicate="person_city" kpq="true"/>
     <ask_feature predicate="person_area"/>
+  </parameters>
+```
+
+### A parameter set designed to do be able to include parameters in an answer.
+
+
+```xml
+  <parameters predicate="ingredient_quantity">
+    <background predicate="unit"/>
+    <background predicate="selected_ingredient"/>
   </parameters>
 ```

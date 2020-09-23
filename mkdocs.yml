@@ -93,6 +93,7 @@ nav:
                 - Assume Issue: dialog-domain-description-definition/domain/children/assume_issue.md
                 - Assume Shared: dialog-domain-description-definition/domain/children/assume_shared.md
                 - Assume System Belief: dialog-domain-description-definition/domain/children/assume_system_belief.md
+                - Background: dialog-domain-description-definition/domain/children/background.md
                 - Bind: dialog-domain-description-definition/domain/children/bind.md
                 - Downdate Condition: dialog-domain-description-definition/domain/children/downdate_condition.md
                 - Findout: dialog-domain-description-definition/domain/children/findout.md
