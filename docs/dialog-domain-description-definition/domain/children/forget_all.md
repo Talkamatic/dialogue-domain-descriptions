@@ -23,6 +23,7 @@ None.
 
 ## Behaviour
 Forget All makes the system forget all and restart.
+
 - The plan is cleared
 - The system beliefs are cleared
 - The shared commitments (what the system thinks that the system and the user have agreed upon) are cleared
