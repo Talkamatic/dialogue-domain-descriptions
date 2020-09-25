@@ -26,6 +26,12 @@ An if then else element for branching plans. The `if` element can be used recurs
 ## Children
 - [<condition\>](/dialog-domain-description-definition/domain/children/if)
     - [<proposition\>](/dialog-domain-description-definition/domain/children/proposition)
+- [<has\_shared\_value\>] (/dialog-domain-description-definition/domain/children/conditions)
+- [<has\_private\_value\>] (/dialog-domain-description-definition/domain/children/conditions)
+- [<has\_shared\_or\_private\_value\>] (/dialog-domain-description-definition/domain/children/conditions)
+- [<is\_shared\_commitment\>] (/dialog-domain-description-definition/domain/children/conditions)
+- [<is\_private\_belief\>] (/dialog-domain-description-definition/domain/children/conditions)
+- [<is\_private\_belief\_or\_shared\_commitment\>] (/dialog-domain-description-definition/domain/children/conditions)
 - [<then\>/<else\>](/dialog-domain-description-definition/domain/children/if)
     - [<assume\_issue\>](/dialog-domain-description-definition/domain/children/assume_issue)
     - [<assume\_shared\>](/dialog-domain-description-definition/domain/children/assume_shared)
@@ -49,33 +55,29 @@ An if then else element for branching plans. The `if` element can be used recurs
 
 
 ## Examples
-### If/Then element for assuming the answer "200 g" if the selected ingredient is water
+### If/Then/Else element for jumping to another goal if there is a proposition in commitments with a certain predicate
 
 ```xml
 <if>
-  <condition>
-    <proposition predicate="selected_ingredient" value="water_ingredient"/>
-  </condition>
-  <then>
-    <assume_system_belief>
-      <proposition predicate="quantity" value="200 g"/>
-    </assume_system_belief>
-  </then>
-</if>
-```
-
-### If/Then/Else element for jumping to another goal depending on a proposition
-
-```xml
-<if>
-  <condition>
-    <proposition predicate="sourdough_status" value="existing"/>
-  </condition>
+  <has_shared_value predicate="sourdough_status"/>
   <then>
     <jumpto action="freshen_up_sourdough"/>
   </then>
   <else>
     <jumpto action="start_sourdough"/>
   </else>
+</if>
+```
+
+### If/Then element for assuming the answer "200 g" if the selected ingredient is water
+
+```xml
+<if>
+  <is_shared_commitment predicate="selected_ingredient" value="water_ingredient"/>
+  <then>
+    <assume_system_belief>
+      <proposition predicate="quantity" value="200 g"/>
+    </assume_system_belief>
+  </then>
 </if>
 ```
