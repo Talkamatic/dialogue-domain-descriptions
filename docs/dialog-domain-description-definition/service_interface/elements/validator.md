@@ -41,7 +41,7 @@ If the target module returns a `"is_valid": false`, that will trigger the system
       <parameter predicate="dest_city" format="grammar_entry"/>
     </parameters>
     <target>
-      <http endpoint="http://127.0.0.1:10100/city_validity"/>
+      <http endpoint="http://climate-http-service:10100/city_validity"/>
     </target>
   </validator>
 ```

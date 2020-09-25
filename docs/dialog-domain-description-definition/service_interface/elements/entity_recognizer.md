@@ -31,7 +31,7 @@ The <entity_recognizer\> element in the service interface requests entities from
 ```xml
   <entity_recognizer name="CityRecognizer">
     <target>
-      <http endpoint="http://127.0.0.1:10100/city_recognizer"/>
+      <http endpoint="http://climate-http-service/city_recognizer"/>
     </target>
   </entity_recognizer>
 ```

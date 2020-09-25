@@ -46,7 +46,7 @@ If the action in the target http_service receives a value for the parameter `deg
     <failure_reason name="temperature_too_high"/>
   </failure_reasons>
   <target>
-    <http endpoint="http://127.0.0.1:10100/set_temperature"/>
+    <http endpoint="http://climate-http-service/set_temperature"/>
   </target>
 </action>
 ```

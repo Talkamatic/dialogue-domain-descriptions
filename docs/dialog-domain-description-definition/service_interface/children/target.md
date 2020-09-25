@@ -3,7 +3,7 @@
 ## Definition
 ```xml
   <target>
-    <http endpoint="http://127.0.0.1:10100/function_name"/>
+    <http endpoint="http://http-service/function_name"/>
   </target>
 ```
 ```xml
@@ -23,7 +23,7 @@ Specifies the target service.
 
 Attribute | Type | Description
 --- | --- | ---
-endpoint | string | Required. The url of the http_service endpoint followed by the name of the function it should run in that endpoint, e.g. 'http://127.0.0.1:10100/set_temperature'.
+endpoint | string | Required. The url of the http_service endpoint followed by the name of the function it should run in that endpoint, e.g. 'http://climate-http-service/set_temperature'.
 
 ### <device_module>
 
@@ -45,7 +45,7 @@ The <target\> element in the service interface specifies the target service that
 
 ### <http>
 
-Points the parent element to a function of an http_service served on a Flask instance. The DDD sends a request to the http_service, performs the function in it and returns a response. <!--LINK to API docs-->
+Points the parent element to a function of an http_service served on a Flask instance. The DDD sends a request to the http_service, performs the function in it and returns a response.
 
 ### <frontend>
 
@@ -71,7 +71,7 @@ Points the parent element to a device module. This will run a class inside the d
     <failure_reason name="temperature_too_high"/>
   </failure_reasons>
   <target>
-    <http endpoint="http://127.0.0.1:10100/set_temperature"/>
+    <http endpoint="http://climate-http-service/set_temperature"/>
   </target>
 </action>
 ```

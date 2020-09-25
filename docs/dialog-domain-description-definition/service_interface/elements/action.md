@@ -48,7 +48,7 @@ If the <action\> contains a [<failure_reason\>](/dialog-domain-description-defin
     <failure_reason name="temperature_too_high"/>
   </failure_reasons>
   <target>
-    <http endpoint="http://127.0.0.1:10100/set_temperature"/>
+    <http endpoint="http://climate-http-service/set_temperature"/>
   </target>
 </action>
 ```

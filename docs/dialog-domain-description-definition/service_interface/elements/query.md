@@ -40,7 +40,7 @@ Each of the parameters used by the specified [<target\>](/dialog-domain-descript
     <parameter predicate="location" format="grammar_entry"/>
   </parameters>
   <target>
-    <http endpoint="http://127.0.0.1:10100/current_temperature"/>
+    <http endpoint="http://climate-http-service/current_temperature"/>
   </target>
 </query>
 ```
