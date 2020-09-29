@@ -1,3 +1,4 @@
+
 # Dialog Formalism
 
 The Dialog Formalism is a formal language for expressing semantics and domain knowledge within the framework of issue-based dialog management (Larsson, 2002)[^Larsson, 2002] based on the information state approach (Larsson, Traum, 2000)[^Larsson, Traum, 2000], (Traum, Larsson, 2003)[^Traum, Larsson, 2003], which is the foundation of TDM.
@@ -159,7 +160,7 @@ Example: `findout(?X.selected_contact(X))`
 
 #### Bind
 
-The `bind(Q)` construction, where `Q is a question, lets the system understand answers to a question `Q that it does not ask explicitly. This makes it possible to take optional and unrequested parameters that the user provides into consideration. 
+The `bind(Q)` construction, where `Q` is a question, lets the system understand answers to a question `Q` that it does not ask explicitly. This makes it possible to take optional and unrequested parameters that the user provides into consideration.
 
 For example, if `bind(?x.price-class(x))` is in a plan in a travel agency domain, the system will understand something like "I would like to travel business class", but it will not ask e.g. "What price class did you have in mind?".
 
