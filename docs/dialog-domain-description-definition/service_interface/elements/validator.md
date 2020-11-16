@@ -27,7 +27,7 @@ The <validator\> element in the service interface checks the validity of a param
 
 <!-- Include a link to action response in the HTTP service API doc? -->
 
-If the target module returns a `"is_valid": false`, that will trigger the system to reject the user utterance, and explain to the user why the parameter was rejected. The rejecting utterance will need to be defined in the [grammar](/dialog-domain-description-definition/grammar/children/validity).
+If the target module returns a `"is_valid": false`, that will trigger the system to reject the user utterance, and explain to the user why the parameter was rejected. The rejection utterance will need to be defined in the [grammar](/dialog-domain-description-definition/grammar/children/validity).
 
 
 ## Examples
