@@ -29,6 +29,7 @@ A dialogue plan, consisting of a sequence of plan items.
 - [<assume_shared\>](/dialog-domain-description-definition/domain/children/assume_shared)
 - [<assume_system_belief\>](/dialog-domain-description-definition/domain/children/assume_system_belief)
 - [<if\>](/dialog-domain-description-definition/domain/children/if)
+- [<inform\>](/dialog-domain-description-definition/domain/children/inform)
 - [<jumpto\>](/dialog-domain-description-definition/domain/children/jumpto)
 
 

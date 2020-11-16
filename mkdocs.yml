@@ -99,6 +99,7 @@ nav:
                 - Forget: dialog-domain-description-definition/domain/children/forget.md
                 - Get Done: dialog-domain-description-definition/domain/children/get_done.md
                 - If: dialog-domain-description-definition/domain/children/if.md
+                - Inform: dialog-domain-description-definition/domain/children/inform.md
                 - Invoke Service Action: dialog-domain-description-definition/domain/children/invoke_service_action.md
                 - Invoke Service Query: dialog-domain-description-definition/domain/children/invoke_service_query.md
                 - Jumpto: dialog-domain-description-definition/domain/children/jumpto.md

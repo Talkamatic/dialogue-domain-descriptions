@@ -34,6 +34,7 @@ An if then else element for branching plans. The `if` element can be used recurs
     - [<forget_all\>](/dialog-domain-description-definition/domain/children/forget_all)
     - [<get\_done\>](/dialog-domain-description-definition/domain/children/get_done)
     - [<if\>](/dialog-domain-description-definition/domain/children/if)
+    - [<inform\>](/dialog-domain-description-definition/domain/children/inform)
     - [<invoke_service_action\>](/dialog-domain-description-definition/domain/children/invoke_service_action)
     - [<invoke_service_query\>](/dialog-domain-description-definition/domain/children/invoke_service_query)
     - [<jumpto\>](/dialog-domain-description-definition/domain/children/jumpto)
