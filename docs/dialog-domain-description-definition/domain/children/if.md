@@ -40,6 +40,8 @@ An if then else element for branching plans. The `if` element can be used recurs
     - [<jumpto\>](/dialog-domain-description-definition/domain/children/jumpto)
     - [<log\>](/dialog-domain-description-definition/domain/children/log)
     - [<raise\>](/dialog-domain-description-definition/domain/children/raise)
+    - [<signal_action_completion/>\>](/dialog-domain-description-definition/domain/children/signal_action_completion)
+    - [<signal_action_failure/>\>](/dialog-domain-description-definition/domain/children/signal_action_failure)
 
 ## Behaviour
 

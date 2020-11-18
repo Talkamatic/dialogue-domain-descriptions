@@ -16,22 +16,23 @@ A dialogue plan, consisting of a sequence of plan items.
 
 ## Children
 
-- [<forget\>](/dialog-domain-description-definition/domain/children/forget)
-- [<forget_all\>](/dialog-domain-description-definition/domain/children/forget_all)
-- [<log\>](/dialog-domain-description-definition/domain/children/log)
-- [<invoke_service_query\>](/dialog-domain-description-definition/domain/children/invoke_service_query)
-- [<invoke_service_action\>](/dialog-domain-description-definition/domain/children/invoke_service_action)
-- [<findout\>](/dialog-domain-description-definition/domain/children/findout)
-- [<raise\>](/dialog-domain-description-definition/domain/children/raise)
-- [<bind\>](/dialog-domain-description-definition/domain/children/bind)
-- [<get_done\>](/dialog-domain-description-definition/domain/children/get_done)
 - [<assume_issue\>](/dialog-domain-description-definition/domain/children/assume_issue)
 - [<assume_shared\>](/dialog-domain-description-definition/domain/children/assume_shared)
 - [<assume_system_belief\>](/dialog-domain-description-definition/domain/children/assume_system_belief)
+- [<bind\>](/dialog-domain-description-definition/domain/children/bind)
+- [<findout\>](/dialog-domain-description-definition/domain/children/findout)
+- [<forget\>](/dialog-domain-description-definition/domain/children/forget)
+- [<forget_all\>](/dialog-domain-description-definition/domain/children/forget_all)
+- [<get_done\>](/dialog-domain-description-definition/domain/children/get_done)
 - [<if\>](/dialog-domain-description-definition/domain/children/if)
 - [<inform\>](/dialog-domain-description-definition/domain/children/inform)
+- [<invoke_service_action\>](/dialog-domain-description-definition/domain/children/invoke_service_action)
+- [<invoke_service_query\>](/dialog-domain-description-definition/domain/children/invoke_service_query)
 - [<jumpto\>](/dialog-domain-description-definition/domain/children/jumpto)
-
+- [<log\>](/dialog-domain-description-definition/domain/children/log)
+- [<raise\>](/dialog-domain-description-definition/domain/children/raise)
+- [<signal_action_completion/>\>](/dialog-domain-description-definition/domain/children/signal_action_completion)
+- [<signal_action_failure/>\>](/dialog-domain-description-definition/domain/children/signal_action_failure)
 
 
 ## Behaviour

@@ -105,6 +105,8 @@ nav:
                 - Jumpto: dialog-domain-description-definition/domain/children/jumpto.md
                 - Log: dialog-domain-description-definition/domain/children/log.md
                 - Raise: dialog-domain-description-definition/domain/children/raise.md
+                - Signal_Action_Completion: dialog-domain-description-definition/domain/children/signal_action_completion.md
+                - Signal_Action_Failure: dialog-domain-description-definition/domain/children/signal_action_failure.md
             - Children:
                 - Ask Feature: dialog-domain-description-definition/domain/children/ask_feature.md
                 - Background: dialog-domain-description-definition/domain/children/background.md
