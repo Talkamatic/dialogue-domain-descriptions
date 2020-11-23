@@ -9,7 +9,7 @@ Defines a question that should be asked. In contrast with [findout](/dialog-doma
 
 Attribute | Type | Description |
 --- | --- | --- |
-question\_type | string | Required. Must be one of `goal`, `wh_question`, `alt_question` or `yn_question`. |
+question\_type | string | Optional. Defaults to `wh_question`, but can be one of `goal`, `wh_question`, `alt_question` or `yn_question`. |
 predicate | string | Optional. Required if question\_type is `wh_question` or `yn_question`.|
 allow\_answer\_from\_pcom | string | Optional. Defaults to `false`. If set to `true`, this allows TDM to recycle an old answer that the user has previously provided. |
 

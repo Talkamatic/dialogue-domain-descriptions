@@ -11,7 +11,7 @@ The element defines a question that can be answered by the user, but will not be
 
 Attribute | Type | Description |
 --- | --- | --- |
-question\_type | string | Required. Must be one of `goal`, `wh_question`, `alt_question` or `yn_question`. |
+question\_type | string | Optional. Defaults to `wh_question`, but can be one of `goal`, `wh_question`, `alt_question` or `yn_question`. |
 predicate | string | Optional. Required if question_type is `wh_question` or `yn_question`.|
 
 

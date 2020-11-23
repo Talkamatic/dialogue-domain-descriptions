@@ -17,7 +17,7 @@ Calls for an query to be sent to a service.
 
 Attribute | Type | Description |
 --- | --- | --- |
-type | string | Required. The value is one of "yn_question" and "wh_question".|
+type | string | Optinal. Defaults to `wh_question`, but can be one of `wh_question` or `yn_question`. |
 predicate | string | Required if type="wh_question". This attribute specifies the predicate of the question sent to the service. |
 
 

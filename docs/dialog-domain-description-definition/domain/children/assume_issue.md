@@ -8,7 +8,7 @@ The plan item that assumes that a question is relevant to the user. Defines a qu
 
 Attribute | Type | Description |
 --- | --- | --- |
-type | string | Required. The type can take one of the values "wh_question" or "yn_question".|
+type | string | Optional. The type can take one of the values `wh_question` or `yn_question`, but defaults to `wh_question`.|
 predicate | string | Required. This attribute specifies the predicate of the raised question.|
 
 ## Parents

@@ -8,7 +8,7 @@ Attribute | Type | Description |
 --- | --- | --- |
 type | string | Required. Needs to be one of `resolve` or `perform` .|
 action | string | Optional. Needed if the type is `perform`. The action needs to be declared in `ontology.xml`. |
-question_type | string | Optional. Needed if the type is `resolve`. Needs to be one of `wh_question` or `yn_question`. In case of an `yn_question` the goal needs a `proposition` child. |
+question_type | string | Optional. Needed if the type is `resolve`, and defaults to `wh_question` Needs to be one of `wh_question` or `yn_question`. In case of an `yn_question` the goal needs a `proposition` child. |
 predicate | string | Optional. Needed if the type is `wh_question`. The predicate needs to be declared in `ontology.xml`. |
 accommodate\_without\_feedback | boolean | Optional.  Indicates whether the default system behavior to give feedback when accommodating the goal, e.g. uttering "Book a travel" in response to "From London to Paris tomorrow", should be disabled.
 reraise\_on\_resume | boolean | Optional. Indicates whether the default system behavior to give feedback when reraising the goal, e.g. "Returning to booking a travel", should be disabled.
