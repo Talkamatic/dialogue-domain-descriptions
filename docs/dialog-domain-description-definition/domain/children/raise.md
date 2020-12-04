@@ -15,6 +15,9 @@ allow\_answer\_from\_pcom | string | Optional. Defaults to `false`. If set to `t
 
 ## Parents
 - [<plan\>](/dialog-domain-description-definition/domain/children/plan)
+- [<postplan\>](/dialog-domain-description-definition/domain/children/postplan)
+- [<then\>](/dialog-domain-description-definition/domain/children/if)
+- [<else\>](/dialog-domain-description-definition/domain/children/if)
 
 ## Children
 - [<alt\>](/dialog-domain-description-definition/domain/children/alt)

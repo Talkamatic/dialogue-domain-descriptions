@@ -18,8 +18,10 @@ An if then else element for branching plans. The `if` element can be used recurs
 
 ## Parents
 - [<plan\>](/dialog-domain-description-definition/domain/children/plan)
+- [<postplan\>](/dialog-domain-description-definition/domain/children/postplan)
 - [<then\>](/dialog-domain-description-definition/domain/children/if)
 - [<else\>](/dialog-domain-description-definition/domain/children/if)
+
 
 ## Children
 - [<condition\>](/dialog-domain-description-definition/domain/children/if)

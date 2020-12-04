@@ -4,7 +4,7 @@
 <get_done action="alpha">
 ```
 
-The element defines an action that the system should request the user to carry out. 
+The element defines an action that the system should request the user to carry out.
 
 
 Attribute | Type | Description |
@@ -13,6 +13,9 @@ action | string | Required. The action that is requested from the user. |
 
 ## Parents
 - [<plan\>](/dialog-domain-description-definition/domain/children/plan)
+- [<postplan\>](/dialog-domain-description-definition/domain/children/postplan)
+- [<then\>](/dialog-domain-description-definition/domain/children/if)
+- [<else\>](/dialog-domain-description-definition/domain/children/if)
 
 ## Children
 - [<alt\>](/dialog-domain-description-definition/domain/children/alt)
