@@ -34,25 +34,25 @@ allow\_answer\_from\_pcom | string | Optional. Defaults to `false`. If set to `t
   <findout type="goal"/>
 ```
 
-### A findout about a WH question, "which colour would you like?"
+### A findout for a WH question, "which colour would you like?"
 
 ```xml
   <findout type="wh_question" predicate="colour"/>
 ```
 
-### A findout about a Yes/No question, "Would you like some fries with that?"
+### A findout for a Yes/No question, "Would you like some fries with that?"
 
 ```xml
   <findout type="yn_question" predicate="side_order_fries"/>
 ```
 
-### A findout about a WH question, "What is your destination?", where the answer can be recycled from old answers
+### A findout for a WH question, "What is your destination?", where the answer can be recycled from old answers
 
 ```xml
   <findout type="wh_question" predicate="destination" allow_answer_from_pcom="true"/>
 ```
 
-### A findout about an alt question, "Would you like to calculate the monthly payment or would you like to know the interest rate?"
+### A findout for an alt question, "Would you like to calculate the monthly payment or would you like to know the interest rate?"
 
 ```xml
 <findout type="alt_question">
@@ -62,5 +62,13 @@ allow\_answer\_from\_pcom | string | Optional. Defaults to `false`. If set to `t
     <alt>
         <resolve type="wh_question" predicate="interest_rate"/>
     </alt>
+</findout>
+```
+
+### A findout for a yes/no question, "Should I connect you?"
+
+```xml
+<findout type="yn_question">
+    <perform action="do_call_contact_from_history"/>
 </findout>
 ```
