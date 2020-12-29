@@ -8,9 +8,10 @@ The grammar entry of a report given by the system.
 
 | Attributes | Type | Description |
 | --- | --- | --- |
-| action | string | Required. Specifies the name of the action the report entry is for. This name should match the corresponding action name in service_interface. The action names in <report\> tags are written according to the PascalCase convention, e.g. 'SetTemperature'. |
-| status | string | Required. Specifies the status of the action the report entry is for. Available options: <ul><li>started</li><li>ended</li><li>failed</li></ul> |
+| action | string | Required. Specifies the name of the action the report entry is for. This name should match the corresponding action name in service_interface. The action names in <report\> tags are written according to the PascalCase convention, e.g. 'SetTemperature'. In the case of a user report, this name should match an item for which there exists a `get_done` element.|
+| status | string | Required. Specifies the status of the action the report entry is for. Available options: <ul><li>started</li><li>ended</li><li>failed</li><li>done</li></ul>. The `done` status is currently the only one supported for user reports |
 | reason | string | Optional, used together with status="failed". Specifies the reason for the failure to perform an action. |
+| speaker | string | Optional, defaults to "system". |
 
 ## Children
 
@@ -20,11 +21,20 @@ The grammar entry of a report given by the system.
 
 ## Behaviour
 
+### System Reports
 The <report\> element in the grammar defines the way in which the system makes reports about actions before or after performing them. The attribute `action` specifies which action the report is for, and the attribute `status` specifies the outcome of the performed action.
 
 A report action can contain one of more phrases which are used by the system to report the result of the report's specified action. These phrases can also contain [<slot\>](/dialog-domain-description-definition/grammar/children/slot) tags. When a <report\> element contains multiple phrases, these are specified in [<item\>](/dialog-domain-description-definition/grammar/children/item) tags inside a [<one-of\>](/dialog-domain-description-definition/grammar/children/one-of) tag. In the case of <report\>, these <one-of\> tags have an attribute called 'selection' which specifies the order in which the contained items are used.
 
 Reports can make use of the attribute `reason` in situations where the system reports on an action failure that could be due to multiple different reasons. An example of this is a situation where the action "CancelReservation" fails as the user is trying to cancel their booking of a hotel room. The reasons could for instance be that the user has no booked hotel room to cancel, or that the user is trying to cancel the reservation less than 24 hours before when this is not allowed.
+
+### User Reports
+
+The `<report speaker="user"\>` element in the grammar defines the way in which the user informs the system that an action has been performed.
+
+Currently this element is only used for generating training data, and cannot be parsed by GF.
+
+
 
 ### `status` attribute choices:
 
@@ -79,6 +89,19 @@ This <report\> entry shows an example of a report with multiple phrases that the
     <item>Why can't you trust an atom? Because they make up literally everything</item>
     <item>Why did the robot cross the road? It was programmed to be a chicken</item>
     <item>Why did the robot go to the shopping mall? It had hardware and software, but it needed underware</item>
+  </one-of>
+</report>
+```
+
+### User Report for performed action
+
+```xml
+<user_report speaker="user" action="add_water" status="done">
+  <one-of>
+    <item>I've added the water</item>
+    <item>The water is there</item>
+    <item>The water is added</item>
+    <item>I've poured it</item>
   </one-of>
 </report>
 ```
