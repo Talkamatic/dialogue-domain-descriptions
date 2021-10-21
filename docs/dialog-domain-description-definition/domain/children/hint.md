@@ -20,9 +20,9 @@ None
 The `hint` parameter in a parameter set is presented to the user in case they reply to a question with an `icm:acc*neg` move, before the question is asked again. If there are more than one `hint` defined, they will be given in order, and when the last hint is reached, that hint will be repeated until the user answers the question. The children of a hint element can be any plan item, but it is recommended that the `inform` plan item is used, as this is the only one thoroughly tested.
 
 ## Examples
-### Hint elements
+### Two hint elements for wh-question
 
-Hints for giving two hints to the user if they say that they don't know the ingredient quantity question.
+Code for giving two hints to the user if they say that they don't know the ingredient quantity wh-question.
 
 ```xml
   <parameters predicate="ingredient_quantity">
@@ -34,6 +34,19 @@ Hints for giving two hints to the user if they say that they don't know the ingr
     <hint>
       <inform insist="true">
           <proposition predicate="helpful_information" value="ingredient_quantity_hint_2"/>
+      </inform>
+    </hint>
+  </parameters>
+```
+
+### Singel hint element for yes/no-question
+Code for giving single hint to the user if they say that they don't know the added water yes/no-question.
+
+```xml
+  <parameters question_type="yn_question" predicate="added_water">
+    <hint>
+      <inform insist="true">
+          <proposition predicate="helpful_information" value="added_water_hint"/>
       </inform>
     </hint>
   </parameters>
