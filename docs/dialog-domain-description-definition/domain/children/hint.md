@@ -39,7 +39,7 @@ Code for giving two hints to the user if they say that they don't know the ingre
   </parameters>
 ```
 
-### Singel hint element for yes/no-question
+### Single hint element for yes/no-question
 Code for giving single hint to the user if they say that they don't know the added water yes/no-question.
 
 ```xml
