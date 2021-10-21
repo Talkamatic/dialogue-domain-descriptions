@@ -25,6 +25,7 @@ on\_too\_many\_hits\_action | string | Optional. Used in connection with increme
 ## Children
 - [<ask_feature\>](/dialog-domain-description-definition/domain/children/ask_feature)
 - [<background\>](/dialog-domain-description-definition/domain/children/background)
+- [<hint\>](/dialog-domain-description-definition/domain/children/hint)
 - [<service_query\>](/dialog-domain-description-definition/domain/children/service_query)
 
 
@@ -47,10 +48,37 @@ The question that is supposed to get an answer from a findout is the WH-question
 
 ### A parameter set designed to do be able to include parameters in an answer.
 
-
 ```xml
   <parameters predicate="ingredient_quantity">
     <background predicate="unit"/>
     <background predicate="selected_ingredient"/>
+  </parameters>
+```
+
+### A parameter set that includes a hint for answering a particular question.
+
+If a user answers "I don't know" to a particular question, the hint defined using this element will be executed. The recommended child element of a hint is inform.
+
+```xml
+  <parameters predicate="ingredient_quantity">
+    <hint>
+        <inform>
+            <proposition predicate="help_information_on_subject" value="hint_on_quantity"/>
+        </inform>
+    </hint>
+  </parameters>
+```
+
+### A parameter set that includes a hint for answering a particular yes/no question.
+
+If a user answers "I don't know" to a particular yes/no question, the hint defined using this element will be executed. The recommended child element of a hint is inform.
+
+```xml
+  <parameters question_type="yn_question" predicate="add_sugar">
+    <hint>
+        <inform>
+            <proposition predicate="help_information_on_subject" value="hint_on_adding_sugar"/>
+        </inform>
+    </hint>
   </parameters>
 ```

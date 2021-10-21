@@ -110,6 +110,7 @@ nav:
             - Children:
                 - Ask Feature: dialog-domain-description-definition/domain/children/ask_feature.md
                 - Background: dialog-domain-description-definition/domain/children/background.md
+                - Hint: dialog-domain-description-definition/domain/children/hint.md
                 - Service Query:  dialog-domain-description-definition/domain/children/service_query.md
                 - Downdate Condition: dialog-domain-description-definition/domain/children/downdate_condition.md
                 - Has Value: dialog-domain-description-definition/domain/children/has_value.md
