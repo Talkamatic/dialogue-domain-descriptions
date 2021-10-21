@@ -17,7 +17,7 @@ None
 - [<inform\>](/dialog-domain-description-definition/domain/children/inform)
 
 ## Behaviour
-The `hint` parameter in a parameter set is presented to the user in case they reply to a question with an `icm:acc*neg` move, before the question is asked again. If there are more than one `hint` defined, they will be given in order, and when the last hint is reached, that hint will be repeated until the user answers the question. The chldren of a hint element can be any plan item, but it is recommended that the `inform` plan item is used, as this is the only one thoroughly tested.
+The `hint` parameter in a parameter set is presented to the user in case they reply to a question with an `icm:acc*neg` move, before the question is asked again. If there are more than one `hint` defined, they will be given in order, and when the last hint is reached, that hint will be repeated until the user answers the question. The children of a hint element can be any plan item, but it is recommended that the `inform` plan item is used, as this is the only one thoroughly tested.
 
 ## Examples
 ### Hint elements
