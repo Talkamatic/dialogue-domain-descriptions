@@ -11,7 +11,7 @@ The plan item that informs the user about a proposition.
 
 Attribute | Type | Description |
 --- | --- | --- |
-insist | boolean | If set to false, the system will not try to tell the user, if the psoposition is already shared with the user. If set to true, the system will try to inform the user, even i the proposition is already shared.|
+insist | boolean | If set to false, the system will not try to tell the user, if the proposition is already shared with the user. If set to true, the system will try to inform the user, even i the proposition is already shared.|
 
 
 ## Parents
