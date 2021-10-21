@@ -15,10 +15,11 @@ insist | boolean | If set to false, the system will not try to tell the user, if
 
 
 ## Parents
+- [<else\>](/dialog-domain-description-definition/domain/children/if)
+- [<hint\>](/dialog-domain-description-definition/domain/children/hint)
 - [<plan\>](/dialog-domain-description-definition/domain/children/plan)
 - [<postplan\>](/dialog-domain-description-definition/domain/children/postplan)
 - [<then\>](/dialog-domain-description-definition/domain/children/if)
-- [<else\>](/dialog-domain-description-definition/domain/children/if)
 
 ## Children
 - [<proposition\>](/dialog-domain-description-definition/domain/children/proposition)
