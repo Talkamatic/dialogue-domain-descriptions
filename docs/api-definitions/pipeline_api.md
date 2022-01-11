@@ -1,6 +1,6 @@
 # Pipeline API
 
-This document describes API version 3.3 for HTTP frontends, enabling frontends to integrate with TDM over HTTP. It covers e.g. how input from the user and output from TDM are communicated between TDM and the client.
+This document describes API version 3.4 for HTTP frontends, enabling frontends to integrate with TDM over HTTP. It covers e.g. how input from the user and output from TDM are communicated between TDM and the client.
 
 ## Important concepts
 
@@ -61,7 +61,7 @@ Example:
 
 ```json
 {
-  "version": "3.3",
+  "version": "3.4",
   "session": {},
   "request": {
     "start_session": {}
@@ -81,7 +81,7 @@ Example when combined with `natural_language_input`:
 
 ```json
 {
-  "version": "3.3",
+  "version": "3.4",
   "request": {
     "start_session": {},
     "natural_language_input": {...}
@@ -102,7 +102,7 @@ Speech input example:
 
 ```json
 {
-  "version": "3.3",
+  "version": "3.4",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -132,7 +132,7 @@ Text input example:
 
 ```json
 {
-  "version": "3.3",
+  "version": "3.4",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -154,7 +154,7 @@ The `natural_language_input` request may be combined with the `start_session` re
 Example:
 ```json
 {
-  "version": "3.3",
+  "version": "3.4",
   "request": {
     "start_session": {},
     "natural_language_input": {...}
@@ -175,7 +175,7 @@ Semantic in this case means that the user input does not need to be interpreted;
 
 ```json
 {
-  "version": "3.3",
+  "version": "3.4",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -282,7 +282,7 @@ Example:
 
 ```json
 {
-  "version": "3.3",
+  "version": "3.4",
   "request": {
     "start_session": {},
     "semantic_input": {...}
@@ -303,7 +303,7 @@ Example:
 
 ```json
 {
-  "version": "3.3",
+  "version": "3.4",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -330,7 +330,7 @@ Example:
 
 ```json
 {
-  "version": "3.3",
+  "version": "3.4",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -360,7 +360,7 @@ Example:
 
 ```json
 {
-  "version": "3.3",
+  "version": "3.4",
   "request": {
     "start_session": {},
     "event": {...}
@@ -381,7 +381,7 @@ The TDM response from a successful request typically contains an output utteranc
 
 ```json
 {
-  "version": "3.3",
+  "version": "3.4",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
@@ -397,6 +397,7 @@ The TDM response from a successful request typically contains an output utteranc
   },
   "context": {
     "active_ddd": "my_ddd",
+    "available_ddds": ["my_ddd", "another_ddd"],
     "facts": {},
     "language": "eng",
     "goal": "perform(call)",
@@ -441,6 +442,7 @@ The `nlu_result` object is provided for [natural language input requests](#natur
 The `context` object is provided unless an error has occurred and contains the following members:
 
 - `active_ddd`: The name of the currently active DDD.
+- `available_ddds`: The DDDs available in the current DDD set.
 - `facts`: Information gathered during the conversation (see [facts object](#facts-object)).
 - `language`: ID of the current language.
 - `goal`: Currently active goal, expressed as a [goal in the dialog formalism](../formalism.md#goals).
@@ -458,7 +460,7 @@ The TDM response when an error was encountered in the request contains an error 
 
 ```json
 {
-  "version": "3.3",
+  "version": "3.4",
   "session": {
     "session_id": "0000-abcd-1111-efgh"
   },
