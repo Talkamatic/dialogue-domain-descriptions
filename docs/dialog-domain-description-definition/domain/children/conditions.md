@@ -34,33 +34,6 @@ private beliefs or in any of them, depending on the actual condition.
 
 ## Examples
 
-### `has_shared_value`:
-
-This condition will evaluate to `true` if it is known by the user and
-the system whether the flight is late or not.
-
-```xml
-<has_shared_value predicate="flight_departure"/>
-```
-
-### `has_private_value`:
-
-This condition will evaluate to `true` if it is known by the system
-but not by the user whether the flight is late or not.
-
-```xml
-<has_private_value predicate="flight_departure"/>
-```
-
-### `has_shared_or_private_value`:
-
-This condition will evaluate to `true` if it is known, possibly only
-by the system, whether the flight is late or not.
-
-```xml
-<has_shared_or_private_value predicate="flight_departure"/>
-```
-
 ### `is_shared_commitment`:
 
 This condition will evaluate to `true` if it is known by the user and
@@ -86,4 +59,31 @@ by the system, whether the flight is late or not.
 
 ```xml
 <is_private_belief_or_shared_commitment predicate="flight_departure" value="late"/>
+```
+
+### `has_shared_value`:
+
+This condition will evaluate to `true` if it is known by the user and
+the system whether the flight is late or not.
+
+```xml
+<has_shared_value predicate="flight_departure"/>
+```
+
+### `has_private_value`:
+
+This condition will evaluate to `true` if it is known by the system
+but not by the user whether the flight is late or not.
+
+```xml
+<has_private_value predicate="flight_departure"/>
+```
+
+### `has_shared_or_private_value`:
+
+This condition will evaluate to `true` if it is known, possibly only
+by the system, whether the flight is late or not.
+
+```xml
+<has_shared_or_private_value predicate="flight_departure"/>
 ```

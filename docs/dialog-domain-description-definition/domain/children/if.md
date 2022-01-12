@@ -2,9 +2,7 @@
 ## Definition
 ```xml
 <if>
-    <condition>
-        <proposition .../>
-    </condition>
+    <proposition .../>
     <then>
         ...
     </then>
@@ -24,8 +22,6 @@ An if then else element for branching plans. The `if` element can be used recurs
 
 
 ## Children
-- [<condition\>](/dialog-domain-description-definition/domain/children/if)
-    - [<proposition\>](/dialog-domain-description-definition/domain/children/proposition)
 - [<proposition\>](/dialog-domain-description-definition/domain/children/proposition)
 - [<has\_shared\_value\>](/dialog-domain-description-definition/domain/children/conditions)
 - [<has\_private\_value\>](/dialog-domain-description-definition/domain/children/conditions)
@@ -75,6 +71,19 @@ An if then else element for branching plans. The `if` element can be used recurs
 ```xml
 <if>
   <is_shared_commitment predicate="selected_ingredient" value="water_ingredient"/>
+  <then>
+    <assume_system_belief>
+      <proposition predicate="quantity" value="200 g"/>
+    </assume_system_belief>
+  </then>
+</if>
+```
+
+### If/Then element for assuming the answer "200 g" if the selected ingredient is water (either in commitments or in beliefs)
+
+```xml
+<if>
+  <proposition predicate="selected_ingredient" value="water_ingredient"/>
   <then>
     <assume_system_belief>
       <proposition predicate="quantity" value="200 g"/>
