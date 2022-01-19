@@ -14,16 +14,16 @@ U> call john
 S> Calling John.
 
 --- call invalid number
-U> make a call 
+U> make a call
 S> Which contact?
 U> Andy
-S> Andy has no phone number.
+S> Andy has no phone number. So, Which contact?
 U> John
 S> Calling John.
 
 --- call invalid number one-shot
 U> call Andy
-S> Andy has no phone number.
+S> Andy has no phone number. So, Which contact?
 U> John
 S> Calling John.
 
@@ -40,4 +40,4 @@ S> John has number 0701234567.
 
 --- request invalid number one-shot
 U> tell me Andy 's number
-S> Andy has no phone number.
+S> Andy has no phone number. So, Which contact?

@@ -14,15 +14,15 @@ U> call john
 S> Calling John.
 
 --- call invalid number
-U> make a call 
+U> make a call
 S> Who do you want to call?
 U> Andy
-S> Andy has no phone number.
+S> Andy has no phone number. So, Who do you want to call?
 U> John
 S> Calling John.
 
 --- call invalid number one-shot
 U> call Andy
-S> Andy has no phone number.
+S> Andy has no phone number. So, Who do you want to call?
 U> John
 S> Calling John.
